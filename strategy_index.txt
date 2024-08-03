@@ -1,0 +1,3088 @@
+Strategy index
+Here are the docstrings of all the strategies in the library.
+
+classaxelrod.strategies.adaptive.Adaptive(initial_plays: List[axelrod.action.Action] = None)[source]
+Start with a specific sequence of C and D, then play the strategy that has worked best, recalculated each turn.
+
+Names:
+
+Adaptive: [Li2011]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.adaptor.AbstractAdaptor(delta: Dict[Tuple[axelrod.action.Action, axelrod.action.Action], float], perr: float = 0.01)[source]
+An adaptive strategy that updates an internal state based on the last round of play. Using this state the player Cooperates with a probability derived from the state.
+
+s, float:
+the internal state, initially 0
+perr, float:
+an error threshold for misinterpreted moves
+delta, a dictionary of floats:
+additive update values for s depending on the last round’s outcome
+Names:
+
+Adaptor: [Hauert2002]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.adaptor.AdaptorBrief[source]
+An Adaptor trained on short interactions.
+
+Names:
+
+AdaptorBrief: [Hauert2002]
+classaxelrod.strategies.adaptor.AdaptorLong[source]
+An Adaptor trained on long interactions.
+
+Names:
+
+AdaptorLong: [Hauert2002]
+classaxelrod.strategies.alternator.Alternator[source]
+A player who alternates between cooperating and defecting.
+
+Names
+
+Alternator: [Axelrod1984]
+Periodic player CD: [Mittal2009]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.ann.ANN(num_features: int, num_hidden: int, weights: List[float] = None)[source]
+Artificial Neural Network based strategy.
+
+A single layer neural network based strategy, with the following features: * Opponent’s first move is C * Opponent’s first move is D * Opponent’s second move is C * Opponent’s second move is D * Player’s previous move is C * Player’s previous move is D * Player’s second previous move is C * Player’s second previous move is D * Opponent’s previous move is C * Opponent’s previous move is D * Opponent’s second previous move is C * Opponent’s second previous move is D * Total opponent cooperations * Total opponent defections * Total player cooperations * Total player defections * Round number
+
+Original Source: https://gist.github.com/mojones/550b32c46a8169bb3cd89d917b73111a#file-ann-strategy-test-L60
+
+Names
+
+Artificial Neural Network based strategy: Original name by Martin Jones
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.ann.EvolvableANN(num_features: int, num_hidden: int, weights: List[float] = None, mutation_probability: float = None, mutation_distance: int = 5, seed: int = None)[source]
+Evolvable version of ANN.
+
+crossover(other)[source]
+Optional method to allow Player to produce variants in combination with another player. Returns a new Player.
+
+mutate()[source]
+Optional method to allow Player to produce a variant (not in place).
+
+classaxelrod.strategies.ann.EvolvedANN[source]
+A strategy based on a pre-trained neural network with 17 features and a hidden layer of size 10.
+
+Trained using the axelrod_dojo version: 0.0.8 Training data is archived at doi.org/10.5281/zenodo.1306926
+
+Names:
+
+Evolved ANN: Original name by Martin Jones.
+classaxelrod.strategies.ann.EvolvedANN5[source]
+A strategy based on a pre-trained neural network with 17 features and a hidden layer of size 5.
+
+Trained using the axelrod_dojo version: 0.0.8 Training data is archived at doi.org/10.5281/zenodo.1306931
+
+Names:
+
+Evolved ANN 5: Original name by Marc Harper.
+classaxelrod.strategies.ann.EvolvedANNNoise05[source]
+A strategy based on a pre-trained neural network with a hidden layer of size 5, trained with noise=0.05.
+
+Trained using the axelrod_dojo version: 0.0.8 Training data i archived at doi.org/10.5281/zenodo.1314247.
+
+Names:
+
+Evolved ANN Noise 5: Original name by Marc Harper.
+axelrod.strategies.ann.activate(bias: List[float], hidden: List[float], output: List[float], inputs: numpy.ndarray) → float[source]
+Compute the output of the neural network:
+output = relu(inputs * hidden_weights + bias) * output_weights
+axelrod.strategies.ann.compute_features(player: axelrod.player.Player, opponent: axelrod.player.Player) → numpy.ndarray[source]
+Compute history features for Neural Network: * Opponent’s first move is C * Opponent’s first move is D * Opponent’s second move is C * Opponent’s second move is D * Player’s previous move is C * Player’s previous move is D * Player’s second previous move is C * Player’s second previous move is D * Opponent’s previous move is C * Opponent’s previous move is D * Opponent’s second previous move is C * Opponent’s second previous move is D * Total opponent cooperations * Total opponent defections * Total player cooperations * Total player defections * Round number
+
+axelrod.strategies.ann.split_weights(weights: List[float], num_features: int, num_hidden: int) → Tuple[List[List[float]], List[float], List[float]][source]
+Splits the input vector into the the NN bias weights and layer parameters.
+
+classaxelrod.strategies.apavlov.APavlov2006[source]
+APavlov attempts to classify its opponent as one of five strategies: Cooperative, ALLD, STFT, PavlovD, or Random. APavlov then responds in a manner intended to achieve mutual cooperation or to defect against uncooperative opponents.
+
+Names:
+
+Adaptive Pavlov 2006: [Li2007]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.apavlov.APavlov2011[source]
+APavlov attempts to classify its opponent as one of four strategies: Cooperative, ALLD, STFT, or Random. APavlov then responds in a manner intended to achieve mutual cooperation or to defect against uncooperative opponents.
+
+Names:
+
+Adaptive Pavlov 2011: [Li2011]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.appeaser.Appeaser[source]
+A player who tries to guess what the opponent wants.
+
+Switch the classifier every time the opponent plays D. Start with C, switch between C and D when opponent plays D.
+
+Names:
+
+Appeaser: Original Name by Jochen Müller
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.averagecopier.AverageCopier[source]
+The player will cooperate with probability p if the opponent’s cooperation ratio is p. Starts with random decision.
+
+Names:
+
+Average Copier: Original name by Geraint Palmer
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.averagecopier.NiceAverageCopier[source]
+Same as Average Copier, but always starts by cooperating.
+
+Names:
+
+Average Copier: Original name by Owen Campbell
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+Strategies submitted to Axelrod’s first tournament. All strategies in this module are prefixed by FirstBy to indicate that they were submitted in Axelrod’s First tournament by the given author.
+
+Note that these strategies are implemented from the descriptions presented in:
+
+Axelrod, R. (1980). Effective Choice in the Prisoner’s Dilemma. Journal of Conflict Resolution, 24(1), 3–25.
+
+These descriptions are not always clear and/or precise and when assumptions have been made they are explained in the strategy docstrings.
+
+classaxelrod.strategies.axelrod_first.FirstByAnonymous[source]
+Submitted to Axelrod’s first tournament by a graduate student whose name was withheld.
+
+The description written in [Axelrod1980] is:
+
+> “This rule has a probability of cooperating, P, which is initially 30% and > is updated every 10 moves. P is adjusted if the other player seems random, > very cooperative, or very uncooperative. P is also adjusted after move 130 > if the rule has a lower score than the other player. Unfortunately, the > complex process of adjustment frequently left the probability of cooperation > in the 30% to 70% range, and therefore the rule appeared random to many > other players.”
+
+Given the lack of detail this strategy is implemented based on the final sentence of the description which is to have a cooperation probability that is uniformly random in the 30 to 70% range.
+
+Names:
+
+(Name withheld): [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_first.FirstByDavis(rounds_to_cooperate: int = 10)[source]
+Submitted to Axelrod’s first tournament by Morton Davis.
+
+The description written in [Axelrod1980] is:
+
+> “A player starts by cooperating for 10 rounds then plays Grudger, > defecting if at any point the opponent has defected.”
+
+This strategy came 8th in Axelrod’s original tournament.
+
+Names:
+
+Davis: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D for the remaining rounds if the opponent ever plays D.
+
+classaxelrod.strategies.axelrod_first.FirstByDowning[source]
+Submitted to Axelrod’s first tournament by Downing
+
+The description written in [Axelrod1980] is:
+
+> “This rule selects its choice to maximize its own longterm expected payoff on > the assumption that the other rule cooperates with a fixed probability which > depends only on whether the other player cooperated or defected on the previous > move. These two probabilities estimates are continuously updated as the game > progresses. Initially, they are both assumed to be .5, which amounts to the > pessimistic assumption that the other player is not responsive. This rule is > based on an outcome maximization interpretation of human performances proposed > by Downing (1975).”
+
+The Downing (1975) paper is “The Prisoner’s Dilemma Game as a Problem-Solving Phenomenon” [Downing1975] and this is used to implement the strategy.
+
+There are a number of specific points in this paper, on page 371:
+
+> “[…] In these strategies, O’s [the opponent’s] response on trial N is in some way dependent or contingent on S’s [the subject’s] response on trial N- 1. All varieties of these lag-one matching strategies can be defined by two parameters: the conditional probability that O will choose C following C by S, P(C_o | C_s) and the conditional probability that O will choose C following D by S, P(C_o, D_s).”
+
+Throughout the paper the strategy (S) assumes that the opponent (O) is playing a reactive strategy defined by these two conditional probabilities.
+
+The strategy aims to maximise the long run utility against such a strategy and the mechanism for this is described in Appendix A (more on this later).
+
+One final point from the main text is, on page 372:
+
+> “For the various lag-one matching strategies of O, the maximizing strategies of S will be 100% C, or 100% D, or for some strategies all S strategies will be functionally equivalent.”
+
+This implies that the strategy S will either always cooperate or always defect (or be indifferent) dependent on the opponent’s defining probabilities.
+
+To understand the particular mechanism that describes the strategy S, we refer to Appendix A of the paper on page 389.
+
+The stated goal of the strategy is to maximize (using the notation of the paper):
+
+EV_TOT = #CC(EV_CC) + #CD(EV_CD) + #DC(EV_DC) + #DD(EV_DD)
+This differs from the more modern literature where #CC, #CD, #DC and #DD would imply that counts of both players playing C and C, or the first playing C and the second D etc… In this case the author uses an argument based on the sequence of plays by the player (S) so #CC denotes the number of times the player plays C twice in a row.
+
+On the second page of the appendix, figure 4 (page 390) identifies an expression for EV_TOT. A specific term is made to disappear in the case of T - R = P - S (which is not the case for the standard (R, P, S, T) = (3, 1, 0, 5)):
+
+> “Where (t - r) = (p - s), EV_TOT will be a function of alpha, beta, t, r, p, s and N are known and V which is unknown.
+
+V is the total number of cooperations of the player S (this is noted earlier in the abstract) and as such the final expression (with only V as unknown) can be used to decide if V should indicate that S always cooperates or not.
+
+This final expression is used to show that EV_TOT is linear in the number of cooperations by the player thus justifying the fact that the player will always cooperate or defect.
+
+All of the above details are used to give the following interpretation of the strategy:
+
+1. On any given turn, the strategy will estimate alpha = P(C_o | C_s) and beta = P(C_o | D_s). 2. The strategy will calculate the expected utility of always playing C OR always playing D against the estimated probabilities. This corresponds to:
+
+In the case of the player always cooperating:
+
+P_CC = alpha and P_CD = 1 - alpha
+
+In the case of the player always defecting:
+
+P_DC = beta and P_DD = 1 - beta
+
+Using this we have:
+
+E_C = alpha R + (1 - alpha) S E_D = beta T + (1 - beta) P
+Thus at every turn, the strategy will calculate those two values and cooperate if E_C > E_D and will defect if E_C < E_D.
+
+In the case of E_C = E_D, the player will alternate from their previous move. This is based on specific sentence from Axelrod’s original paper:
+
+> “Under certain circumstances, DOWNING will even determine that the best > strategy is to alternate cooperation and defection.”
+
+One final important point is the early game behaviour of the strategy. It has been noted that this strategy was implemented in a way that assumed that alpha and beta were both 1/2:
+
+> “Initially, they are both assumed to be .5, which amounts to the > pessimistic assumption that the other player is not responsive.”
+
+Note that if alpha = beta = 1 / 2 then:
+
+E_C = alpha R + alpha S E_D = alpha T + alpha P
+And from the defining properties of the Prisoner’s Dilemma (T > R > P > S) this gives: E_D > E_C. Thus, the player opens with a defection in the first two rounds. Note that from the Axelrod publications alone there is nothing to indicate defections on the first two rounds, although a defection in the opening round is clear. However there is a presentation available at http://www.sci.brooklyn.cuny.edu/~sklar/teaching/f05/alife/notes/azhar-ipd-Oct19th.pdf That clearly states that Downing defected in the first two rounds, thus this is assumed to be the behaviour. Interestingly, in future tournaments this strategy was revised to not defect on the opening two rounds.
+
+It is assumed that these first two rounds are used to create initial estimates of beta = P(C_o | D_s) and we will use the opening play of the player to estimate alpha = P(C_o | C_s). Thus we assume that the opponents first play is a response to a cooperation “before the match starts”.
+
+So for example, if the plays are:
+
+[(D, C), (D, C)]
+
+Then the opponent’s first cooperation counts as a cooperation in response to the non existent cooperation of round 0. The total number of cooperations in response to a cooperation is 1. We need to take in to account that extra phantom cooperation to estimate the probability alpha=P(C_o | C_s) as 1 / 1 = 1.
+
+This is an assumption with no clear indication from the literature.
+
+– This strategy came 10th in Axelrod’s original tournament.
+
+Names:
+
+Downing: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_first.FirstByFeld(start_coop_prob: float = 1.0, end_coop_prob: float = 0.5, rounds_of_decay: int = 200)[source]
+Submitted to Axelrod’s first tournament by Scott Feld.
+
+The description written in [Axelrod1980] is:
+
+> “This rule starts with tit for tat and gradually lowers its probability of > cooperation following the other’s cooperation to .5 by the two hundredth > move. It always defects after a defection by the other.”
+
+This strategy plays Tit For Tat, always defecting if the opponent defects but cooperating when the opponent cooperates with a gradually decreasing probability until it is only .5. Note that the description does not clearly indicate how the cooperation probability should drop. This implements a linear decreasing function.
+
+This strategy came 11th in Axelrod’s original tournament.
+
+Names:
+
+Feld: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_first.FirstByGraaskamp(alpha: float = 0.05)[source]
+Submitted to Axelrod’s first tournament by James Graaskamp.
+
+The description written in [Axelrod1980] is:
+
+> “This rule plays tit for tat for 50 moves, defects on move 51, and then > plays 5 more moves of tit for tat. A check is then made to see if the player > seems to be RANDOM, in which case it defects from then on. A check is also > made to see if the other is TIT FOR TAT, ANALOGY (a program from the > preliminary tournament), and its own twin, in which case it plays tit for > tat. Otherwise it randomly defects every 5 to 15 moves, hoping that enough > trust has been built up so that the other player will not notice these > defections.:
+
+This is implemented as:
+
+Plays Tit For Tat for the first 50 rounds;
+Defects on round 51;
+Plays 5 further rounds of Tit For Tat;
+A check is then made to see if the opponent is playing randomly in which case it defects for the rest of the game. This is implemented with a chi squared test.
+The strategy also checks to see if the opponent is playing Tit For Tat or a clone of itself. If so it plays Tit For Tat. If not it cooperates and randomly defects every 5 to 15 moves.
+Note that there is no information about ‘Analogy’ available thus Step 5 is a “best possible” interpretation of the description in the paper. Furthermore the test for the clone is implemented as checking that both players have played the same moves for the entire game. This is unlikely to be the original approach but no further details are available.
+
+This strategy came 9th in Axelrod’s original tournament.
+
+Names:
+
+Graaskamp: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is the actual strategy
+
+classaxelrod.strategies.axelrod_first.FirstByGrofman[source]
+Submitted to Axelrod’s first tournament by Bernard Grofman.
+
+The description written in [Axelrod1980] is:
+
+> “If the players did different things on the previous move, this rule > cooperates with probability 2/7. Otherwise this rule always cooperates.”
+This strategy came 4th in Axelrod’s original tournament.
+
+Names:
+
+Grofman: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_first.FirstByJoss(p: float = 0.9)[source]
+Submitted to Axelrod’s first tournament by Johann Joss.
+
+The description written in [Axelrod1980] is:
+
+> “This rule cooperates 90% of the time after a cooperation by the other. It > always defects after a defection by the other.”
+
+This strategy came 12th in Axelrod’s original tournament.
+
+Names:
+
+Joss: [Axelrod1980]
+Hard Joss: [Stewart2012]
+classaxelrod.strategies.axelrod_first.FirstByNydegger[source]
+Submitted to Axelrod’s first tournament by Rudy Nydegger.
+
+The description written in [Axelrod1980] is:
+
+> “The program begins with tit for tat for the first three moves, except > that if it was the only one to cooperate on the first move and the only one > to defect on the second move, it defects on the third move. After the third > move, its choice is determined from the 3 preceding outcomes in the > following manner. Let A be the sum formed by counting the other’s defection > as 2 points and one’s own as 1 point, and giving weights of 16, 4, and 1 to > the preceding three moves in chronological order. The choice can be > described as defecting only when A equals 1, 6, 7, 17, 22, 23, 26, 29, 30, > 31, 33, 38, 39, 45, 49, 54, 55, 58, or 61. Thus if all three preceding moves > are mutual defection, A = 63 and the rule cooperates. This rule was > designed for use in laboratory experiments as a stooge which had a memory > and appeared to be trustworthy, potentially cooperative, but not gullible > (Nydegger, 1978).”
+
+The program begins with tit for tat for the first three moves, except that if it was the only one to cooperate on the first move and the only one to defect on the second move, it defects on the third move. After the third move, its choice is determined from the 3 preceding outcomes in the following manner.
+
+A=16a1+4a2+a3
+Where ai
+ is dependent on the outcome of the previous i
+ th round. If both strategies defect, ai=3
+, if the opponent only defects: ai=2
+ and finally if it is only this strategy that defects then ai=1
+.
+
+Finally this strategy defects if and only if:
+
+A∈{1,6,7,17,22,23,26,29,30,31,33,38,39,45,49,54,55,58,61}
+Thus if all three preceding moves are mutual defection, A = 63 and the rule cooperates. This rule was designed for use in laboratory experiments as a stooge which had a memory and appeared to be trustworthy, potentially cooperative, but not gullible.
+
+This strategy came 3rd in Axelrod’s original tournament.
+
+Names:
+
+Nydegger: [Axelrod1980]
+staticscore_history(my_history: List[axelrod.action.Action], opponent_history: List[axelrod.action.Action], score_map: Dict[Tuple[axelrod.action.Action, axelrod.action.Action], int]) → int[source]
+Implements the Nydegger formula A = 16 a_1 + 4 a_2 + a_3
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_first.FirstByShubik[source]
+Submitted to Axelrod’s first tournament by Martin Shubik.
+
+The description written in [Axelrod1980] is:
+
+> “This rule cooperates until the other defects, and then defects once. If > the other defects again after the rule’s cooperation is resumed, the rule > defects twice. In general, the length of retaliation is increased by one for > each departure from mutual cooperation. This rule is described with its > strategic implications in Shubik (1970). Further treatment of its is given > in Taylor (1976).
+
+There is some room for interpretation as to how the strategy reacts to a defection on the turn where it starts to cooperate once more. In Shubik (1970) the strategy is described as:
+
+> “I will play my move 1 to begin with and will continue to do so, so long > as my information shows that the other player has chosen his move 1. If my > information tells me he has used move 2, then I will use move 2 for the > immediate k subsequent periods, after which I will resume using move 1. If > he uses his move 2 again after I have resumed using move 1, then I will > switch to move 2 for the k + 1 immediately subsequent periods … and so > on, increasing my retaliation by an extra period for each departure from the > (1, 1) steady state.”
+
+This is interpreted as:
+
+The player cooperates, if when it is cooperating, the opponent defects it defects for k rounds. After k rounds it starts cooperating again and increments the value of k if the opponent defects again.
+
+This strategy came 5th in Axelrod’s original tournament.
+
+Names:
+
+Shubik: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_first.FirstBySteinAndRapoport(alpha: float = 0.05)[source]
+Submitted to Axelrod’s first tournament by William Stein and Amnon Rapoport.
+
+The description written in [Axelrod1980] is:
+
+> “This rule plays tit for tat except that it cooperates on the first four > moves, it defects on the last two moves, and every fifteen moves it checks > to see if the opponent seems to be playing randomly. This check uses a > chi-squared test of the other’s transition probabilities and also checks for > alternating moves of CD and DC.
+
+This is implemented as follows:
+
+It cooperates for the first 4 moves.
+It defects on the last 2 moves.
+Every 15 moves it makes use of a chi-squared test to check if the opponent is playing randomly. If so it defects.
+This strategy came 6th in Axelrod’s original tournament.
+
+Names:
+
+SteinAndRapoport: [Axelrod1980]
+original_class
+alias of FirstBySteinAndRapoport
+
+classaxelrod.strategies.axelrod_first.FirstByTidemanAndChieruzzi[source]
+Submitted to Axelrod’s first tournament by Nicolas Tideman and Paula Chieruzzi.
+
+The description written in [Axelrod1980] is:
+
+> “This rule begins with cooperation and tit for tat. However, when the > other player finishes his second run of defec- tions, an extra punishment is > instituted, and the number of punishing defections is increased by one with > each run of the other’s defections. The other player is given a fresh start > if he is 10 or more points behind, if he has not just started a run of > defections, if it has been at least 20 moves since a fresh start, if there > are at least 10 moves remaining, and if the number of defections differs > from a 50-50 random generator by at least 3.0 standard deviations. A fresh > start involves two cooperations and then play as if the game had just > started. The program defects automatically on the last two moves.”
+
+This is interpreted as:
+
+1. Every run of defections played by the opponent increases the number of defections that this strategy retaliates with by 1.
+
+The opponent is given a ‘fresh start’ if:
+it is 10 points behind this strategy
+and it has not just started a run of defections
+and it has been at least 20 rounds since the last ‘fresh start’
+and there are more than 10 rounds remaining in the match
+and the total number of defections differs from a 50-50 random sample by at least 3.0 standard deviations.
+A ‘fresh start’ is a sequence of two cooperations followed by an assumption that the game has just started (everything is forgotten).
+
+The strategy defects on the last two moves.
+
+This strategy came 2nd in Axelrod’s original tournament.
+
+Names:
+
+TidemanAndChieruzzi: [Axelrod1980]
+original_class
+alias of FirstByTidemanAndChieruzzi
+
+classaxelrod.strategies.axelrod_first.FirstByTullock[source]
+Submitted to Axelrod’s first tournament by Gordon Tullock.
+
+The description written in [Axelrod1980] is:
+
+> “This rule cooperates on the first eleven moves. It then cooperates 10% > less than the other player has cooperated on the preceding ten moves. This > rule is based on an idea developed in Overcast and Tullock (1971). Professor > Tullock was invited to specify how the idea could be implemented, and he did > so out of scientific interest rather than an expectation that it would be a > likely winner.”
+
+This is interpreted as:
+
+Cooperates for the first 11 rounds then randomly cooperates 10% less often than the opponent has in the previous 10 rounds.
+
+This strategy came 13th in Axelrod’s original tournament.
+
+Names:
+
+Tullock: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+Strategies from Axelrod’s second tournament. All strategies in this module are prefixed by SecondBy to indicate that they were submitted in Axelrod’s Second tournament by the given author.
+
+classaxelrod.strategies.axelrod_second.SecondByAppold[source]
+Strategy submitted to Axelrod’s second tournament by Scott Appold (K88R) and came in 22nd in that tournament.
+
+Cooperates for first four turns.
+
+After four turns, will cooperate immediately following the first time the opponent cooperates (starting with the opponent’s fourth move). Otherwise will cooperate with probability equal to:
+
+If this strategy defected two turns ago, the portion of the time (historically) that the opponent followed a defection with a cooperation.
+If this strategy cooperated two turns ago, the portion of the time (historically) that the opponent followed a cooperation with a cooperation. The opponent’s first move is counted as a response to a cooperation.
+Names:
+
+Appold: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.axelrod_second.SecondByBlack[source]
+Strategy submitted to Axelrod’s second tournament by Paul E Black (K83R) and came in fifteenth in that tournament.
+
+The strategy Cooperates for the first five turns. Then it calculates the number of opponent defects in the last five moves and Cooperates with probability prob_coop`[`number_defects], where:
+
+prob_coop[number_defects] = 1 - (number_defects^ 2 - 1) / 25
+
+Names:
+
+Black: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.axelrod_second.SecondByBorufsen[source]
+Strategy submitted to Axelrod’s second tournament by Otto Borufsen (K32R), and came in third in that tournament.
+
+This player keeps track of the the opponent’s responses to own behavior:
+
+cd_count counts: Opponent cooperates as response to player defecting.
+cc_count counts: Opponent cooperates as response to player cooperating.
+The player has a defect mode and a normal mode. In defect mode, the player will always defect. In normal mode, the player obeys the following ranked rules:
+
+If in the last three turns, both the player/opponent defected, then cooperate for a single turn.
+If in the last three turns, the player/opponent acted differently from each other and they’re alternating, then change next defect to cooperate. (Doesn’t block third rule.)
+Otherwise, do tit-for-tat.
+Start in normal mode, but every 25 turns starting with the 27th turn, re-evaluate the mode. Enter defect mode if any of the following conditions hold:
+
+Detected random: Opponent cooperated 7-18 times since last mode evaluation (or start) AND less than 70% of opponent cooperation was in response to player’s cooperation, i.e. cc_count / (cc_count+cd_count) < 0.7
+Detect defective: Opponent cooperated fewer than 3 times since last mode evaluation.
+When switching to defect mode, defect immediately. The first two rules for normal mode require that last three turns were in normal mode. When starting normal mode from defect mode, defect on first move.
+
+Names:
+
+Borufsen: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+try_return(to_return)[source]
+We put the logic here to check for the flip_next_defect bit here, and proceed like normal otherwise.
+
+classaxelrod.strategies.axelrod_second.SecondByCave[source]
+Strategy submitted to Axelrod’s second tournament by Rob Cave (K49R), and came in fourth in that tournament.
+
+First look for overly-defective or apparently random opponents, and defect if found. That is any opponent meeting one of:
+
+turn > 39 and percent defects > 0.39
+turn > 29 and percent defects > 0.65
+turn > 19 and percent defects > 0.79
+Otherwise, respond to cooperation with cooperation. And respond to defections with either a defection (if opponent has defected at least 18 times) or with a random (50/50) choice. [Cooperate on first.]
+
+Names:
+
+Cave: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByChampion[source]
+Strategy submitted to Axelrod’s second tournament by Danny Champion.
+
+This player cooperates on the first 10 moves and plays Tit for Tat for the next 15 more moves. After 25 moves, the program cooperates unless all the following are true: the other player defected on the previous move, the other player cooperated less than 60% and the random number between 0 and 1 is greater that the other player’s cooperation rate.
+
+Names:
+
+Champion: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByColbert[source]
+Strategy submitted to Axelrod’s second tournament by William Colbert (K51R) and came in eighteenth in that tournament.
+
+In the first eight turns, this strategy Coopearates on all but the sixth turn, in which it Defects. After that, the strategy responds to an opponent Cooperation with a single Cooperation, and responds to a Defection with a chain of responses: Defect, Defect, Cooperate, Cooperate. During this chain, the strategy ignores opponent’s moves.
+
+Names:
+
+Colbert: [Axelrod1980b]
+classaxelrod.strategies.axelrod_second.SecondByEatherley[source]
+Strategy submitted to Axelrod’s second tournament by Graham Eatherley.
+
+A player that keeps track of how many times in the game the other player defected. After the other player defects, it defects with a probability equal to the ratio of the other’s total defections to the total moves to that point.
+
+Names:
+
+Eatherley: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByGetzler[source]
+Strategy submitted to Axelrod’s second tournament by Abraham Getzler (K35R) and came in eleventh in that tournament.
+
+Strategy Defects with probability flack, where flack is calculated as the sum over opponent Defections of 0.5 ^ (turns ago Defection happened).
+
+Names:
+
+Getzler: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByGladstein[source]
+Submitted to Axelrod’s second tournament by David Gladstein.
+
+This strategy is also known as Tester and is based on the reverse engineering of the Fortran strategies from Axelrod’s second tournament.
+
+This strategy is a TFT variant that defects on the first round in order to test the opponent’s response. If the opponent ever defects, the strategy ‘apologizes’ by cooperating and then plays TFT for the rest of the game. Otherwise, it defects as much as possible subject to the constraint that the ratio of its defections to moves remains under 0.5, not counting the first defection.
+
+Names:
+
+Gladstein: [Axelrod1980b]
+Tester: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByGraaskampKatzen[source]
+Strategy submitted to Axelrod’s second tournament by Jim Graaskamp and Ken Katzen (K60R), and came in sixth in that tournament.
+
+Play Tit-for-Tat at first, and track own score. At select checkpoints, check for a high score. Switch to Default Mode if:
+
+On move 11, score < 23
+On move 21, score < 53
+On move 31, score < 83
+On move 41, score < 113
+On move 51, score < 143
+On move 101, score < 293
+Once in Defect Mode, defect forever.
+
+Names:
+
+GraaskampKatzen: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByGrofman[source]
+Submitted to Axelrod’s second tournament by Bernard Grofman.
+
+This strategy has 3 phases:
+
+First it cooperates on the first two rounds
+For rounds 3-7 inclusive, it plays the same as the opponent’s last move
+Thereafter, it applies the following logic, looking at its memory of the last 8* rounds (ignoring the most recent round).
+If its own previous move was C and the opponent has defected less than 3 times in the last 8* rounds, cooperate
+If its own previous move was C and the opponent has defected 3 or more times in the last 8* rounds, defect
+If its own previous move was D and the opponent has defected only once or not at all in the last 8* rounds, cooperate
+If its own previous move was D and the opponent has defected more than once in the last 8* rounds, defect
+The code looks at the first 7 of the last 8 rounds, ignoring the most recent round.
+
+Names: - Grofman’s strategy: [Axelrod1980b] - K86R: [Axelrod1980b]
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByHarrington[source]
+Strategy submitted to Axelrod’s second tournament by Paul Harrington (K75R) and came in eighth in that tournament.
+
+This strategy has three modes: Normal, Fair-weather, and Defect. These mode names were not present in Harrington’s submission.
+
+In Normal and Fair-weather modes, the strategy begins by:
+
+Update history
+Try to detect random opponent if turn is multiple of 15 and >=30.
+Check if burned flag should be raised.
+Check for Fair-weather opponent if turn is 38.
+Updating history means to increment the correct cell of the move_history. move_history is a matrix where the columns are the opponent’s previous move and the rows are indexed by the combo of this player’s and the opponent’s moves two turns ago. [The upper-left cell must be all Cooperations, but otherwise order doesn’t matter.] After we enter Defect mode, move_history won’t be used again.
+
+If the turn is a multiple of 15 and >=30, then attempt to detect random. If random is detected, enter Defect mode and defect immediately. If the player was previously in Defect mode, then do not re-enter. The random detection logic is a modified Pearson’s Chi Squared test, with some additional checks. [More details in detect_random docstrings.]
+
+Some of this player’s moves are marked as “generous.” If this player made a generous move two turns ago and the opponent replied with a Defect, then raise the burned flag. This will stop certain generous moves later.
+
+The player mostly plays Tit-for-Tat for the first 36 moves, then defects on the 37th move. If the opponent cooperates on the first 36 moves, and defects on the 37th move also, then enter Fair-weather mode and cooperate this turn. Entering Fair-weather mode is extremely rare, since this can only happen if the opponent cooperates for the first 36 then defects unprovoked on the 37th. (That is, this player’s first 36 moves are also Cooperations, so there’s nothing really to trigger an opponent Defection.)
+
+Next in Normal Mode:
+
+Check for defect and parity streaks.
+Check if cooperations are scheduled.
+Otherwise,
+If turn < 37, Tit-for-Tat.
+If turn = 37, defect, mark this move as generous, and schedule two more cooperations**.
+If turn > 37, then if burned flag is raised, then Tit-for-Tat. Otherwise, Tit-for-Tat with probability 1 - prob. And with probability prob, defect, schedule two cooperations, mark this move as generous, and increase prob by 5%.
+** Scheduling two cooperations means to set more_coop flag to two. If in Normal mode and no streaks are detected, then the player will cooperate and lower this flag, until hitting zero. It’s possible that the flag can be overwritten. Notable on the 37th turn defect, this is set to two, but the 38th turn Fair-weather check will set this.
+
+If the opponent’s last twenty moves were defections, then defect this turn. Then check for a parity streak, by flipping the parity bit (there are two streaks that get tracked which are something like odd and even turns, but this flip bit logic doesn’t get run every turn), then incrementing the parity streak that we’re pointing to. If the parity streak that we’re pointing to is then greater than parity_limit then reset the streak and cooperate immediately. parity_limit is initially set to five, but after it has been hit eight times, it decreases to three. The parity streak that we’re pointing to also gets incremented if in normal mode and we defect but not on turn 38, unless we are defecting as the result of a defect streak. Note that the parity streaks resets but the defect streak doesn’t.
+
+If more_coop >= 1, then we cooperate and lower that flag here, in Normal mode after checking streaks. Still lower this flag if cooperating as the result of a parity streak or in Fair-weather mode.
+
+Then use the logic based on turn from above.
+
+In Fair-Weather mode after running the code from above, check if opponent defected last turn. If so, exit Fair-Weather mode, and proceed THIS TURN with Normal mode. Otherwise cooperate.
+
+In Defect mode, update the exit_defect_meter (originally zero) by incrementing if opponent defected last turn and decreasing by three otherwise. If exit_defect_meter is then 11, then set mode to Normal (for future turns), cooperate and schedule two more cooperations. [Note that this move is not marked generous.]
+
+Names:
+
+Harrington: [Axelrod1980b]
+calculate_chi_squared(turn)[source]
+Pearson’s Chi Squared statistic = sum[ (E_i-O_i)^2 / E_i ], where O_i are the observed matrix values, and E_i is calculated as number (of defects) in the row times the number in the column over (total number in the matrix minus 1). Equivalently, we expect we expect (for an independent distribution) the total number of recorded turns times the portion in that row times the portion in that column.
+
+In this function, the statistic is non-standard in that it excludes summands where E_i <= 1.
+
+detect_parity_streak(last_move)[source]
+Switch which parity_streak we’re pointing to and incerement if the opponent’s last move was a Defection. Otherwise reset the flag. Then return true if and only if the parity_streak is at least parity_limit.
+
+This is similar to detect_streak with alternating streaks, except that these streaks get incremented elsewhere as well.
+
+detect_random(turn)[source]
+We check if the top-left cell of the matrix (corresponding to all Cooperations) has over 80% of the turns. In which case, we label non-random.
+
+Then we check if over 75% or under 25% of the opponent’s turns are Defections. If so, then we label as non-random.
+
+Otherwise we calculates a modified Pearson’s Chi Squared statistic on self.history, and returns True (is random) if and only if the statistic is less than or equal to 3.
+
+detect_streak(last_move)[source]
+Return true if and only if the opponent’s last twenty moves are defects.
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+try_return(to_return, lower_flags=True, inc_parity=False)[source]
+This will return to_return, with some end-of-turn logic.
+
+classaxelrod.strategies.axelrod_second.SecondByKluepfel[source]
+Strategy submitted to Axelrod’s second tournament by Charles Kluepfel (K32R).
+
+This player keeps track of the the opponent’s responses to own behavior:
+
+cd_count counts: Opponent cooperates as response to player defecting.
+dd_count counts: Opponent defects as response to player defecting.
+cc_count counts: Opponent cooperates as response to player cooperating.
+dc_count counts: Opponent defects as response to player cooperating.
+After 26 turns, the player then tries to detect a random player. The player decides that the opponent is random if cd_counts >= (cd_counts+dd_counts)/2 - 0.75*sqrt(cd_counts+dd_counts) AND cc_counts >= (dc_counts+cc_counts)/2 - 0.75*sqrt(dc_counts+cc_counts). If the player decides that they are playing against a random player, then they will always defect.
+
+Otherwise respond to recent history using the following set of rules:
+
+If opponent’s last three choices are the same, then respond in kind.
+If opponent’s last two choices are the same, then respond in kind with probability 90%.
+Otherwise if opponent’s last action was to cooperate, then cooperate with probability 70%.
+Otherwise if opponent’s last action was to defect, then defect with probability 60%.
+Names:
+
+Kluepfel: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByLeyvraz[source]
+Strategy submitted to Axelrod’s second tournament by Fransois Leyvraz (K68R) and came in twelfth in that tournament.
+
+The strategy uses the opponent’s last three moves to decide on an action based on the following ordered rules.
+
+If opponent Defected last two turns, then Defect with prob 75%.
+If opponent Defected three turns ago, then Cooperate.
+If opponent Defected two turns ago, then Defect.
+If opponent Defected last turn, then Defect with prob 50%.
+Otherwise (all Cooperations), then Cooperate.
+Names:
+
+Leyvraz: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.axelrod_second.SecondByMikkelson[source]
+Strategy submitted to Axelrod’s second tournament by Ray Mikkelson (K66R) and came in twentieth in that tournament.
+
+The strategy keeps track of a variable called credit, which determines if the strategy will Cooperate, in the sense that if credit is positive, then the strategy Cooperates. credit is initialized to 7. After the first turn, credit increments if the opponent Cooperated last turn, and decreases by two otherwise. credit is capped above by 8 and below by -7. [credit is assessed as postive or negative, after increasing based on opponent’s last turn.]
+
+If credit is non-positive within the first ten turns, then the strategy Defects and credit is set to 4. If credit is non-positive later, then the strategy Defects if and only if (total # opponent Defections) / (turn#) is at least 15%. [Turn # starts at 1.]
+
+Names:
+
+Mikkelson: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByRichardHufford[source]
+Strategy submitted to Axelrod’s second tournament by Richard Hufford (K47R) and came in sixteenth in that tournament.
+
+The strategy tracks opponent “agreements”, that is whenever the opponent’s previous move is the some as this player’s move two turns ago. If the opponent’s first move is a Defection, this is counted as a disagreement, and otherwise an agreement. From the agreement counts, two measures are calculated:
+
+proportion_agree: This is the number of agreements (through opponent’s last turn) + 2 divided by the current turn number.
+last_four_num: The number of agreements in the last four turns. If there have been fewer than four previous turns, then this is number of agreement + (4 - number of past turns).
+We then use these measures to decide how to play, using these rules:
+
+If proportion_agree > 0.9 and last_four_num >= 4, then Cooperate.
+Otherwise if proportion_agree >= 0.625 and last_four_num >= 2, then Tit-for-Tat.
+Otherwise, Defect.
+However, if the opponent has Cooperated the last streak_needed turns, then the strategy deviates from the usual strategy, and instead Defects. (We call such deviation an “aberration”.) In the turn immediately after an aberration, the strategy doesn’t override, even if there’s a streak of Cooperations. Two turns after an aberration, the strategy: Restarts the Cooperation streak (never looking before this turn); Cooperates; and changes streak_needed to:
+
+floor(20.0 * num_abb_def / num_abb_coop) + 1
+
+Here num_abb_def is 2 + the number of times that the opponent Defected in the turn after an aberration, and num_abb_coop is 2 + the number of times that the opponent Cooperated in response to an aberration.
+
+Names:
+
+RichardHufford: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.axelrod_second.SecondByRowsam[source]
+Strategy submitted to Axelrod’s second tournament by Glen Rowsam (K58R) and came in 21st in that tournament.
+
+The strategy starts in Normal mode, where it cooperates every turn. Every six turns it checks the score per turn. [Rather the score of all previous turns divided by the turn number, which will be one more than the number of turns scored.] If this measure is less than 2.5 (the strategy is doing badly) and it increases distrust_points. distrust_points is a variable that starts at 0; if it ever exceeds 6 points, the strategy will enter Defect mode and defect from then on. It will increase distrust_points depending on the precise score per turn according to:
+
+5 points if score per turn is less than 1.0
+3 points if score per turn is less than 1.5, but at least 1.0
+2 points if score per turn is less than 2.0, but at least 1.5
+1 points if score per turn is less than 2.5, but at least 2.0
+If distrust_points are increased, then the strategy defects on that turn, then cooperates and defects on the next two turns. [Unless distrust_points exceeds 6 points, then it will enter Defect mode immediately.]
+
+Every 18 turns in Normal mode, the strategy will decrement distrust_score if it’s more than 3. This represents a wearing off effect of distrust.
+
+Names:
+
+Rowsam: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.axelrod_second.SecondByTester[source]
+Submitted to Axelrod’s second tournament by David Gladstein.
+
+This strategy is a TFT variant that attempts to exploit certain strategies. It defects on the first move. If the opponent ever defects, TESTER ‘apologies’ by cooperating and then plays TFT for the rest of the game. Otherwise TESTER alternates cooperation and defection.
+
+This strategy came 46th in Axelrod’s second tournament.
+
+Names:
+
+Tester: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByTidemanAndChieruzzi[source]
+Strategy submitted to Axelrod’s second tournament by T. Nicolaus Tideman and Paula Chieruzzi (K84R) and came in ninth in that tournament.
+
+This strategy Cooperates if this player’s score exceeds the opponent’s score by at least score_to_beat. score_to_beat starts at zero and increases by score_to_beat_inc every time the opponent’s last two moves are a Cooperation and Defection in that order. score_to_beat_inc itself increase by 5 every time the opponent’s last two moves are a Cooperation and Defection in that order.
+
+Additionally, the strategy executes a “fresh start” if the following hold:
+
+The strategy would Defect by score (difference less than score_to_beat)
+The opponent did not Cooperate and Defect (in order) in the last two turns.
+It’s been at least 10 turns since the last fresh start. Or since the match started if there hasn’t been a fresh start yet.
+A “fresh start” entails two Cooperations and resetting scores, scores_to_beat and scores_to_beat_inc.
+
+Names:
+
+TidemanAndChieruzzi: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByTranquilizer[source]
+Submitted to Axelrod’s second tournament by Craig Feathers
+
+Description given in Axelrod’s “More Effective Choice in the Prisoner’s Dilemma” paper: The rule normally cooperates but is ready to defect if the other player defects too often. Thus the rule tends to cooperate for the first dozen or two moves if the other player is cooperating, but then it throws in a defection. If the other player continues to cooperate, then defections become more frequent. But as long as Tranquilizer is maintaining an average payoff of at least 2.25 points per move, it will never defect twice in succession and it will not defect more than one-quarter of the time.
+
+This implementation is based on the reverse engineering of the Fortran strategy K67R from Axelrod’s second tournament. Reversed engineered by: Owen Campbell, Will Guo and Mansour Hakem.
+
+The strategy starts by cooperating and has 3 states.
+
+At the start of the strategy it updates its states:
+
+It counts the number of consecutive defections by the opponent.
+
+If it was in state 2 it moves to state 0 and calculates the following quantities two_turns_after_good_defection_ratio and two_turns_after_good_defection_ratio_count.
+
+Formula for:
+
+two_turns_after_good_defection_ratio:
+
+self.two_turns_after_good_defection_ratio = ( ((self.two_turns_after_good_defection_ratio * self.two_turns_after_good_defection_ratio_count) + (3 - (3 * self.dict[opponent.history[-1]])) + (2 * self.dict[self.history[-1]]) - ((self.dict[opponent.history[-1]] * self.dict[self.history[-1]]))) / (self.two_turns_after_good_defection_ratio_count + 1) )
+
+two_turns_after_good_defection_ratio_count = two_turns_after_good_defection_ratio + 1
+
+If it was in state 1 it moves to state 2 and calculates the following quantities one_turn_after_good_defection_ratio and one_turn_after_good_defection_ratio_count.
+
+Formula for:
+
+one_turn_after_good_defection_ratio:
+
+self.one_turn_after_good_defection_ratio = ( ((self.one_turn_after_good_defection_ratio * self.one_turn_after_good_defection_ratio_count) + (3 - (3 * self.dict[opponent.history[-1]])) + (2 * self.dict[self.history[-1]]) - (self.dict[opponent.history[-1]] * self.dict[self.history[-1]])) / (self.one_turn_after_good_defection_ratio_count + 1) )
+
+one_turn_after_good_defection_ratio_count:
+
+one_turn_after_good_defection_ratio_count = one_turn_after_good_defection_ratio + 1
+
+If after this it is in state 1 or 2 then it cooperates.
+
+If it is in state 0 it will potentially perform 1 of the 2 following stochastic tests:
+
+1. If average score per turn is greater than 2.25 then it calculates a value of probability:
+
+probability = ( (.95 - (((self.one_turn_after_good_defection_ratio) + (self.two_turns_after_good_defection_ratio) - 5) / 15)) + (1 / (((len(self.history))+1) ** 2)) - (self.dict[opponent.history[-1]] / 4) )
+
+and will cooperate if a random sampled number is less than that value of probability. If it does not cooperate then the strategy moves to state 1 and defects.
+
+2. If average score per turn is greater than 1.75 but less than 2.25 then it calculates a value of probability:
+
+probability = ( (.25 + ((opponent.cooperations + 1) / ((len(self.history)) + 1))) - (self.opponent_consecutive_defections * .25) + ((current_score[0] - current_score[1]) / 100) + (4 / ((len(self.history)) + 1)) )
+
+and will cooperate if a random sampled number is less than that value of probability. If not, it defects.
+
+If none of the above holds the player simply plays tit for tat.
+
+Tranquilizer came in 27th place in Axelrod’s second torunament.
+
+Names:
+
+Tranquilizer: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+update_state(opponent)[source]
+Calculates the ratio values for the one_turn_after_good_defection_ratio, two_turns_after_good_defection_ratio and the probability values, and sets the value of num_turns_after_good_defection.
+
+classaxelrod.strategies.axelrod_second.SecondByWeiner[source]
+Strategy submitted to Axelrod’s second tournament by Herb Weiner (K41R), and came in seventh in that tournament.
+
+Play Tit-for-Tat with a chance for forgiveness and a defective override.
+
+The chance for forgiveness happens only if forgive_flag is raised (flag discussed below). If raised and turn is greater than grudge, then override Tit-for-Tat with Cooperation. grudge is a variable that starts at 0 and increments 20 with each forgiven Defect (a Defect that is overriden through the forgiveness logic). forgive_flag is lower whether logic is overriden or not.
+
+The variable defect_padding increments with each opponent Defect, but resets to zero with each opponent Cooperate (or forgive_flag lowering) so that it roughly counts Defects between Cooperates. Whenever the opponent Cooperates, if defect_padding (before reseting) is odd, then we raise forgive_flag for next turn.
+
+Finally a defective override is assessed after forgiveness. If five or more of the opponent’s last twelve actions are Defects, then Defect. This will overrule a forgiveness, but doesn’t undo the lowering of forgiveness_flag. Note that “last twelve actions” doesn’t count the most recent action. Actually the original code updates history after checking for defect override.
+
+Names:
+
+Weiner: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+try_return(to_return)[source]
+We put the logic here to check for the defective override.
+
+classaxelrod.strategies.axelrod_second.SecondByWhite[source]
+Strategy submitted to Axelrod’s second tournament by Edward C White (K72R) and came in thirteenth in that tournament.
+
+Cooperate in the first ten turns.
+If the opponent Cooperated last turn then Cooperate.
+Otherwise Defect if and only if:
+floor(log(turn)) * opponent Defections >= turn
+Names:
+
+White: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.axelrod_second.SecondByWmAdams[source]
+Strategy submitted to Axelrod’s second tournament by William Adams (K44R), and came in fifth in that tournament.
+
+Count the number of opponent defections after their first move, call c_defect. Defect if c_defect equals 4, 7, or 9. If c_defect > 9, then defect immediately after opponent defects with probability = (0.5)^(c_defect-1). Otherwise cooperate.
+
+Names:
+
+WmAdams: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.axelrod_second.SecondByYamachi[source]
+Strategy submitted to Axelrod’s second tournament by Brian Yamachi (K64R) and came in seventeenth in that tournament.
+
+The strategy keeps track of play history through a variable called count_them_us_them, which is a dict indexed by (X, Y, Z), where X is an opponent’s move and Y and Z are the following moves by this player and the opponent, respectively. Each turn, we look at our opponent’s move two turns ago, call X, and our move last turn, call Y. If (X, Y, C) has occurred more often (or as often) as (X, Y, D), then Cooperate. Otherwise Defect. [Note that this reflects likelihood of Cooperations or Defections in opponent’s previous move; we don’t update count_them_us_them with previous move until next turn.]
+
+Starting with the 41st turn, there’s a possibility to override this behavior. If portion_defect is between 45% and 55% (exclusive), then Defect, where portion_defect equals number of opponent defects plus 0.5 divided by the turn number (indexed by 1). When overriding this way, still record count_them_us_them as though the strategy didn’t override.
+
+Names:
+
+Yamachi: [Axelrod1980b]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+try_return(to_return, opp_def)[source]
+Return to_return, unless the turn is greater than 40 AND portion_defect is between 45% and 55%.
+
+In this case, still record the history as to_return so that the modified behavior doesn’t affect the calculation of count_us_them_us.
+
+classaxelrod.strategies.backstabber.BackStabber[source]
+Forgives the first 3 defections but on the fourth will defect forever. Defects on the last 2 rounds unconditionally.
+
+Names:
+
+Backstabber: Original name by Thomas Campbell
+original_class
+alias of BackStabber
+
+classaxelrod.strategies.backstabber.DoubleCrosser[source]
+Forgives the first 3 defections but on the fourth will defect forever. Defects on the last 2 rounds unconditionally.
+
+If 8 <= current round <= 180, if the opponent did not defect in the first 7 rounds, the player will only defect after the opponent has defected twice in-a-row.
+
+Names:
+
+Double Crosser: Original name by Thomas Campbell
+original_class
+alias of DoubleCrosser
+
+classaxelrod.strategies.better_and_better.BetterAndBetter[source]
+Defects with probability of ‘(1000 - current turn) / 1000’. Therefore it is less and less likely to defect as the round goes on.
+
+Names:
+Better and Better: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.bush_mosteller.BushMosteller(c_prob: float = 0.5, d_prob: float = 0.5, aspiration_level_divider: float = 3.0, learning_rate: float = 0.5)[source]
+A player that is based on Bush Mosteller reinforced learning algorithm, it decides what it will play only depending on its own previous payoffs.
+
+The probability of playing C or D will be updated using a stimulus which represents a win or a loss of value based on its previous play’s payoff in the specified probability. The more a play will be rewarded through rounds, the more the player will be tempted to use it.
+
+Names:
+
+Bush Mosteller: [Luis2008]
+stimulus_update(opponent: axelrod.player.Player)[source]
+Updates the stimulus attribute based on the opponent’s history. Used by the strategy.
+
+Parameters
+
+opponent :axelrod.Player
+The current opponent
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.calculator.Calculator[source]
+Plays like (Hard) Joss for the first 20 rounds. If periodic behavior is detected, defect forever. Otherwise play TFT.
+
+Names:
+
+Calculator: [Prison1998]
+set_seed(seed: int = None)[source]
+Set a random seed for the player’s random number generator.
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.cooperator.Cooperator[source]
+A player who only ever cooperates.
+
+Names:
+
+Cooperator: [Axelrod1984]
+ALLC: [Press2012]
+Always cooperate: [Mittal2009]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.cooperator.TrickyCooperator[source]
+A cooperator that is trying to be tricky.
+
+Names:
+
+Tricky Cooperator: Original name by Karol Langner
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Almost always cooperates, but will try to trick the opponent by defecting.
+
+Defect once in a while in order to get a better payout. After 3 rounds, if opponent has not defected to a max history depth of 10, defect.
+
+classaxelrod.strategies.cycler.AntiCycler[source]
+A player that follows a sequence of plays that contains no cycles: CDD CD CCD CCCD CCCCD …
+
+Names:
+
+Anti Cycler: Original name by Marc Harper
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.cycler.Cycler(cycle: str = 'CCD')[source]
+A player that repeats a given sequence indefinitely.
+
+Names:
+
+Cycler: Original name by Marc Harper
+set_cycle(cycle: str)[source]
+Set or change the cycle.
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.cycler.CyclerCCCCCD[source]
+Cycles C, C, C, C, C, D
+
+Names:
+
+Cycler CCCD: Original name by Marc Harper
+classaxelrod.strategies.cycler.CyclerCCCD[source]
+Cycles C, C, C, D
+
+Names:
+
+Cycler CCCD: Original name by Marc Harper
+classaxelrod.strategies.cycler.CyclerCCCDCD[source]
+Cycles C, C, C, D, C, D
+
+Names:
+
+Cycler CCCDCD: Original name by Marc Harper
+classaxelrod.strategies.cycler.CyclerCCD[source]
+Cycles C, C, D
+
+Names:
+
+Cycler CCD: Original name by Marc Harper
+Periodic player CCD: [Mittal2009]
+classaxelrod.strategies.cycler.CyclerDC[source]
+Cycles D, C
+
+Names:
+
+Cycler DC: Original name by Marc Harper
+classaxelrod.strategies.cycler.CyclerDDC[source]
+Cycles D, D, C
+
+Names:
+
+Cycler DDC: Original name by Marc Harper
+Periodic player DDC: [Mittal2009]
+classaxelrod.strategies.cycler.EvolvableCycler(cycle: str = None, cycle_length: int = None, mutation_probability: float = 0.2, mutation_potency: int = 1, seed: int = None)[source]
+Evolvable version of Cycler.
+
+crossover(other) → axelrod.evolvable_player.EvolvablePlayer[source]
+Creates and returns a new Player instance with a single crossover point.
+
+mutate() → axelrod.evolvable_player.EvolvablePlayer[source]
+Basic mutation which may change any random actions in the sequence.
+
+The player class in this module does not obey standard rules of the IPD (as indicated by their classifier). We do not recommend putting a lot of time in to optimising it.
+
+classaxelrod.strategies.darwin.Darwin[source]
+A strategy which accumulates a record (the ‘genome’) of what the most favourable response in the previous round should have been, and naively assumes that this will remain the correct response at the same round of future trials.
+
+This ‘genome’ is preserved between opponents, rounds and repetitions of the tournament. It becomes a characteristic of the type and so a single version of this is shared by all instances for each loading of the class.
+
+As this results in information being preserved between tournaments, this is classified as a cheating strategy!
+
+If no record yet exists, the opponent’s response from the previous round is returned.
+
+Names:
+
+Darwin: Original name by Paul Slavin
+mutate(outcome: tuple, trial: int) → None[source]
+Select response according to outcome.
+
+reset()[source]
+Reset instance properties.
+
+staticreset_genome() → None[source]
+For use in testing methods.
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.dbs.DBS(discount_factor=0.75, promotion_threshold=3, violation_threshold=4, reject_threshold=3, tree_depth=5)[source]
+A strategy that learns the opponent’s strategy and uses symbolic noise detection for detecting whether anomalies in player’s behavior are deliberate or accidental. From the learned opponent’s strategy, a tree search is used to choose the best move.
+
+Default values for the parameters are the suggested values in the article. When noise increases you can try to diminish violation_threshold and rejection_threshold.
+
+Names
+
+Derived Belief Strategy: [Au2006]
+compute_prob_rule(outcome, alpha=1)[source]
+Uses the game history to compute the probability of the opponent playing C, in the outcome situation (example: outcome = (C, C)). When alpha = 1, the results is approximately equal to the frequency of the occurrence of outcome C. alpha is a discount factor that gives more weight to recent events than earlier ones.
+
+Parameters
+
+outcome: tuple of two actions.Action alpha: int, optional. Discount factor. Default is 1.
+
+should_demote(r_minus, violation_threshold=4)[source]
+Checks if the number of successive violations of a deterministic rule (in the opponent’s behavior) exceeds the user-defined violation_threshold.
+
+should_promote(r_plus, promotion_threshold=3)[source]
+This function determines if the move r_plus is a deterministic behavior of the opponent, and then returns True, or if r_plus is due to a random behavior (or noise) which would require a probabilistic rule, in which case it returns False.
+
+To do so it looks into the game history: if the k last times when the opponent was in the same situation than in r_plus it played the same thing then then r_plus is considered as a deterministic rule (where K is the user-defined promotion_threshold).
+
+Parameters
+
+r_plus: tuple of (tuple of actions.Action, actions.Action)
+example: ((C, C), D) r_plus represents one outcome of the history, and the following move played by the opponent.
+promotion_threshold: int, optional
+Number of successive observations needed to promote an opponent behavior as a deterministic rule. Default is 3.
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+update_history_by_cond(opponent_history)[source]
+Updates self.history_by_cond between each turns of the game.
+
+classaxelrod.strategies.dbs.DeterministicNode(action1, action2, depth)[source]
+Nodes (C, C), (C, D), (D, C), or (D, D) with deterministic choice for siblings.
+
+get_siblings(policy)[source]
+Returns the siblings node of the current DeterministicNode. Builds 2 siblings (C, X) and (D, X) that are StochasticNodes. Those siblings are of the same depth as the current node. Their probabilities pC are defined by the policy argument.
+
+is_stochastic()[source]
+Returns True if self is a StochasticNode.
+
+classaxelrod.strategies.dbs.Node[source]
+Nodes used to build a tree for the tree-search procedure. The tree has Deterministic and Stochastic nodes, as the opponent’s strategy is learned as a probability distribution.
+
+classaxelrod.strategies.dbs.StochasticNode(own_action, pC, depth)[source]
+Node that have a probability pC to get to each sibling. A StochasticNode can be written (C, X) or (D, X), with X = C with a probability pC, else X = D.
+
+get_siblings()[source]
+Returns the siblings node of the current StochasticNode. There are two siblings which are DeterministicNodes, their depth is equal to current node depth’s + 1.
+
+is_stochastic()[source]
+Returns True if self is a StochasticNode.
+
+axelrod.strategies.dbs.create_policy(pCC, pCD, pDC, pDD)[source]
+Creates a dict that represents a Policy. As defined in the reference, a Policy is a set of (prev_move, p) where p is the probability to cooperate after prev_move, where prev_move can be (C, C), (C, D), (D, C) or (D, D).
+
+Parameters
+
+pCC, pCD, pDC, pDD :float
+Must be between 0 and 1.
+axelrod.strategies.dbs.minimax_tree_search(begin_node, policy, max_depth)[source]
+Tree search function (minimax search procedure) for the tree (built by recursion) corresponding to the opponent’s policy, and solves it. Returns a tuple of two floats that are the utility of playing C, and the utility of playing D.
+
+axelrod.strategies.dbs.move_gen(outcome, policy, depth_search_tree=5)[source]
+Returns the best move considering opponent’s policy and last move, using tree-search procedure.
+
+classaxelrod.strategies.defector.Defector[source]
+A player who only ever defects.
+
+Names:
+
+Defector: [Axelrod1984]
+ALLD: [Press2012]
+Always defect: [Mittal2009]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.defector.TrickyDefector[source]
+A defector that is trying to be tricky.
+
+Names:
+
+Tricky Defector: Original name by Karol Langner
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Almost always defects, but will try to trick the opponent into cooperating.
+
+Defect if opponent has cooperated at least once in the past and has defected for the last 3 turns in a row.
+
+classaxelrod.strategies.doubler.Doubler[source]
+Cooperates except when the opponent has defected and the opponent’s cooperation count is less than twice their defection count.
+
+Names:
+
+Doubler: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.finite_state_machines.EvolvableFSMPlayer(transitions: tuple = None, initial_state: int = None, initial_action: axelrod.action.Action = None, num_states: int = None, mutation_probability: float = 0.1, seed: int = None)[source]
+Abstract base class for evolvable finite state machine players.
+
+create_vector_bounds()[source]
+Creates the bounds for the decision variables.
+
+crossover(other)[source]
+Optional method to allow Player to produce variants in combination with another player. Returns a new Player.
+
+mutate()[source]
+Optional method to allow Player to produce a variant (not in place).
+
+classmethodnormalize_transitions(transitions: Sequence[Sequence[T_co]]) → Tuple[Tuple[Any, ...], ...][source]
+Translate a list of lists to a tuple of tuples.
+
+receive_vector(vector)[source]
+Read a serialized vector into the set of FSM parameters (less initial state). Then assign those FSM parameters to this class instance.
+
+The vector has three parts. The first is used to define the next state (for each of the player’s states - for each opponents action).
+
+The second part is the player’s next moves (for each state - for each opponent’s actions).
+
+Finally, a probability to determine the player’s first move.
+
+classaxelrod.strategies.finite_state_machines.EvolvedFSM16[source]
+A 16 state FSM player trained with an evolutionary algorithm.
+
+Names:
+
+Evolved FSM 16: Original name by Marc Harper
+classaxelrod.strategies.finite_state_machines.EvolvedFSM16Noise05[source]
+A 16 state FSM player trained with an evolutionary algorithm with noisy matches (noise=0.05).
+
+Names:
+
+Evolved FSM 16 Noise 05: Original name by Marc Harper
+classaxelrod.strategies.finite_state_machines.EvolvedFSM4[source]
+A 4 state FSM player trained with an evolutionary algorithm.
+
+Names:
+
+Evolved FSM 4: Original name by Marc Harper
+classaxelrod.strategies.finite_state_machines.EvolvedFSM6[source]
+An 6 state FSM player trained with an evolutionary algorithm.
+
+Evolved using axelrod-dojo version 0.0.8 and axelrod version 4.10.0, trained to maximize score against the short_run_time_strategies with 10 machine states for 500 generations, population size of 40, mutation rate at 0.1, bottleneck at 10, 200 turns, and 0 noise. The resulting strategy had only 6 states in its accessible component.
+
+Names:
+
+Evolved FSM 6: Original name by Frederick Vincent & Dashiell Fryer
+classaxelrod.strategies.finite_state_machines.FSMPlayer(transitions: Tuple[Tuple[int, axelrod.action.Action, int, axelrod.action.Action], ...] = ((1, C, 1, C), (1, D, 1, D)), initial_state: int = 1, initial_action: axelrod.action.Action = C)[source]
+Abstract base class for finite state machine players.
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.finite_state_machines.Fortress3[source]
+Finite state machine player specified in http://DOI.org/10.1109/CEC.2006.1688322.
+
+Note that the description in http://www.graham-kendall.com/papers/lhk2011.pdf is not correct.
+
+Names:
+
+Fortress 3: [Ashlock2006b]
+classaxelrod.strategies.finite_state_machines.Fortress4[source]
+Finite state machine player specified in http://DOI.org/10.1109/CEC.2006.1688322.
+
+Note that the description in http://www.graham-kendall.com/papers/lhk2011.pdf is not correct.
+
+Names:
+
+Fortress 4: [Ashlock2006b]
+classaxelrod.strategies.finite_state_machines.Predator[source]
+Finite state machine player specified in http://DOI.org/10.1109/CEC.2006.1688322.
+
+Names:
+
+Predator: [Ashlock2006b]
+classaxelrod.strategies.finite_state_machines.Pun1[source]
+FSM player described in [Ashlock2006].
+
+Names:
+
+Pun1: [Ashlock2006]
+classaxelrod.strategies.finite_state_machines.Raider[source]
+FSM player described in http://DOI.org/10.1109/FOCI.2014.7007818.
+
+Names
+
+Raider: [Ashlock2014]
+classaxelrod.strategies.finite_state_machines.Ripoff[source]
+FSM player described in http://DOI.org/10.1109/TEVC.2008.920675.
+
+Names
+
+Ripoff: [Ashlock2008]
+classaxelrod.strategies.finite_state_machines.SimpleFSM(transitions: tuple, initial_state: int)[source]
+Simple implementation of a finite state machine that transitions between states based on the last round of play.
+
+https://en.wikipedia.org/wiki/Finite-state_machine
+
+move(opponent_action: axelrod.action.Action) → axelrod.action.Action[source]
+Computes the response move and changes state.
+
+num_states()[source]
+Return the number of states of the machine.
+
+classaxelrod.strategies.finite_state_machines.SolutionB1[source]
+FSM player described in http://DOI.org/10.1109/TCIAIG.2014.2326012.
+
+Names
+
+Solution B1: [Ashlock2015]
+classaxelrod.strategies.finite_state_machines.SolutionB5[source]
+FSM player described in http://DOI.org/10.1109/TCIAIG.2014.2326012.
+
+Names
+
+Solution B5: [Ashlock2015]
+classaxelrod.strategies.finite_state_machines.TF1[source]
+A FSM player trained to maximize Moran fixation probabilities.
+
+Names:
+
+TF1: Original name by Marc Harper
+classaxelrod.strategies.finite_state_machines.TF2[source]
+A FSM player trained to maximize Moran fixation probabilities.
+
+Names:
+
+TF2: Original name by Marc Harper
+classaxelrod.strategies.finite_state_machines.TF3[source]
+A FSM player trained to maximize Moran fixation probabilities.
+
+Names:
+
+TF3: Original name by Marc Harper
+classaxelrod.strategies.finite_state_machines.Thumper[source]
+FSM player described in http://DOI.org/10.1109/TEVC.2008.920675.
+
+Names
+
+Thumper: [Ashlock2008]
+classaxelrod.strategies.finite_state_machines.UsuallyCooperates[source]
+This strategy cooperates except after a C following a D.
+
+Names:
+
+Usually Cooperates (UC): [Ashlock2009]
+classaxelrod.strategies.finite_state_machines.UsuallyDefects[source]
+This strategy defects except after a D following a C.
+
+Names:
+
+Usually Defects (UD): [Ashlock2009]
+classaxelrod.strategies.forgiver.Forgiver[source]
+A player starts by cooperating however will defect if at any point the opponent has defected more than 10 percent of the time
+
+Names:
+
+Forgiver: Original name by Thomas Campbell
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D if the opponent has defected more than 10 percent of the time.
+
+classaxelrod.strategies.forgiver.ForgivingTitForTat[source]
+A player starts by cooperating however will defect if at any point, the opponent has defected more than 10 percent of the time, and their most recent decision was defect.
+
+Names:
+
+Forgiving Tit For Tat: Original name by Thomas Campbell
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D if the opponent has defected more than 10 percent of the time and their most recent decision was defect.
+
+Stochastic variants of Lookup table based-strategies, trained with particle swarm algorithms.
+
+For the original see:
+https://gist.github.com/GDKO/60c3d0fd423598f3c4e4
+classaxelrod.strategies.gambler.EvolvableGambler(lookup_dict: dict = None, initial_actions: tuple = None, pattern: Any = None, parameters: axelrod.strategies.lookerup.Plays = None, mutation_probability: float = None, seed: int = None)[source]
+create_vector_bounds()[source]
+Creates the bounds for the decision variables. Ignores extra parameters.
+
+receive_vector(vector)[source]
+Receives a vector and updates the player’s pattern. Ignores extra parameters.
+
+classaxelrod.strategies.gambler.Gambler(lookup_dict: dict = None, initial_actions: tuple = None, pattern: Any = None, parameters: axelrod.strategies.lookerup.Plays = None)[source]
+A stochastic version of LookerUp which will select randomly an action in some cases.
+
+Names:
+
+Gambler: Original name by Georgios Koutsovoulos
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.gambler.PSOGambler1_1_1[source]
+A 1x1x1 PSOGambler trained with pyswarm.
+
+Names:
+
+PSO Gambler 1_1_1: Original name by Marc Harper
+classaxelrod.strategies.gambler.PSOGambler2_2_2[source]
+A 2x2x2 PSOGambler trained with a particle swarm algorithm (implemented in pyswarm). Original version by Georgios Koutsovoulos.
+
+Names:
+
+PSO Gambler 2_2_2: Original name by Marc Harper
+classaxelrod.strategies.gambler.PSOGambler2_2_2_Noise05[source]
+A 2x2x2 PSOGambler trained with pyswarm with noise=0.05.
+
+Names:
+
+PSO Gambler 2_2_2 Noise 05: Original name by Marc Harper
+classaxelrod.strategies.gambler.PSOGamblerMem1[source]
+A 1x1x0 PSOGambler trained with pyswarm. This is the ‘optimal’ memory one strategy trained against the set of short run time strategies in the Axelrod library.
+
+Names:
+
+PSO Gambler Mem1: Original name by Marc Harper
+classaxelrod.strategies.gambler.ZDMem2[source]
+A memory two generalization of a zero determinant player.
+
+Names:
+
+ZDMem2: Original name by Marc Harper
+Unnamed [LiS2014]
+classaxelrod.strategies.gobymajority.GoByMajority(memory_depth: Union[int, float] = inf, soft: bool = True)[source]
+Submitted to Axelrod’s second tournament by Gail Grisell. It came 23rd and was written in 10 lines of BASIC.
+
+A player examines the history of the opponent: if the opponent has more defections than cooperations then the player defects.
+
+In case of equal number of defections and cooperations this player will Cooperate. Passing the soft=False keyword argument when initialising will create a HardGoByMajority which Defects in case of equality.
+
+An optional memory attribute will limit the number of turns remembered (by default this is 0)
+
+Names:
+
+Go By Majority: [Axelrod1984]
+Grisell: [Axelrod1980b]
+Soft Majority: [Mittal2009]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is affected by the history of the opponent.
+
+As long as the opponent cooperates at least as often as they defect then the player will cooperate. If at any point the opponent has more defections than cooperations in memory the player defects.
+
+classaxelrod.strategies.gobymajority.GoByMajority10[source]
+GoByMajority player with a memory of 10.
+
+Names:
+
+Go By Majority 10: Original name by Karol Langner
+classaxelrod.strategies.gobymajority.GoByMajority20[source]
+GoByMajority player with a memory of 20.
+
+Names:
+
+Go By Majority 20: Original name by Karol Langner
+classaxelrod.strategies.gobymajority.GoByMajority40[source]
+GoByMajority player with a memory of 40.
+
+Names:
+
+Go By Majority 40: Original name by Karol Langner
+classaxelrod.strategies.gobymajority.GoByMajority5[source]
+GoByMajority player with a memory of 5.
+
+Names:
+
+Go By Majority 5: Original name by Karol Langner
+classaxelrod.strategies.gobymajority.HardGoByMajority(memory_depth: Union[int, float] = inf)[source]
+A player examines the history of the opponent: if the opponent has more defections than cooperations then the player defects. In case of equal number of defections and cooperations this player will Defect.
+
+An optional memory attribute will limit the number of turns remembered (by default this is 0)
+
+Names:
+
+Hard Majority: [Mittal2009]
+classaxelrod.strategies.gobymajority.HardGoByMajority10[source]
+HardGoByMajority player with a memory of 10.
+
+Names:
+
+Hard Go By Majority 10: Original name by Karol Langner
+classaxelrod.strategies.gobymajority.HardGoByMajority20[source]
+HardGoByMajority player with a memory of 20.
+
+Names:
+
+Hard Go By Majority 20: Original name by Karol Langner
+classaxelrod.strategies.gobymajority.HardGoByMajority40[source]
+HardGoByMajority player with a memory of 40.
+
+Names:
+
+Hard Go By Majority 40: Original name by Karol Langner
+classaxelrod.strategies.gobymajority.HardGoByMajority5[source]
+HardGoByMajority player with a memory of 5.
+
+Names:
+
+Hard Go By Majority 5: Original name by Karol Langner
+classaxelrod.strategies.gradualkiller.GradualKiller[source]
+It begins by defecting in the first five moves, then cooperates two times. It then defects all the time if the opponent has defected in move 6 and 7, else cooperates all the time. Initially designed to stop Gradual from defeating TitForTat in a 3 Player tournament.
+
+Names
+
+Gradual Killer: [Prison1998]
+original_class
+alias of GradualKiller
+
+classaxelrod.strategies.grudger.Aggravater[source]
+Grudger, except that it defects on the first 3 turns
+
+Names
+
+Aggravater: Original name by Thomas Campbell
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.grudger.Capri[source]
+CAPRI is a memory-3 strategy proposed in [Murase2020]. Its behavior is defined by the following five rules applied to the last 3 moves of the player and the opponent:
+
+C: Cooperate at mutual cooperation. This rule prescribes c at (ccc, ccc).
+A: Accept punishment when you mistakenly defected from mutual cooperation. This rule prescribes c at (ccd, ccc), (cdc, ccd), (dcc, cdc), and (ccc, dcc).
+P: Punish your co-player by defecting once when he defected from mutual cooperation. This rule prescribes d at (ccc, ccd), and then c at (ccd, cdc), (cdc, dcc), and (dcc, ccc).
+R: Recover cooperation when you or your co-player cooperated at mutual defection. This rule prescribes c at (ddd, ddc), (ddc, dcc), (dcc, ccc), (ddc, ddd), (dcc, ddc), (ccc, dcc), (ddc, ddc), and (dcc, dcc).
+I: In all the other cases, defect.
+The original implementation used in [Murase2020] is available at https://github.com/yohm/sim_exhaustive_m3_PDgame
+
+Names:
+
+CAPRI: Original Name by Y. Murase et al. [Murase2020]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.grudger.EasyGo[source]
+A player starts by defecting however will cooperate if at any point the opponent has defected.
+
+Names:
+
+Easy Go: [Prison1998]
+Reverse Grudger (RGRIM): [Li2011]
+Fool Me Forever: [Harper2017]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing D, then plays C for the remaining rounds if the opponent ever plays D.
+
+classaxelrod.strategies.grudger.ForgetfulGrudger[source]
+A player starts by cooperating however will defect if at any point the opponent has defected, but forgets after mem_length matches.
+
+Names:
+
+Forgetful Grudger: Original name by Geraint Palmer
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D for mem_length rounds if the opponent ever plays D.
+
+classaxelrod.strategies.grudger.GeneralSoftGrudger(n: int = 1, d: int = 4, c: int = 2)[source]
+A generalization of the SoftGrudger strategy. SoftGrudger punishes by playing: D, D, D, D, C, C. after a defection by the opponent. GeneralSoftGrudger only punishes after its opponent defects a specified amount of times consecutively. The punishment is in the form of a series of defections followed by a ‘penance’ of a series of consecutive cooperations.
+
+Names:
+
+General Soft Grudger: Original Name by J. Taylor Smith
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Punishes after its opponent defects ‘n’ times consecutively. The punishment is in the form of ‘d’ defections followed by a penance of ‘c’ consecutive cooperations.
+
+classaxelrod.strategies.grudger.Grudger[source]
+A player starts by cooperating however will defect if at any point the opponent has defected.
+
+This strategy came 7th in Axelrod’s original tournament.
+
+Names:
+
+Friedman’s strategy: [Axelrod1980]
+Grudger: [Li2011]
+Grim: [Berg2015]
+Grim Trigger: [Banks1990]
+Spite: [Beaufils1997]
+Spiteful: [Mathieu2015]
+Vengeful: [Ashlock2009]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D for the remaining rounds if the opponent ever plays D.
+
+classaxelrod.strategies.grudger.GrudgerAlternator[source]
+A player starts by cooperating until the first opponents defection, then alternates D-C.
+
+Names:
+
+c_then_per_dc: [Prison1998]
+Grudger Alternator: Original name by Geraint Palmer
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays Alternator for the remaining rounds if the opponent ever plays D.
+
+classaxelrod.strategies.grudger.OppositeGrudger[source]
+A player starts by defecting however will cooperate if at any point the opponent has cooperated.
+
+Names:
+
+Opposite Grudger: Original name by Geraint Palmer
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing D, then plays C for the remaining rounds if the opponent ever plays C.
+
+classaxelrod.strategies.grudger.SoftGrudger[source]
+A modification of the Grudger strategy. Instead of punishing by always defecting: punishes by playing: D, D, D, D, C, C. (Will continue to cooperate afterwards).
+
+Soft Grudger (SGRIM): [Li2011]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D, D, D, D, C, C against a defection
+
+classaxelrod.strategies.grudger.SpitefulCC[source]
+Behaves like Grudger after cooperating for 2 turns
+
+Names:
+
+spiteful_cc: [Mathieu2015]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Cooperates until the opponent defects. Then defects forever. Always cooperates twice at the start.
+
+classaxelrod.strategies.grumpy.Grumpy(starting_state: str = 'Nice', grumpy_threshold: int = 10, nice_threshold: int = -10)[source]
+A player that defects after a certain level of grumpiness. Grumpiness increases when the opponent defects and decreases when the opponent co-operates.
+
+Names:
+
+Grumpy: Original name by Jason Young
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+A player that gets grumpier the more the opposition defects, and nicer the more they cooperate.
+
+Starts off Nice, but becomes grumpy once the grumpiness threshold is hit. Won’t become nice once that grumpy threshold is hit, but must reach a much lower threshold before it becomes nice again.
+
+classaxelrod.strategies.handshake.Handshake(initial_plays: List[axelrod.action.Action] = None)[source]
+Starts with C, D. If the opponent plays the same way, cooperate forever, else defect forever.
+
+Names:
+
+Handshake: [Robson1990]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.hmm.EvolvableHMMPlayer(transitions_C=None, transitions_D=None, emission_probabilities=None, initial_state=0, initial_action=C, num_states=None, mutation_probability=None, seed: int = None)[source]
+Evolvable version of HMMPlayer.
+
+create_vector_bounds()[source]
+Creates the bounds for the decision variables.
+
+crossover(other)[source]
+Optional method to allow Player to produce variants in combination with another player. Returns a new Player.
+
+mutate()[source]
+Optional method to allow Player to produce a variant (not in place).
+
+receive_vector(vector)[source]
+Read a serialized vector into the set of HMM parameters (less initial state). Then assign those HMM parameters to this class instance.
+
+Assert that the vector has the right number of elements for an HMMParams class with self.num_states.
+
+Assume the first num_states^2 entries are the transitions_C matrix. The next num_states^2 entries are the transitions_D matrix. Then the next num_states entries are the emission_probabilities vector. Finally the last entry is the initial_action.
+
+classaxelrod.strategies.hmm.EvolvedHMM5[source]
+An HMM-based player with five hidden states trained with an evolutionary algorithm.
+
+Names:
+
+Evolved HMM 5: Original name by Marc Harper
+classaxelrod.strategies.hmm.HMMPlayer(transitions_C=None, transitions_D=None, emission_probabilities=None, initial_state=0, initial_action=C)[source]
+Abstract base class for Hidden Markov Model players.
+
+Names
+
+HMM Player: Original name by Marc Harper
+is_stochastic() → bool[source]
+Determines if the player is stochastic.
+
+set_seed(seed=None)[source]
+Set a random seed for the player’s random number generator.
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.hmm.SimpleHMM(transitions_C, transitions_D, emission_probabilities, initial_state)[source]
+Implementation of a basic Hidden Markov Model. We assume that the transition matrix is conditioned on the opponent’s last action, so there are two transition matrices. Emission distributions are stored as Bernoulli probabilities for each state. This is essentially a stochastic FSM.
+
+https://en.wikipedia.org/wiki/Hidden_Markov_model
+
+is_well_formed() → bool[source]
+Determines if the HMM parameters are well-formed:
+Both matrices are stochastic
+Emissions probabilities are in [0, 1]
+The initial state is valid.
+move(opponent_action: axelrod.action.Action) → axelrod.action.Action[source]
+Changes state and computes the response action.
+
+Parameters
+opponent_action: Axelrod.Action
+The opponent’s last action.
+axelrod.strategies.hmm.is_stochastic_matrix(m, ep=1e-08) → bool[source]
+Checks that the matrix m (a list of lists) is a stochastic matrix.
+
+axelrod.strategies.hmm.mutate_row(row, mutation_probability, rng)[source]
+, crossover_lists_of_lists Given a row of probabilities, randomly change each entry with probability mutation_probability (a value between 0 and 1). If changing, then change by a value randomly (uniformly) chosen from [-0.25, 0.25] bounded by 0 and 100%.
+
+classaxelrod.strategies.hunter.AlternatorHunter[source]
+A player who hunts for alternators.
+
+Names:
+
+Alternator Hunter: Original name by Karol Langner
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.hunter.CooperatorHunter[source]
+A player who hunts for cooperators.
+
+Names:
+
+Cooperator Hunter: Original name by Karol Langner
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.hunter.CycleHunter[source]
+Hunts strategies that play cyclically, like any of the Cyclers, Alternator, etc.
+
+Names:
+
+Cycle Hunter: Original name by Marc Harper
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.hunter.DefectorHunter[source]
+A player who hunts for defectors.
+
+Names:
+
+Defector Hunter: Original name by Karol Langner
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.hunter.EventualCycleHunter[source]
+Hunts strategies that eventually play cyclically.
+
+Names:
+
+Eventual Cycle Hunter: Original name by Marc Harper
+strategy(opponent: axelrod.player.Player) → None[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.hunter.MathConstantHunter[source]
+A player who hunts for mathematical constant players.
+
+Names:
+
+Math Constant Hunter: Original name by Karol Langner
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Check whether the number of cooperations in the first and second halves of the history are close. The variance of the uniform distribution (1/4) is a reasonable delta but use something lower for certainty and avoiding false positives. This approach will also detect a lot of random players.
+
+classaxelrod.strategies.hunter.RandomHunter[source]
+A player who hunts for random players.
+
+Names:
+
+Random Hunter: Original name by Karol Langner
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+A random player is unpredictable, which means the conditional frequency of cooperation after cooperation, and defection after defections, should be close to 50%… although how close is debatable.
+
+classaxelrod.strategies.inverse.Inverse[source]
+A player who defects with a probability that diminishes relative to how long ago the opponent defected.
+
+Names:
+
+Inverse: Original Name by Karol Langner
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Looks at opponent history to see if they have defected.
+
+If so, player defection is inversely proportional to when this occurred.
+
+classaxelrod.strategies.lookerup.EvolvableLookerUp(lookup_dict: dict = None, initial_actions: tuple = None, pattern: Any = None, parameters: axelrod.strategies.lookerup.Plays = None, mutation_probability: float = None, seed: int = None)[source]
+crossover(other)[source]
+Optional method to allow Player to produce variants in combination with another player. Returns a new Player.
+
+mutate()[source]
+Optional method to allow Player to produce a variant (not in place).
+
+classaxelrod.strategies.lookerup.EvolvedLookerUp1_1_1[source]
+A 1 1 1 Lookerup trained with an evolutionary algorithm.
+
+Names:
+
+Evolved Lookerup 1 1 1: Original name by Marc Harper
+classaxelrod.strategies.lookerup.EvolvedLookerUp2_2_2[source]
+A 2 2 2 Lookerup trained with an evolutionary algorithm.
+
+Names:
+
+Evolved Lookerup 2 2 2: Original name by Marc Harper
+classaxelrod.strategies.lookerup.LookerUp(lookup_dict: dict = None, initial_actions: tuple = None, pattern: Any = None, parameters: axelrod.strategies.lookerup.Plays = None)[source]
+This strategy uses a LookupTable to decide its next action. If there is not enough history to use the table, it calls from a list of self.initial_actions.
+
+if self_depth=2, op_depth=3, op_openings_depth=5, LookerUp finds the last 2 plays of self, the last 3 plays of opponent and the opening 5 plays of opponent. It then looks those up on the LookupTable and returns the appropriate action. If 5 rounds have not been played (the minimum required for op_openings_depth), it calls from self.initial_actions.
+
+LookerUp can be instantiated with a dictionary. The dictionary uses tuple(tuple, tuple, tuple) or Plays as keys. for example.
+
+self_plays: depth=2
+
+op_plays: depth=1
+
+op_openings: depth=0:
+
+{Plays((C, C), (C), ()): C,
+ Plays((C, C), (D), ()): D,
+ Plays((C, D), (C), ()): D,  <- example below
+ Plays((C, D), (D), ()): D,
+ Plays((D, C), (C), ()): C,
+ Plays((D, C), (D), ()): D,
+ Plays((D, D), (C), ()): C,
+ Plays((D, D), (D), ()): D}
+From the above table, if the player last played C, D and the opponent last played C (here the initial opponent play is ignored) then this round, the player would play D.
+
+The dictionary must contain all possible permutations of C’s and D’s.
+
+LookerUp can also be instantiated with pattern=str/tuple of actions, and:
+
+parameters=Plays(
+    self_plays=player_depth: int,
+    op_plays=op_depth: int,
+    op_openings=op_openings_depth: int)
+It will create keys of len=2 ** (sum(parameters)) and map the pattern to the keys.
+
+initial_actions is a tuple such as (C, C, D). A table needs initial actions equal to max(self_plays depth, opponent_plays depth, opponent_initial_plays depth). If provided initial_actions is too long, the extra will be ignored. If provided initial_actions is too short, the shortfall will be made up with C’s.
+
+Some well-known strategies can be expressed as special cases; for example Cooperator is given by the dict (All history is ignored and always play C):
+
+{Plays((), (), ()) : C}
+Tit-For-Tat is given by (The only history that is important is the opponent’s last play.):
+
+{Plays((), (D,), ()): D,
+ Plays((), (C,), ()): C}
+LookerUp’s LookupTable defaults to Tit-For-Tat. The initial_actions defaults to playing C.
+
+Names:
+
+Lookerup: Original name by Martin Jones
+lookup_table_display(sort_by: tuple = ('op_openings', 'self_plays', 'op_plays')) → str[source]
+Returns a string for printing lookup_table info in specified order.
+
+Parameters:	sort_by – only_elements=’self_plays’, ‘op_plays’, ‘op_openings’
+strategy(opponent: axelrod.player.Player) → Reaction[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.lookerup.LookupTable(lookup_dict: dict)[source]
+LookerUp and its children use this object to determine their next actions.
+
+It is an object that creates a table of all possible plays to a specified depth and the action to be returned for each combination of plays. The “get” method returns the appropriate response. For the table containing:
+
+....
+Plays(self_plays=(C, C), op_plays=(C, D), op_openings=(D, C): D
+Plays(self_plays=(C, C), op_plays=(C, D), op_openings=(D, D): C
+...
+with: player.history[-2:]=[C, C] and opponent.history[-2:]=[C, D] and opponent.history[:2]=[D, D], calling LookupTable.get(plays=(C, C), op_plays=(C, D), op_openings=(D, D)) will return C.
+
+Instantiate the table with a lookup_dict. This is {(self_plays_tuple, op_plays_tuple, op_openings_tuple): action, …}. It must contain every possible permutation with C’s and D’s of the above tuple. so:
+
+good_dict = {((C,), (C,), ()): C,
+             ((C,), (D,), ()): C,
+             ((D,), (C,), ()): D,
+             ((D,), (D,), ()): C}
+
+bad_dict = {((C,), (C,), ()): C,
+            ((C,), (D,), ()): C,
+            ((D,), (C,), ()): D}
+LookupTable.from_pattern() creates an ordered list of keys for you and maps the pattern to the keys.:
+
+LookupTable.from_pattern(pattern=(C, D, D, C),
+    player_depth=0, op_depth=1, op_openings_depth=1
+)
+creates the dictionary:
+
+{Plays(self_plays=(), op_plays=(C), op_openings=(C)): C,
+ Plays(self_plays=(), op_plays=(C), op_openings=(D)): D,
+ Plays(self_plays=(), op_plays=(D), op_openings=(C)): D,
+ Plays(self_plays=(), op_plays=(D), op_openings=(D)): C,}
+and then returns a LookupTable with that dictionary.
+
+display(sort_by: tuple = ('op_openings', 'self_plays', 'op_plays')) → str[source]
+Returns a string for printing lookup_table info in specified order.
+
+Parameters:	sort_by – only_elements=’self_plays’, ‘op_plays’, ‘op_openings’
+classaxelrod.strategies.lookerup.Plays(self_plays, op_plays, op_openings)
+op_openings
+Alias for field number 2
+
+op_plays
+Alias for field number 1
+
+self_plays
+Alias for field number 0
+
+classaxelrod.strategies.lookerup.Winner12[source]
+A lookup table based strategy.
+
+Names:
+
+Winner12: [Mathieu2015]
+classaxelrod.strategies.lookerup.Winner21[source]
+A lookup table based strategy.
+
+Names:
+
+Winner21: [Mathieu2015]
+axelrod.strategies.lookerup.create_lookup_table_keys(player_depth: int, op_depth: int, op_openings_depth: int) → list[source]
+Returns a list of Plays that has all possible permutations of C’s and D’s for each specified depth. the list is in order, C < D sorted by ((player_tuple), (op_tuple), (op_openings_tuple)). create_lookup_keys(2, 1, 0) returns:
+
+[Plays(self_plays=(C, C), op_plays=(C,), op_openings=()),
+ Plays(self_plays=(C, C), op_plays=(D,), op_openings=()),
+ Plays(self_plays=(C, D), op_plays=(C,), op_openings=()),
+ Plays(self_plays=(C, D), op_plays=(D,), op_openings=()),
+ Plays(self_plays=(D, C), op_plays=(C,), op_openings=()),
+ Plays(self_plays=(D, C), op_plays=(D,), op_openings=()),
+ Plays(self_plays=(D, D), op_plays=(C,), op_openings=()),
+ Plays(self_plays=(D, D), op_plays=(D,), op_openings=())]
+axelrod.strategies.lookerup.get_last_n_plays(player: axelrod.player.Player, depth: int) → tuple[source]
+Returns the last N plays of player as a tuple.
+
+axelrod.strategies.lookerup.make_keys_into_plays(lookup_table: dict) → dict[source]
+Returns a dict where all keys are Plays.
+
+classaxelrod.strategies.mathematicalconstants.CotoDeRatio[source]
+The player will always aim to bring the ratio of co-operations to defections closer to the ratio as given in a sub class
+
+Names:
+
+Co to Do Ratio: Original Name by Timothy Standen
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.mathematicalconstants.Golden[source]
+The player will always aim to bring the ratio of co-operations to defections closer to the golden mean
+
+Names:
+
+Golden: Original Name by Timothy Standen
+classaxelrod.strategies.mathematicalconstants.Pi[source]
+The player will always aim to bring the ratio of co-operations to defections closer to the pi
+
+Names:
+
+Pi: Original Name by Timothy Standen
+classaxelrod.strategies.mathematicalconstants.e[source]
+The player will always aim to bring the ratio of co-operations to defections closer to the e
+
+Names:
+
+e: Original Name by Timothy Standen
+Memory Two strategies.
+
+classaxelrod.strategies.memorytwo.AON2[source]
+AON2 a memory two strategy introduced in [Hilbe2017]. It belongs to the AONk (all-or-none) family of strategies. These strategies were designed to satisfy the three following properties:
+
+1. Mutually Cooperative. A strategy is mutually cooperative if there are histories for which the strategy prescribes to cooperate, and if it continues to cooperate after rounds with mutual cooperation (provided the last k actions of the focal player were actually consistent).
+
+2. Error correcting. A strategy is error correcting after at most k rounds if, after any history, it generally takes a group of players at most k + 1 rounds to re-establish mutual cooperation.
+
+3. Retaliating. A strategy is retaliating for at least k rounds if, after rounds in which the focal player cooperated while the coplayer defected, the strategy responds by defecting the following k rounds.
+
+In [Hilbe2017] the following vectors are reported as “equivalent” to AON2 with their respective self-cooperation rate (note that these are not the same):
+
+1. [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], self-cooperation rate: 0.952 2. [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], self-cooperation rate: 0.951 3. [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], self-cooperation rate: 0.951 4. [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1], self-cooperation rate: 0.952
+
+AON2 is implemented using vector 1 due its self-cooperation rate.
+
+In essence it is a strategy that starts off by cooperating and will cooperate again only after the states (CC, CC), (CD, CD), (DC, DC), (DD, DD).
+
+Names:
+
+AON2: [Hilbe2017]
+classaxelrod.strategies.memorytwo.DelayedAON1[source]
+Delayed AON1 a memory two strategy also introduced in [Hilbe2017] and belongs to the AONk family. Note that AON1 is equivalent to Win Stay Lose Shift.
+
+In [Hilbe2017] the following vectors are reported as “equivalent” to Delayed AON1 with their respective self-cooperation rate (note that these are not the same):
+
+1. [1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1], self-cooperation rate: 0.952 2. [1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1], self-cooperation rate: 0.970 3. [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1], self-cooperation rate: 0.971
+
+Delayed AON1 is implemented using vector 3 due its self-cooperation rate.
+
+In essence it is a strategy that starts off by cooperating and will cooperate again only after the states (CC, CC), (CD, CD), (CD, DD), (DD, CD), (DC, DC) and (DD, DD).
+
+Names:
+
+Delayed AON1: [Hilbe2017]
+classaxelrod.strategies.memorytwo.MEM2[source]
+A memory-two player that switches between TFT, TFTT, and ALLD.
+
+Note that the reference claims that this is a memory two strategy but in fact it is infinite memory. This is because the player plays as ALLD if ALLD has ever been selected twice, which can only be known if the entire history of play is accessible.
+
+Names:
+
+MEM2: [Li2014]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.memorytwo.MemoryTwoPlayer(sixteen_vector: Optional[Tuple[float, ...]] = None, initial: Optional[Tuple[axelrod.action.Action, axelrod.action.Action]] = None)[source]
+Uses a sixteen-vector for strategies based on the 16 conditional probabilities P(X | I,J,K,L) where X, I, J, K, L in [C, D] and I, J are the players last two moves and K, L are the opponents last two moves. These conditional probabilities are the following: 1. P(C|CC, CC) 2. P(C|CC, CD) 3. P(C|CC, DC) 4. P(C|CC, DD) 5. P(C|CD, CC) 6. P(C|CD, CD) 7. P(C|CD, DC) 8. P(C|CD, DD) 9. P(C|DC, CC) 10. P(C|DC, CD) 11. P(C|DC, DC) 12. P(C|DC, DD) 13. P(C|DD, CC) 14. P(C|DD, CD) 15. P(C|DD, DC) 16. P(C|DD, DD) Cooperator is set as the default player if sixteen_vector is not given.
+
+Names
+
+Memory Two: [Hilbe2017]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+Memory One strategies. Note that there are Memory One strategies in other files, including titfortat.py and zero_determinant.py
+
+classaxelrod.strategies.memoryone.ALLCorALLD[source]
+This strategy is at the parameter extreme of the ZD strategies (phi = 0). It simply repeats its last move, and so mimics ALLC or ALLD after round one. If the tournament is noisy, there will be long runs of C and D.
+
+For now starting choice is random of 0.6, but that was an arbitrary choice at implementation time.
+
+Names:
+
+ALLC or ALLD: Original name by Marc Harper
+Repeat: [Akin2015]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.memoryone.FirmButFair[source]
+A strategy that cooperates on the first move, and cooperates except after receiving a sucker payoff.
+
+Names:
+
+Firm But Fair: [Frean1994]
+classaxelrod.strategies.memoryone.GTFT(p: float = None)[source]
+Generous Tit For Tat Strategy.
+
+Names:
+
+Generous Tit For Tat: [Nowak1993]
+Naive peace maker: [Gaudesi2016]
+Soft Joss: [Gaudesi2016]
+classaxelrod.strategies.memoryone.MemoryOnePlayer(four_vector: Tuple[float, float, float, float] = None, initial: axelrod.action.Action = C)[source]
+Uses a four-vector for strategies based on the last round of play, (P(C|CC), P(C|CD), P(C|DC), P(C|DD)). Win-Stay Lose-Shift is set as the default player if four_vector is not given. Intended to be used as an abstract base class or to at least be supplied with a initializing four_vector.
+
+Names
+
+Memory One: [Nowak1990]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.memoryone.ReactivePlayer(probabilities: Tuple[float, float])[source]
+A generic reactive player. Defined by 2 probabilities conditional on the opponent’s last move: P(C|C), P(C|D).
+
+Names:
+
+Reactive: [Nowak1989]
+classaxelrod.strategies.memoryone.SoftJoss(q: float = 0.9)[source]
+Defects with probability 0.9 when the opponent defects, otherwise emulates Tit-For-Tat.
+
+Names:
+
+Soft Joss: [Prison1998]
+classaxelrod.strategies.memoryone.StochasticCooperator[source]
+Stochastic Cooperator.
+
+Names:
+
+Stochastic Cooperator: [Adami2013]
+classaxelrod.strategies.memoryone.StochasticWSLS(ep: float = 0.05)[source]
+Stochastic WSLS, similar to Generous TFT. Note that this is not the same as Stochastic WSLS described in [Amaral2016], that strategy is a modification of WSLS that learns from the performance of other strategies.
+
+Names:
+
+Stochastic WSLS: Original name by Marc Harper
+classaxelrod.strategies.memoryone.WinShiftLoseStay(initial: axelrod.action.Action = D)[source]
+Win-Shift Lose-Stay, also called Reverse Pavlov.
+
+Names:
+
+WSLS: [Li2011]
+classaxelrod.strategies.memoryone.WinStayLoseShift[source]
+Win-Stay Lose-Shift, also called Pavlov.
+
+Names:
+
+Win Stay Lose Shift: [Nowak1993]
+WSLS: [Stewart2012]
+Pavlov: [Kraines1989]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.meta.MemoryDecay(p_memory_delete: float = 0.1, p_memory_alter: float = 0.03, loss_value: float = -2, gain_value: float = 1, memory: list = None, start_strategy: axelrod.player.Player = <class 'axelrod.strategies.titfortat.TitForTat'>, start_strategy_duration: int = 15)[source]
+A player utilizes the (default) Tit for Tat strategy for the first (default) 15 turns, at the same time memorizing the opponent’s decisions. After the 15 turns have passed, the player calculates a ‘net cooperation score’ (NCS) for their opponent, weighing decisions to Cooperate as (default) 1, and to Defect as (default) -2. If the opponent’s NCS is below 0, the player defects; otherwise, they cooperate.
+
+The player’s memories of the opponent’s decisions have a random chance to be altered (i.e., a C decision becomes D or vice versa; default probability is 0.03) or deleted (default probability is 0.1).
+
+It is possible to pass a different axelrod player class to change the initial player behavior.
+
+Name: Memory Decay
+
+gain_loss_translate()[source]
+Translates the actions (D and C) to numeric values (loss_value and gain_value).
+
+memory_alter()[source]
+Alters memory entry, i.e. puts C if there’s a D and vice versa.
+
+memory_delete()[source]
+Deletes memory entry.
+
+meta_strategy(results, opponent)[source]
+Determine the meta result based on results of all players. Override this function in child classes.
+
+classaxelrod.strategies.meta.MetaHunter[source]
+A player who uses a selection of hunters.
+
+Names
+
+Meta Hunter: Original name by Karol Langner
+staticmeta_strategy(results, opponent)[source]
+Determine the meta result based on results of all players. Override this function in child classes.
+
+classaxelrod.strategies.meta.MetaHunterAggressive(team=None)[source]
+A player who uses a selection of hunters.
+
+Names
+
+Meta Hunter Aggressive: Original name by Marc Harper
+staticmeta_strategy(results, opponent)[source]
+Determine the meta result based on results of all players. Override this function in child classes.
+
+classaxelrod.strategies.meta.MetaMajority(team=None)[source]
+A player who goes by the majority vote of all other non-meta players.
+
+Names:
+
+Meta Majority: Original name by Karol Langner
+staticmeta_strategy(results, opponent)[source]
+Determine the meta result based on results of all players. Override this function in child classes.
+
+classaxelrod.strategies.meta.MetaMajorityFiniteMemory[source]
+MetaMajority with the team of Finite Memory Players
+
+Names
+
+Meta Majority Finite Memory: Original name by Marc Harper
+classaxelrod.strategies.meta.MetaMajorityLongMemory[source]
+MetaMajority with the team of Long (infinite) Memory Players
+
+Names
+
+Meta Majority Long Memory: Original name by Marc Harper
+classaxelrod.strategies.meta.MetaMajorityMemoryOne[source]
+MetaMajority with the team of Memory One players
+
+Names
+
+Meta Majority Memory One: Original name by Marc Harper
+classaxelrod.strategies.meta.MetaMinority(team=None)[source]
+A player who goes by the minority vote of all other non-meta players.
+
+Names:
+
+Meta Minority: Original name by Karol Langner
+staticmeta_strategy(results, opponent)[source]
+Determine the meta result based on results of all players. Override this function in child classes.
+
+classaxelrod.strategies.meta.MetaMixer(team=None, distribution=None)[source]
+A player who randomly switches between a team of players. If no distribution is passed then the player will uniformly choose between sub players.
+
+In essence this is creating a Mixed strategy.
+
+Parameters
+
+team :list of strategy classes, optional
+Team of strategies that are to be randomly played If none is passed will select the ordinary strategies.
+distribution :list representing a probability distribution, optional
+This gives the distribution from which to select the players. If none is passed will select uniformly.
+Names
+
+Meta Mixer: Original name by Vince Knight
+index_strategy(opponent)[source]
+When the team effectively has a single player, only use that strategy.
+
+meta_strategy(results, opponent)[source]
+Using the _random.choice function to sample with weights.
+
+classaxelrod.strategies.meta.MetaPlayer(team=None)[source]
+A generic player that has its own team of players.
+
+Names:
+
+Meta Player: Original name by Karol Langner
+meta_strategy(results, opponent)[source]
+Determine the meta result based on results of all players. Override this function in child classes.
+
+set_seed(seed=None)[source]
+Set a random seed for the player’s random number generator.
+
+strategy(opponent)[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.meta.MetaWinner(team=None)[source]
+A player who goes by the strategy of the current winner.
+
+Names:
+
+Meta Winner: Original name by Karol Langner
+meta_strategy(results, opponent)[source]
+Determine the meta result based on results of all players. Override this function in child classes.
+
+classaxelrod.strategies.meta.MetaWinnerDeterministic[source]
+Meta Winner with the team of Deterministic Players.
+
+Names
+
+Meta Winner Deterministic: Original name by Marc Harper
+classaxelrod.strategies.meta.MetaWinnerEnsemble(team=None)[source]
+A variant of MetaWinner that chooses one of the top scoring strategies at random against each opponent. Note this strategy is always stochastic regardless of the team, if team larger than 1, and the players are distinct.
+
+Names:
+
+Meta Winner Ensemble: Original name by Marc Harper
+meta_strategy(results, opponent)[source]
+Determine the meta result based on results of all players. Override this function in child classes.
+
+classaxelrod.strategies.meta.MetaWinnerFiniteMemory[source]
+MetaWinner with the team of Finite Memory Players
+
+Names
+
+Meta Winner Finite Memory: Original name by Marc Harper
+classaxelrod.strategies.meta.MetaWinnerLongMemory[source]
+MetaWinner with the team of Long (infinite) Memory Players
+
+Names
+
+Meta Winner Long Memory: Original name by Marc Harper
+classaxelrod.strategies.meta.MetaWinnerMemoryOne[source]
+MetaWinner with the team of Memory One players
+
+Names
+
+Meta Winner Memory Memory One: Original name by Marc Harper
+classaxelrod.strategies.meta.MetaWinnerStochastic[source]
+Meta Winner with the team of Stochastic Players.
+
+Names
+
+Meta Winner Stochastic: Original name by Marc Harper
+classaxelrod.strategies.meta.NMWEDeterministic[source]
+Nice Meta Winner Ensemble with the team of Deterministic Players.
+
+Names
+
+Nice Meta Winner Ensemble Deterministic: Original name by Marc Harper
+classaxelrod.strategies.meta.NMWEFiniteMemory[source]
+Nice Meta Winner Ensemble with the team of Finite Memory Players.
+
+Names
+
+Nice Meta Winner Ensemble Finite Memory: Original name by Marc Harper
+classaxelrod.strategies.meta.NMWELongMemory[source]
+Nice Meta Winner Ensemble with the team of Long Memory Players.
+
+Names
+
+Nice Meta Winner Ensemble Long Memory: Original name by Marc Harper
+classaxelrod.strategies.meta.NMWEMemoryOne[source]
+Nice Meta Winner Ensemble with the team of Memory One Players.
+
+Names
+
+Nice Meta Winner Ensemble Memory One: Original name by Marc Harper
+classaxelrod.strategies.meta.NMWEStochastic[source]
+Nice Meta Winner Ensemble with the team of Stochastic Players.
+
+Names
+
+Nice Meta Winner Ensemble Stochastic: Original name by Marc Harper
+classaxelrod.strategies.meta.NiceMetaWinner(team=None)
+A player who goes by the strategy of the current winner.
+
+Names:
+
+Meta Winner: Original name by Karol Langner
+original_class
+alias of MetaWinner
+
+classaxelrod.strategies.meta.NiceMetaWinnerEnsemble(team=None)
+A variant of MetaWinner that chooses one of the top scoring strategies at random against each opponent. Note this strategy is always stochastic regardless of the team, if team larger than 1, and the players are distinct.
+
+Names:
+
+Meta Winner Ensemble: Original name by Marc Harper
+original_class
+alias of MetaWinnerEnsemble
+
+classaxelrod.strategies.mutual.Desperate[source]
+A player that only cooperates after mutual defection.
+
+Names:
+
+Desperate: [Berg2015]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.mutual.Hopeless[source]
+A player that only defects after mutual cooperation.
+
+Names:
+
+Hopeless: [Berg2015]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.mutual.Willing[source]
+A player that only defects after mutual defection.
+
+Names:
+
+Willing: [Berg2015]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.negation.Negation[source]
+A player starts by cooperating or defecting randomly if it’s their first move, then simply doing the opposite of the opponents last move thereafter.
+
+Names:
+
+Negation: [PD2017]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.oncebitten.FoolMeOnce[source]
+Forgives one D then retaliates forever on a second D.
+
+Names:
+
+Fool me once: Original name by Marc Harper
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.oncebitten.ForgetfulFoolMeOnce(forget_probability: float = 0.05)[source]
+Forgives one D then retaliates forever on a second D. Sometimes randomly forgets the defection count, and so keeps a secondary count separate from the standard count in Player.
+
+Names:
+
+Forgetful Fool Me Once: Original name by Marc Harper
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.oncebitten.OnceBitten[source]
+Cooperates once when the opponent defects, but if they defect twice in a row defaults to forgetful grudger for 10 turns defecting.
+
+Names:
+
+Once Bitten: Original name by Holly Marissa
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D for mem_length rounds if the opponent ever plays D twice in a row.
+
+classaxelrod.strategies.prober.CollectiveStrategy[source]
+Defined in [Li2009]. ‘It always cooperates in the first move and defects in the second move. If the opponent also cooperates in the first move and defects in the second move, CS will cooperate until the opponent defects. Otherwise, CS will always defect.’
+
+Names:
+
+Collective Strategy: [Li2009]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.prober.Detective(initial_actions: List[axelrod.action.Action] = None)[source]
+Starts with C, D, C, C, or with the given sequence of actions. If the opponent defects at least once in the first fixed rounds, play as TFT forever, else defect forever.
+
+Names:
+
+Detective: [NC2019]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.prober.HardProber[source]
+Plays D, D, C, C initially. Defects forever if opponent cooperated in moves 2 and 3. Otherwise plays TFT.
+
+Names:
+
+Hard Prober: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.prober.NaiveProber(p: float = 0.1)[source]
+Like tit-for-tat, but it occasionally defects with a small probability.
+
+Names:
+
+Naive Prober: [Li2011]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.prober.Prober[source]
+Plays D, C, C initially. Defects forever if opponent cooperated in moves 2 and 3. Otherwise plays TFT.
+
+Names:
+
+Prober: [Li2011]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.prober.Prober2[source]
+Plays D, C, C initially. Cooperates forever if opponent played D then C in moves 2 and 3. Otherwise plays TFT.
+
+Names:
+
+Prober 2: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.prober.Prober3[source]
+Plays D, C initially. Defects forever if opponent played C in moves 2. Otherwise plays TFT.
+
+Names:
+
+Prober 3: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.prober.Prober4[source]
+Plays C, C, D, C, D, D, D, C, C, D, C, D, C, C, D, C, D, D, C, D initially. Counts retaliating and provocative defections of the opponent. If the absolute difference between the counts is smaller or equal to 2, defects forever. Otherwise plays C for the next 5 turns and TFT for the rest of the game.
+
+Names:
+
+Prober 4: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.prober.RemorsefulProber(p: float = 0.1)[source]
+Like Naive Prober, but it remembers if the opponent responds to a random defection with a defection by being remorseful and cooperating.
+
+For reference see: [Li2011]. A more complete description is given in “The Selfish Gene” (https://books.google.co.uk/books?id=ekonDAAAQBAJ):
+
+“Remorseful Prober remembers whether it has just spontaneously defected, and whether the result was prompt retaliation. If so, it ‘remorsefully’ allows its opponent ‘one free hit’ without retaliating.”
+
+Names:
+
+Remorseful Prober: [Li2011]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.punisher.InversePunisher[source]
+An inverted version of Punisher. The player starts by cooperating however will defect if at any point the opponent has defected, and forgets after mem_length matches, with 1 <= mem_length <= 20. This time mem_length is proportional to the amount of time the opponent has played C.
+
+Names:
+
+Inverse Punisher: Original name by Geraint Palmer
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D for an amount of rounds proportional to the opponents historical ‘%’ of playing C if the opponent ever plays D.
+
+classaxelrod.strategies.punisher.LevelPunisher[source]
+A player starts by cooperating however, after 10 rounds will defect if at any point the number of defections by an opponent is greater than 20%.
+
+Names:
+
+Level Punisher: [Eckhart2015]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.punisher.Punisher[source]
+A player starts by cooperating however will defect if at any point the opponent has defected, but forgets after meme_length matches, with 1<=mem_length<=20 proportional to the amount of time the opponent has played D, punishing that player for playing D too often.
+
+Names:
+
+Punisher: Original name by Geraint Palmer
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Begins by playing C, then plays D for an amount of rounds proportional to the opponents historical ‘%’ of playing D if the opponent ever plays D
+
+classaxelrod.strategies.punisher.TrickyLevelPunisher[source]
+A player starts by cooperating however, after 10, 50 and 100 rounds will defect if at any point the percentage of defections by an opponent is greater than 20%, 10% and 5% respectively.
+
+Names:
+
+Tricky Level Punisher: [Eckhart2015]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.qlearner.ArrogantQLearner[source]
+A player who learns the best strategies through the q-learning algorithm.
+
+This Q learner jumps to quick conclusions and cares about the future.
+
+Names:
+
+Arrogant Q Learner: Original name by Geraint Palmer
+classaxelrod.strategies.qlearner.CautiousQLearner[source]
+A player who learns the best strategies through the q-learning algorithm.
+
+This Q learner is slower to come to conclusions and wants to look ahead more.
+
+Names:
+
+Cautious Q Learner: Original name by Geraint Palmer
+classaxelrod.strategies.qlearner.HesitantQLearner[source]
+A player who learns the best strategies through the q-learning algorithm.
+
+This Q learner is slower to come to conclusions and does not look ahead much.
+
+Names:
+
+Hesitant Q Learner: Original name by Geraint Palmer
+classaxelrod.strategies.qlearner.RiskyQLearner[source]
+A player who learns the best strategies through the q-learning algorithm.
+
+This Q learner is quick to come to conclusions and doesn’t care about the future.
+
+Names:
+
+Risky Q Learner: Original name by Geraint Palmer
+find_reward(opponent: axelrod.player.Player) → Dict[axelrod.action.Action, Dict[axelrod.action.Action, Union[int, float]]][source]
+Finds the reward gained on the last iteration
+
+find_state(opponent: axelrod.player.Player) → str[source]
+Finds the my_state (the opponents last n moves + its previous proportion of playing C) as a hashable state
+
+perform_q_learning(prev_state: str, state: str, action: axelrod.action.Action, reward)[source]
+Performs the qlearning algorithm
+
+select_action(state: str) → axelrod.action.Action[source]
+Selects the action based on the epsilon-soft policy
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Runs a qlearn algorithm while the tournament is running.
+
+classaxelrod.strategies.rand.Random(p: float = 0.5)[source]
+A player who randomly chooses between cooperating and defecting.
+
+This strategy came 15th in Axelrod’s original tournament.
+
+Names:
+
+Random: [Axelrod1980]
+Lunatic: [Tzafestas2000]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.resurrection.DoubleResurrection[source]
+A player starts by cooperating and defects if the number of rounds played by the player is greater than five and the last five rounds are cooperations.
+
+If the last five rounds were defections, the player cooperates.
+
+Names:
+
+DoubleResurrection: [Eckhart2015]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.resurrection.Resurrection[source]
+A player starts by cooperating and defects if the number of rounds played by the player is greater than five and the last five rounds are defections.
+
+Otherwise, the strategy plays like Tit-for-tat.
+
+Names:
+
+Resurrection: [Eckhart2015]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.retaliate.LimitedRetaliate(retaliation_threshold: float = 0.1, retaliation_limit: int = 20)[source]
+A player that co-operates unless the opponent defects and wins. It will then retaliate by defecting. It stops when either, it has beaten the opponent 10 times more often that it has lost or it reaches the retaliation limit (20 defections).
+
+Names:
+
+Limited Retaliate: Original name by Owen Campbell
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+If the opponent has played D to my C more often than x% of the time that I’ve done the same to him, retaliate by playing D but stop doing so once I’ve hit the retaliation limit.
+
+classaxelrod.strategies.retaliate.LimitedRetaliate2(retaliation_threshold: float = 0.08, retaliation_limit: int = 15)[source]
+LimitedRetaliate player with a threshold of 8 percent and a retaliation limit of 15.
+
+Names:
+
+Limited Retaliate 2: Original name by Owen Campbell
+classaxelrod.strategies.retaliate.LimitedRetaliate3(retaliation_threshold: float = 0.05, retaliation_limit: int = 20)[source]
+LimitedRetaliate player with a threshold of 5 percent and a retaliation limit of 20.
+
+Names:
+
+Limited Retaliate 3: Original name by Owen Campbell
+classaxelrod.strategies.retaliate.Retaliate(retaliation_threshold: float = 0.1)[source]
+A player starts by cooperating but will retaliate once the opponent has won more than 10 percent times the number of defections the player has.
+
+Names:
+
+Retaliate: Original name by Owen Campbell
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+If the opponent has played D to my C more often than x% of the time that I’ve done the same to him, play D. Otherwise, play C.
+
+classaxelrod.strategies.retaliate.Retaliate2(retaliation_threshold: float = 0.08)[source]
+Retaliate player with a threshold of 8 percent.
+
+Names:
+
+Retaliate 2: Original name by Owen Campbell
+classaxelrod.strategies.retaliate.Retaliate3(retaliation_threshold: float = 0.05)[source]
+Retaliate player with a threshold of 5 percent.
+
+Names:
+
+Retaliate 3: Original name by Owen Campbell
+Revised Downing implemented from the Fortran source code for the second of Axelrod’s tournaments.
+
+classaxelrod.strategies.revised_downing.RevisedDowning[source]
+Strategy submitted to Axelrod’s second tournament by Leslie Downing. (K59R).
+
+Revised Downing attempts to determine if players are cooperative or not. If so, it cooperates with them.
+
+This strategy is a revision of the strategy submitted by Downing to Axelrod’s first tournament.
+
+Names: - Revised Downing: [Axelrod1980]
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.sequence_player.SequencePlayer(generator_function: function, generator_args: Tuple = ())[source]
+Abstract base class for players that use a generated sequence to determine their plays.
+
+Names:
+
+Sequence Player: Original name by Marc Harper
+staticmeta_strategy(value: int) → axelrod.action.Action[source]
+Determines how to map the sequence value to cooperate or defect. By default, treat values like python truth values. Override in child classes for alternate behaviors.
+
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Iterate through the sequence and apply the meta strategy.
+
+classaxelrod.strategies.sequence_player.ThueMorse[source]
+A player who cooperates or defects according to the Thue-Morse sequence. The first few terms of the Thue-Morse sequence are: 0 1 1 0 1 0 0 1 1 0 0 1 0 1 1 0 …
+
+Thue-Morse sequence: http://mathworld.wolfram.com/Thue-MorseSequence.html
+
+Names:
+
+Thue Morse: Original name by Geraint Palmer
+classaxelrod.strategies.sequence_player.ThueMorseInverse[source]
+A player who plays the inverse of the Thue-Morse sequence.
+
+Names:
+
+Inverse Thue Morse: Original name by Geraint Palmer
+staticmeta_strategy(value: int) → axelrod.action.Action[source]
+Determines how to map the sequence value to cooperate or defect. By default, treat values like python truth values. Override in child classes for alternate behaviors.
+
+classaxelrod.strategies.shortmem.ShortMem[source]
+A player starts by always cooperating for the first 10 moves.
+
+From the tenth round on, the player analyzes the last ten actions, and compare the number of defects and cooperates of the opponent, based in percentage. If cooperation occurs 30% more than defection, it will cooperate. If defection occurs 30% more than cooperation, the program will defect. Otherwise, the program follows the TitForTat algorithm.
+
+Names:
+
+ShortMem: [Andre2013]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.selfsteem.SelfSteem[source]
+This strategy is based on the feeling with the same name. It is modeled on the sine curve(f = sin( 2* pi * n / 10 )), which varies with the current iteration.
+
+If f > 0.95, ‘ego’ of the algorithm is inflated; always defects. If 0.95 > abs(f) > 0.3, rational behavior; follows TitForTat algortithm. If 0.3 > f > -0.3; random behavior. If f < -0.95, algorithm is at rock bottom; always cooperates.
+
+Futhermore, the algorithm implements a retaliation policy, if the opponent defects; the sin curve is shifted. But due to lack of further information, this implementation does not include a sin phase change. Names:
+
+SelfSteem: [Andre2013]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.stalker.Stalker[source]
+This is a strategy which is only influenced by the score. Its behavior is based on three values: the very_bad_score (all rounds in defection) very_good_score (all rounds in cooperation) wish_score (average between bad and very_good score)
+
+It starts with cooperation.
+
+If current_average_score > very_good_score, it defects
+If current_average_score lies in (wish_score, very_good_score) it cooperates
+If current_average_score > 2, it cooperates
+If current_average_score lies in (1, 2)
+The remaining case, current_average_score < 1, it behaves randomly.
+It defects in the last round
+Names:
+
+Stalker: [Andre2013]
+original_class
+alias of Stalker
+
+classaxelrod.strategies.titfortat.AdaptiveTitForTat(rate: float = 0.5)[source]
+ATFT - Adaptive Tit For Tat (Basic Model)
+
+Algorithm
+
+if (opponent played C in the last cycle) then world = world + r*(1-world) else world = world + r*(0-world) If (world >= 0.5) play C, else play D
+
+Attributes
+
+world :float [0.0, 1.0], set to 0.5
+continuous variable representing the world’s image 1.0 - total cooperation 0.0 - total defection other values - something in between of the above updated every round, starting value shouldn’t matter as long as it’s >= 0.5
+Parameters
+
+rate :float [0.0, 1.0], default=0.5
+adaptation rate - r in Algorithm above smaller value means more gradual and robust to perturbations behaviour
+Names:
+
+Adaptive Tit For Tat: [Tzafestas2000]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.Alexei[source]
+Plays similar to Tit-for-Tat, but always defect on last turn.
+
+Names:
+
+Alexei: [LessWrong2011]
+original_class
+alias of Alexei
+
+classaxelrod.strategies.titfortat.AntiTitForTat[source]
+A strategy that plays the opposite of the opponents previous move. This is similar to Bully, except that the first move is cooperation.
+
+Names:
+
+Anti Tit For Tat: [Hilbe2013]
+Psycho (PSYC): [Ashlock2009]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.Bully[source]
+A player that behaves opposite to Tit For Tat, including first move.
+
+Starts by defecting and then does the opposite of opponent’s previous move. This is the complete opposite of Tit For Tat, also called Bully in the literature.
+
+Names:
+
+Reverse Tit For Tat: [Nachbar1992]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.BurnBothEnds[source]
+Plays like TitForTat except it cooperates after opponent cooperation with probability 9/10.
+
+Names:
+
+BurnBothEnds (BBE): Marinoff [Marinoff1992]
+strategy(opponent)[source]
+This is a placeholder strategy.
+
+classaxelrod.strategies.titfortat.ContriteTitForTat[source]
+A player that corresponds to Tit For Tat if there is no noise. In the case of a noisy match: if the opponent defects as a result of a noisy defection then ContriteTitForTat will become ‘contrite’ until it successfully cooperates.
+
+Names:
+
+Contrite Tit For Tat: [Axelrod1995]
+original_class
+alias of ContriteTitForTat
+
+classaxelrod.strategies.titfortat.DynamicTwoTitsForTat[source]
+A player starts by cooperating and then punishes its opponent’s defections with defections, but with a dynamic bias towards cooperating based on the opponent’s ratio of cooperations to total moves (so their current probability of cooperating regardless of the opponent’s move (aka: forgiveness)).
+
+Names:
+
+Dynamic Two Tits For Tat: Original name by Grant Garrett-Grossman.
+strategy(opponent)[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.EugineNier[source]
+Plays similar to Tit-for-Tat, but with two conditions: 1) Always Defect on Last Move 2) If other player defects five times, switch to all defects.
+
+Names:
+
+Eugine Nier: [LessWrong2011]
+original_class
+alias of EugineNier
+
+classaxelrod.strategies.titfortat.Gradual[source]
+Similar to OriginalGradual, this is a player that punishes defections with a growing number of defections but after punishing for punishment_limit number of times enters a calming state and cooperates no matter what the opponent does for two rounds.
+
+This version of Gradual is an update of OriginalGradual and the difference is that the punishment_limit is incremented whenever the opponent defects (regardless of the state of the player).
+
+Note that this version of Gradual appears in [CRISTAL-SMAC2018] however this version of Gradual does not give the results reported in [Beaufils1997] which is the paper that first introduced the strategy. For a longer discussion of this see: https://github.com/Axelrod-Python/Axelrod/issues/1294.
+
+This version is based on https://github.com/cristal-smac/ipd/blob/master/src/strategies.py#L224
+
+Names:
+
+Gradual: [CRISTAL-SMAC2018]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.HardTitFor2Tats[source]
+A variant of Tit For Two Tats that uses a longer history for retaliation.
+
+Names:
+
+Hard Tit For Two Tats: [Stewart2012]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.HardTitForTat[source]
+A variant of Tit For Tat that uses a longer history for retaliation.
+
+Names:
+
+Hard Tit For Tat: [PD2017]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.Michaelos[source]
+Plays similar to Tit-for-Tat with two exceptions: 1) Defect on last turn. 2) After own defection and opponent’s cooperation, 50 percent of the time, cooperate. The other 50 percent of the time, always defect for the rest of the game.
+
+Names:
+
+Michaelos: [LessWrong2011]
+original_class
+alias of Michaelos
+
+classaxelrod.strategies.titfortat.NTitsForMTats(N: int = 3, M: int = 2)[source]
+A parameterizable Tit-for-Tat, The arguments are: 1) M: the number of defection before retaliation 2) N: the number of retaliations
+
+Names:
+
+N Tit(s) For M Tat(s): Original name by Marc Harper
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.OmegaTFT(deadlock_threshold: int = 3, randomness_threshold: int = 8)[source]
+OmegaTFT modifies Tit For Tat in two ways: - checks for deadlock loops of alternating rounds of (C, D) and (D, C), and attempting to break them - uses a more sophisticated retaliation mechanism that is noise tolerant
+
+Names:
+
+OmegaTFT: [Slany2007]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.OriginalGradual[source]
+A player that punishes defections with a growing number of defections but after punishing for punishment_limit number of times enters a calming state and cooperates no matter what the opponent does for two rounds.
+
+The punishment_limit is incremented whenever the opponent defects and the strategy is not in either calming or punishing state.
+
+Note that Gradual appears in [CRISTAL-SMAC2018] however that version of Gradual does not give the results reported in [Beaufils1997] which is the paper that first introduced the strategy. For a longer discussion of this see: https://github.com/Axelrod-Python/Axelrod/issues/1294. This is why this strategy has been renamed to OriginalGradual.
+
+Names:
+
+Gradual: [Beaufils1997]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.RandomTitForTat(p: float = 0.5)[source]
+A player starts by cooperating and then follows by copying its opponent (tit for tat style). From then on the player will switch between copying its opponent and randomly responding every other iteration.
+
+Name:
+
+Random TitForTat: Original name by Zachary M. Taylor
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is the actual strategy
+
+classaxelrod.strategies.titfortat.SlowTitForTwoTats2[source]
+A player plays C twice, then if the opponent plays the same move twice, plays that move, otherwise plays previous move.
+
+Names:
+
+Slow Tit For Tat: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.SneakyTitForTat[source]
+Tries defecting once and repents if punished.
+
+Names:
+
+Sneaky Tit For Tat: Original name by Karol Langner
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.SpitefulTitForTat[source]
+A player starts by cooperating and then mimics the previous action of the opponent until opponent defects twice in a row, at which point player always defects
+
+Names:
+
+Spiteful Tit For Tat: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.SuspiciousTitForTat[source]
+A variant of Tit For Tat that starts off with a defection.
+
+Names:
+
+Suspicious Tit For Tat: [Hilbe2013]
+Mistrust: [Beaufils1997]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.TitFor2Tats[source]
+A player starts by cooperating and then defects only after two defects by opponent.
+
+Submitted to Axelrod’s second tournament by John Maynard Smith; it came in 24th in that tournament.
+
+Names:
+
+Tit for two Tats: [Axelrod1984]
+Slow tit for two tats: Original name by Ranjini Das
+JMaynardSmith: [Axelrod1980b]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.titfortat.TitForTat[source]
+A player starts by cooperating and then mimics the previous action of the opponent.
+
+This strategy was referred to as the ‘simplest’ strategy submitted to Axelrod’s first tournament. It came first.
+
+Note that the code for this strategy is written in a fairly verbose way. This is done so that it can serve as an example strategy for those who might be new to Python.
+
+Names:
+
+Rapoport’s strategy: [Axelrod1980]
+TitForTat: [Axelrod1980]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+This is the actual strategy
+
+classaxelrod.strategies.titfortat.TwoTitsForTat[source]
+A player starts by cooperating and replies to each defect by two defections.
+
+Names:
+
+Two Tits for Tats: [Axelrod1984]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.verybad.VeryBad[source]
+It cooperates in the first three rounds, and uses probability (it implements a memory, which stores the opponent’s moves) to decide for cooperating or defecting. Due to a lack of information as to what that probability refers to in this context, probability(P(X)) refers to (Count(X)/Total_Moves) in this implementation P(C) = Cooperations / Total_Moves P(D) = Defections / Total_Moves = 1 - P(C)
+
+Names:
+
+VeryBad: [Andre2013]
+staticstrategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.worse_and_worse.KnowledgeableWorseAndWorse[source]
+This strategy is based on ‘Worse And Worse’ but will defect with probability of ‘current turn / total no. of turns’.
+
+Names:
+Knowledgeable Worse and Worse: Original name by Adam Pohl
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.worse_and_worse.WorseAndWorse[source]
+Defects with probability of ‘current turn / 1000’. Therefore it is more and more likely to defect as the round goes on.
+
+Source code available at the download tab of [Prison1998]
+
+Names:
+Worse and Worse: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.worse_and_worse.WorseAndWorse2[source]
+Plays as tit for tat during the first 20 moves. Then defects with probability (current turn - 20) / current turn. Therefore it is more and more likely to defect as the round goes on.
+
+Names:
+Worse and Worse 2: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.worse_and_worse.WorseAndWorse3[source]
+Cooperates in the first turn. Then defects with probability no. of opponent defects / (current turn - 1). Therefore it is more likely to defect when the opponent defects for a larger proportion of the turns.
+
+Names:
+Worse and Worse 3: [Prison1998]
+strategy(opponent: axelrod.player.Player) → axelrod.action.Action[source]
+Actual strategy definition that determines player’s action.
+
+classaxelrod.strategies.zero_determinant.LRPlayer(phi: float = 0.2, s: float = 0.1, l: float = 1)[source]
+Abstraction for Linear Relation players. These players enforce a linear difference in stationary payoffs s(Sxy−l)=Syx−l.
+
+The parameter s
+ is called the slope and the parameter l
+ the baseline payoff. For extortionate strategies, the extortion factor χ
+ is the inverse of the slope s
+.
+
+For the standard prisoner’s dilemma where T>R>P>S
+ and R>(T+S)/2>P
+, a pair (l,s)
+ is enforceable iff
+
+Psmin<=l<=R=−min(T−ll−S,l−ST−l)<=s<=1
+And also that there exists ϕ
+ such that
+
+p1p2p3p4=P(C|CC)=P(C|CD)=P(C|DC)=P(C|DD)=1−ϕ(1−s)(R−l)=1−ϕ(s(l−S)+(T−l))=ϕ((l−S)+s(T−l))=ϕ(1−s)(l−P)
+These conditions also force ϕ>=0
+. For a given pair (l,s)
+ there may be multiple such ϕ
+.
+
+This parameterization is Equation 14 in [Hilbe2013]. See Figure 2 of the article for a more in-depth explanation. Other game parameters can alter the relations and bounds above.
+
+Names:
+
+Linear Relation player: [Hilbe2013]
+receive_match_attributes()[source]
+Parameters
+
+phi, s, l: floats
+Parameter used to compute the four-vector according to the parameterization of the strategies below.
+classaxelrod.strategies.zero_determinant.ZDExtort2(phi: float = 0.1111111111111111, s: float = 0.5)[source]
+An Extortionate Zero Determinant Strategy with l=P.
+
+Names:
+
+Extort-2: [Stewart2012]
+receive_match_attributes()[source]
+Parameters
+
+phi, s, l: floats
+Parameter used to compute the four-vector according to the parameterization of the strategies below.
+classaxelrod.strategies.zero_determinant.ZDExtort2v2(phi: float = 0.125, s: float = 0.5, l: float = 1)[source]
+An Extortionate Zero Determinant Strategy with l=1.
+
+Names:
+
+EXTORT2: [Kuhn2017]
+classaxelrod.strategies.zero_determinant.ZDExtort3(phi: float = 0.11538461538461539, s: float = 0.3333333333333333, l: float = 1)[source]
+An extortionate strategy from Press and Dyson’s paper witn an extortion factor of 3.
+
+Names:
+
+ZDExtort3: Original name by Marc Harper
+Unnamed: [Press2012]
+classaxelrod.strategies.zero_determinant.ZDExtort4(phi: float = 0.23529411764705882, s: float = 0.25, l: float = 1)[source]
+An Extortionate Zero Determinant Strategy with l=1, s=1/4. TFT is the other extreme (with l=3, s=1)
+
+Names:
+
+Extort 4: Original name by Marc Harper
+classaxelrod.strategies.zero_determinant.ZDExtortion(phi: float = 0.2, s: float = 0.1, l: float = 1)[source]
+An example ZD Extortion player.
+
+Names:
+
+ZDExtortion: [Roemheld2013]
+classaxelrod.strategies.zero_determinant.ZDGTFT2(phi: float = 0.25, s: float = 0.5)[source]
+A Generous Zero Determinant Strategy with l=R.
+
+Names:
+
+ZDGTFT-2: [Stewart2012]
+receive_match_attributes()[source]
+Parameters
+
+phi, s, l: floats
+Parameter used to compute the four-vector according to the parameterization of the strategies below.
+classaxelrod.strategies.zero_determinant.ZDGen2(phi: float = 0.125, s: float = 0.5, l: float = 3)[source]
+A Generous Zero Determinant Strategy with l=3.
+
+Names:
+
+GEN2: [Kuhn2017]
+classaxelrod.strategies.zero_determinant.ZDMischief(phi: float = 0.1, s: float = 0.0, l: float = 1)[source]
+An example ZD Mischief player.
+
+Names:
+
+ZDMischief: [Roemheld2013]
+classaxelrod.strategies.zero_determinant.ZDSet2(phi: float = 0.25, s: float = 0.0, l: float = 2)[source]
+A Generous Zero Determinant Strategy with l=2.
+
+Names:
+
+SET2: [Kuhn2017]
