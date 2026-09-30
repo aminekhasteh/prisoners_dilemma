@@ -1,0 +1,9 @@
+# Python 3.12. On macOS, xgboost also needs: brew install libomp
+matplotlib==3.11.2
+numpy==2.5.3
+pandas==3.0.6
+polars==1.44.2
+pyarrow==25.0.1
+scikit-learn==1.9.1
+shap==0.52.0
+xgboost==3.4.1
