@@ -1,0 +1,23 @@
+subset,check,R2,MAE,test_rows
+all,unseen tournaments (v2),0.8821837805210064,0.06581299225460352,801019
+all,unseen strategies and tournaments,0.8137862441330865,0.08368625660847631,160203
+all,ratio to median only,0.28974141295937417,0.19774259567615438,801019
+all,without ratio to median,0.8792613990178639,0.0669477801045047,801019
+all,without all cooperation ratios,0.872148622165369,0.06989753723791893,801019
+all,without strategy-specific features,0.7212765395593115,0.1029584121222348,801019
+no_noise_no_probend,unseen tournaments (v2),0.9591551898531675,0.04001082759654703,200309
+no_noise_no_probend,unseen strategies and tournaments,0.7529419474760762,0.09753664575593368,40061
+no_noise_has_probend,unseen tournaments (v2),0.9120856269984964,0.057122322037184564,200268
+no_noise_has_probend,unseen strategies and tournaments,0.8730819351160143,0.06954223996465865,40053
+has_noise_no_probend,unseen tournaments (v2),0.9429212461983641,0.04236920167121169,200268
+has_noise_no_probend,unseen strategies and tournaments,0.895083315501165,0.05503659584496214,40053
+has_noise_has_probend,unseen tournaments (v2),0.7820424692709375,0.09438082450072366,200268
+has_noise_has_probend,unseen strategies and tournaments,0.7679266676608139,0.0974677052572496,40053
+no_noise_no_probend,paper range only,0.9591551898531675,0.04001082759654703,200309
+no_noise_no_probend,"paper range, unseen strategies",0.7529419474760762,0.09753664575593368,40061
+no_noise_has_probend,paper range only,0.9170713751412587,0.05593619980960841,20273
+no_noise_has_probend,"paper range, unseen strategies",0.7029516659248835,0.10904540581308356,4054
+has_noise_no_probend,paper range only,0.885670957705608,0.0687913792499833,20523
+has_noise_no_probend,"paper range, unseen strategies",0.5085160152369702,0.14240554092772525,4104
+has_noise_has_probend,paper range only,0.8580471901672044,0.07807048618426982,2026
+has_noise_has_probend,"paper range, unseen strategies",0.6648948204994445,0.12233130830370413,405
