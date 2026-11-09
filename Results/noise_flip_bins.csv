@@ -1,0 +1,39 @@
+subset,noise,ending,bin,rows,mean_rank,mean_shap
+no_noise_no_probend,no noise,fixed length,"[0.0, 0.25)",71613,0.7751605340574022,0.10441696643829346
+no_noise_no_probend,no noise,fixed length,"[0.25, 0.5)",50883,0.7012669811314858,0.12294477224349976
+no_noise_no_probend,no noise,fixed length,"[0.5, 0.75)",128903,0.7211908422479931,0.07904702425003052
+no_noise_no_probend,no noise,fixed length,"[0.75, 0.9)",120077,0.47277037010349715,0.012227155268192291
+no_noise_no_probend,no noise,fixed length,"[0.9, 1.1)",267789,0.3285721747571263,-0.03396165743470192
+no_noise_no_probend,no noise,fixed length,"[1.1, 1.25)",219185,0.41063885440944337,-0.040519606322050095
+no_noise_no_probend,no noise,fixed length,"[1.25, 1.5)",135300,0.5679646562548893,-0.04042987525463104
+no_noise_no_probend,no noise,fixed length,"[1.5, 2.0)",9012,0.6224106575444901,-0.038718122988939285
+no_noise_no_probend,no noise,fixed length,"[2.0, 3.0)",41,0.6384331116038433,-0.06003542244434357
+no_noise_has_probend,no noise,probabilistic end,"[0.0, 0.25)",92385,0.10298205534965256,-0.2846512794494629
+no_noise_has_probend,no noise,probabilistic end,"[0.25, 0.5)",70125,0.16465962648839563,-0.27424922585487366
+no_noise_has_probend,no noise,probabilistic end,"[0.5, 0.75)",90439,0.2785126015642855,-0.2030680924654007
+no_noise_has_probend,no noise,probabilistic end,"[0.75, 0.9)",58625,0.3519762620479291,-0.1287674456834793
+no_noise_has_probend,no noise,probabilistic end,"[0.9, 1.1)",560450,0.5934293602322307,0.091180719435215
+no_noise_has_probend,no noise,probabilistic end,"[1.1, 1.25)",109763,0.768083723897337,0.19311267137527466
+no_noise_has_probend,no noise,probabilistic end,"[1.25, 1.5)",20585,0.8382644571443468,0.17208419740200043
+no_noise_has_probend,no noise,probabilistic end,"[1.5, 2.0)",572,0.7625076835278021,0.1375219225883484
+no_noise_has_probend,no noise,probabilistic end,"[2.0, 3.0)",6,0.7916666666666666,
+has_noise_no_probend,noise,fixed length,"[0.0, 0.25)",15967,0.23171695003316192,-0.17406734824180603
+has_noise_no_probend,noise,fixed length,"[0.25, 0.5)",47175,0.15657618107753035,-0.19279704988002777
+has_noise_no_probend,noise,fixed length,"[0.5, 0.75)",97452,0.18109374821308932,-0.19518671929836273
+has_noise_no_probend,noise,fixed length,"[0.75, 0.9)",119468,0.24604707091547465,-0.18750295042991638
+has_noise_no_probend,noise,fixed length,"[0.9, 1.1)",435607,0.49524520515220977,0.010601936839520931
+has_noise_no_probend,noise,fixed length,"[1.1, 1.25)",119372,0.7309444902397332,0.19023220241069794
+has_noise_no_probend,noise,fixed length,"[1.25, 1.5)",102802,0.7991467255756796,0.20530197024345398
+has_noise_no_probend,noise,fixed length,"[1.5, 2.0)",62107,0.89241877783249,0.21087950468063354
+has_noise_no_probend,noise,fixed length,"[2.0, 3.0)",2802,0.9290235071532544,0.18328042328357697
+has_noise_no_probend,noise,fixed length,"[3.0, inf)",198,0.8936987037532523,
+has_noise_has_probend,noise,probabilistic end,"[0.0, 0.25)",22877,0.08140510786420604,-0.3438872694969177
+has_noise_has_probend,noise,probabilistic end,"[0.25, 0.5)",43803,0.11463488026550746,-0.32824498414993286
+has_noise_has_probend,noise,probabilistic end,"[0.5, 0.75)",80727,0.15767068846105772,-0.2947649359703064
+has_noise_has_probend,noise,probabilistic end,"[0.75, 0.9)",92294,0.2267605053850464,-0.23456211388111115
+has_noise_has_probend,noise,probabilistic end,"[0.9, 1.1)",569053,0.5243658607090952,0.03259533271193504
+has_noise_has_probend,noise,probabilistic end,"[1.1, 1.25)",89851,0.7868243102163796,0.2594746947288513
+has_noise_has_probend,noise,probabilistic end,"[1.25, 1.5)",48541,0.8483548287542333,0.2997986078262329
+has_noise_has_probend,noise,probabilistic end,"[1.5, 2.0)",27967,0.9003090897716592,0.317233681678772
+has_noise_has_probend,noise,probabilistic end,"[2.0, 3.0)",15598,0.9150598786450804,0.3143969178199768
+has_noise_has_probend,noise,probabilistic end,"[3.0, inf)",12239,0.9162080775441914,0.3155127763748169

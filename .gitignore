@@ -1,2 +1,8 @@
 Data/10246247/*
 Data/combined_dataset.csv
+.venv/
+__pycache__/
+.DS_Store
+Data/combined_dataset.parquet
+Data/10246247/*.part
+Models/v2/

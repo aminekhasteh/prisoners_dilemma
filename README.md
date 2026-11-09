@@ -30,3 +30,13 @@ For a detailed explanation of the Prisoner's Dilemma and its implications, check
 4. Glynatsi, N., Knight, V., & Harper, M. (2024). Properties of Winning Iterated Prisoner's Dilemma Strategies
 5. Knight, V. et al. (Year). Axelrod-Python library
 6. Axelrod-Python strategy list: [Link to be added]
+## Reproducing the revisited analysis (v2)
+```bash
+python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt   # macOS: brew install libomp
+.venv/bin/python scripts/download_data.py      # ~1.75 GB from Zenodo record 10246247
+.venv/bin/python scripts/prepare_data.py       # -> Data/combined_dataset.parquet
+.venv/bin/python scripts/train_and_explain.py  # -> Results/, Plots/v2/
+```
+v2 predicts the paper's normalized rank (Rank / (N - 1)), splits train/test by tournament seed,
+fits XGBoost on unscaled features, and reports 95% bootstrap intervals for mean |SHAP|.
+`Results/ablation.csv` shows the effect of each change against the original setup.
