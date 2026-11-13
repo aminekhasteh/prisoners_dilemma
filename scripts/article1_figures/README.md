@@ -7,7 +7,7 @@ Small inputs are kept in `data/` so every figure can be redrawn without rerunnin
 | Script | Output | Inputs |
 |---|---|---|
 | `make_figures.py data OUT_DIR` | `noise_flip_by_level.png`, `r2_by_setting.png`, `importance_all.png` | `data/noise_flip_summary.csv`, `data/holdout_r2.csv`, `data/shap_importance_ci.csv` (copied from `Results/` on branches `revisit-normalized-rank` and `claude/project-thread-s27dmu`) |
-| `old_model_on_new.py data/old_model_on_272.csv out.png` | `old_model_on_new_strategies.png` (predicted vs actual rank for the 272 strategies of Knight et al. 2025 (arXiv 2510.15438), from the model trained on the 195-strategy no-noise tournaments; strategies it never saw are highlighted) | `data/old_model_on_272.csv` |
+| `old_model_on_new.py data/old_model_on_272.csv out.png` | `old_model_on_new_strategies.png` (predicted vs actual rank for the 272 strategies of Knight et al. 2025 (arXiv 2510.15438), from the model trained on the 195-strategy no-noise tournaments; strategies it never saw are highlighted) | `data/old_model_on_272.csv` (copied from `scripts/knight272/results/`) |
 | `payoffs.py out.png [--filled]` | `payoffs.png` (payoff matrix for one round, drawn with the same marks, palette and typeface as the ring: circle = cooperate, square = defect, Player 1 filled, Player 2 in outline; `--filled` fills both) | none |
 | `sse_math_p.py out.png` | `sse_math_p.png` (a strategy as four numbers: its chance of cooperating after CC, CD, DC and DD, shown for Tit for Tat, Grudger, Win-Stay-Lose-Shift and RANDOM) | none |
 | `sse_math_recipe.py out.png` | `sse_math_recipe.png` (how a zero-determinant strategy picks its next move: one column per outcome, points on tiles turned into a chance by the dials α and β; worked for Tit for Tat and Extort-2) | none (Knight et al. 2019, eqs. 6-9) |
@@ -22,9 +22,13 @@ Small inputs are kept in `data/` so every figure can be redrawn without rerunnin
 `data/cover_moves*.csv` hold each strategy's moves against one fixed opponent (`label` = nice / nasty / end-game from the replay-based
 "never defects first" check). They were made on the server; the replay script is not part of this folder.
 
+The cover and the move ring in the post now show the 272 strategies of Knight et al. 2025. Those versions are drawn by the copy of
+`sse_moves_circular.py` in `scripts/knight272/` (step 10 in that folder's README); the script here draws the 195-strategy versions.
+
 `data/old_model_on_272.csv` has one row per strategy: its mean normalized rank in the 100 no-noise tournaments of Knight et al. 2025
 (`actual`), the rank predicted by `Models/v2/model_no_noise_no_probend.json` (`pred`), and whether the model saw the strategy in
-training (`group`). It was made on the server by the 272-strategy rerun; that script is not part of this folder.
+training (`group`). It is a copy of `scripts/knight272/results/old_model_on_272.csv`, which `scripts/knight272/test_old_model.py`
+makes (step 8 in that folder's README).
 
 The three `sse_math_*.py` figures use the payoff matrix's marks (circle = cooperate, square = defect, Player 1 filled, Player 2 in
 outline) and add two conventions: a number on a grey tile is points, a number with a bar under it is a chance of cooperating
