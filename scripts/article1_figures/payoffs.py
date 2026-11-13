@@ -1,58 +1,113 @@
-"""Sketch-style infographic of the four Prisoner's Dilemma outcomes. Usage: python3 payoffs.py out.png"""
+"""One round of the Prisoner's Dilemma as a payoff matrix, drawn in the same visual language as the cover and
+the SSE ring (sse_moves_circular.py): circle = cooperate, square = defect, same palette and typeface.
+Player 1 is drawn filled, Player 2 in outline, the way the shared opponent is drawn on the cover and the ring.
+Each outcome carries its two-letter code (CC, CD, DC, DD: Player 1's move first), which the rest of the post uses.
+
+Usage: python3 payoffs.py out.png [--filled] [--dpi=200]
+  --filled: draw Player 2 filled as well (colour by move); the subtitle then says who is on the left and right."""
 import sys, warnings, logging
 warnings.filterwarnings("ignore"); logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, Arc, FancyBboxPatch
+from matplotlib.patches import Circle, Rectangle
 
-COOP, DEFECT, INK, MUTED, INK2 = "#2a78d6", "#eb6834", "#1b1b1b", "#6b6a66", "#3d3c39"
-FACE = {5: "grin", 3: "smile", 1: "meh", 0: "sad"}
+# palette and inks shared with sse_moves_circular.py
+INK, INK2, MUTED, LINE = "#1b1b1b", "#3d3c39", "#6b6a66", "#c9c8c3"
+COOP, DEFECT = "#2a78d6", "#eb6834"
+out = sys.argv[1]
+FILLED = "--filled" in sys.argv
+DPI = int(next((a.split("=")[1] for a in sys.argv if a.startswith("--dpi=")), 200))
 
-def face(ax, x, y, r, color, pts, square=False):
-    if square:
-        ax.add_patch(FancyBboxPatch((x - 0.9 * r, y - 0.9 * r), 1.8 * r, 1.8 * r, boxstyle="round,pad=0,rounding_size=0.25",
-                                    facecolor=color, edgecolor=INK, lw=2, alpha=0.9, zorder=2))
+plt.rcParams["font.family"] = ["DejaVu Sans"]
+W, H = 100.0, 89.0                     # data units; 1 unit = 0.1 inch
+fig = plt.figure(figsize=(W / 10, H / 10), facecolor="white")
+ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, W); ax.set_ylim(0, H); ax.set_aspect("equal"); ax.axis("off")
+PT = 10 / 72.0                         # one point in data units
+WORD = {"C": "cooperates", "D": "defects"}
+
+
+def mark(x, y, move, r, player, lw=2.0):
+    """Circle = cooperate, square = defect. Player 1 is filled, Player 2 is an ink outline (unless --filled)."""
+    col = COOP if move == "C" else DEFECT
+    if player == 2 and not FILLED:
+        r -= lw * PT / 2               # keep the outer size equal to the filled marks
+        kw = dict(facecolor="white", edgecolor=INK, lw=lw, zorder=3)
     else:
-        ax.add_patch(Circle((x, y), r, facecolor=color, edgecolor=INK, lw=2, alpha=0.9, zorder=2))
-    for dx in (-0.32, 0.32):
-        ax.add_patch(Circle((x + dx * r, y + 0.22 * r), 0.07 * r, color=INK, zorder=3))
-    m = FACE[pts]
-    if m == "grin":
-        ax.add_patch(Arc((x, y - 0.12 * r), 1.0 * r, 0.8 * r, theta1=200, theta2=340, lw=2.5, color=INK, zorder=3))
-    elif m == "smile":
-        ax.add_patch(Arc((x, y - 0.1 * r), 0.7 * r, 0.45 * r, theta1=200, theta2=340, lw=2.5, color=INK, zorder=3))
-    elif m == "meh":
-        ax.plot([x - 0.3 * r, x + 0.3 * r], [y - 0.35 * r, y - 0.35 * r], lw=2.5, color=INK, zorder=3)
+        kw = dict(facecolor=col, edgecolor="none", zorder=3)
+    if move == "C":
+        ax.add_patch(Circle((x, y), r, **kw))
     else:
-        ax.add_patch(Arc((x, y - 0.55 * r), 0.7 * r, 0.45 * r, theta1=20, theta2=160, lw=2.5, color=INK, zorder=3))
+        s = 0.88 * r                   # same circle-to-square ratio as the ring
+        ax.add_patch(Rectangle((x - s, y - s), 2 * s, 2 * s, joinstyle="miter", **kw))
 
-def panel(ax, you, them, py, pt, title, sub):
-    ax.set_xlim(0, 10); ax.set_ylim(1, 10); ax.set_aspect("equal"); ax.axis("off")
-    ax.add_patch(FancyBboxPatch((0.2, 1.2), 9.6, 8.6, boxstyle="round,pad=0.1,rounding_size=0.6",
-                                facecolor="white", edgecolor="#c9c8c3", lw=1.5))
-    ax.text(5, 9.15, title, ha="center", va="center", fontsize=15 if len(title) < 20 else 12.5, fontweight="bold", color=INK)
-    ax.plot([1.0, 9.0], [8.6, 8.6], color=INK, lw=1.5)
-    ax.text(5, 7.75, sub, ha="center", va="center", fontsize=10.5, color=INK2, linespacing=1.3,
-            bbox=dict(boxstyle="round,pad=0.45,rounding_size=0.3", facecolor="#f6f5f2", edgecolor="#c9c8c3", lw=1.2))
-    for x, who, move, pts, sq in ((2.6, "Player 1", you, py, False), (7.4, "Player 2", them, pt, True)):
-        col = COOP if move == "C" else DEFECT
-        face(ax, x, 4.55, 1.15, col, pts, sq)
-        ax.text(x, 2.85, who, ha="center", fontsize=12.5, color=INK)
-        ax.text(x, 1.95, "cooperates" if move == "C" else "defects", ha="center", fontsize=12.5, color=col, fontweight="bold")
-        ax.text(x, 6.3, f"+{pts}", ha="center", va="center", fontsize=22, fontweight="bold", color=INK)
-    ax.plot([5, 5], [1.7, 6.8], color=MUTED, lw=1.5, ls=(0, (4, 3)))
 
-plt.xkcd(scale=0.6, length=120, randomness=2)
-plt.rcParams["font.family"] = ["Humor Sans", "Comic Neue", "DejaVu Sans"]
-plt.rcParams["path.effects"] = []
-fig, axes = plt.subplots(2, 2, figsize=(10, 9.2))
-panel(axes[0, 0], "C", "C", 3, 3, "Both cooperate", "Reward (R) for both")
-panel(axes[0, 1], "C", "D", 0, 5, "Player 1 cooperates, Player 2 defects", "Player 1 gets the Sucker's payoff (S),\nPlayer 2 gets the Temptation (T)")
-panel(axes[1, 0], "D", "C", 5, 0, "Player 1 defects, Player 2 cooperates", "Player 1 gets the Temptation (T),\nPlayer 2 gets the Sucker's payoff (S)")
-panel(axes[1, 1], "D", "D", 1, 1, "Both defect", "Punishment (P) for both")
-fig.text(0.5, 0.995, "One round of the Prisoner's Dilemma", ha="center", va="top", fontsize=19, fontweight="bold", color=INK)
-fig.text(0.5, 0.955, "Player 1 is the circle, Player 2 is the square. One move each, at the same time.", ha="center", va="top", fontsize=12.5, color=MUTED)
-fig.subplots_adjust(left=0.02, right=0.98, bottom=0.02, top=0.92, wspace=0.06, hspace=0.06)
-fig.savefig(sys.argv[1], dpi=180, facecolor="white")
-print("ok")
+def band(x0, y0, x1, y1, col):
+    """Thick round-capped band marking the span of a move, like the arcs inside the ring."""
+    ax.plot([x0, x1], [y0, y1], color=col, lw=5.5, solid_capstyle="round", zorder=2)
+
+
+def two_weight(cx, y, plain, bold, size):
+    """Centre 'plain bold' on cx, with the second word in bold."""
+    t1 = ax.text(0, y, plain + " ", fontsize=size, color=INK2, va="center")
+    t2 = ax.text(0, y, bold, fontsize=size, fontweight="bold", color=INK, va="center")
+    fig.canvas.draw()
+    inv = ax.transData.inverted()
+    w1, w2 = (t.get_window_extent().transformed(inv).width for t in (t1, t2))
+    t1.set_x(cx - (w1 + w2) / 2); t2.set_x(cx - (w1 + w2) / 2 + w1)
+
+
+XL, XM, XR = 21.0, 59.0, 97.0          # left edge, middle and right edge of the four outcomes
+YT, YM, YB = 63.0, 38.0, 13.0          # top, middle and bottom
+CW, CH = XM - XL, YT - YM
+
+# title block, as on the SSE ring
+ax.text(W / 2, H - 2.8, "One round of the Prisoner's Dilemma", ha="center", va="top", fontsize=21, fontweight="bold", color=INK)
+ax.text(W / 2, H - 7.5, "Both players move at the same time. Circle = cooperate, square = defect.\n" +
+        ("In each box, Player 1 is on the left and Player 2 on the right." if FILLED else "Filled = Player 1, outline = Player 2."),
+        ha="center", va="top", fontsize=12.5, color=MUTED, linespacing=1.45)
+
+# hairlines between the four outcomes
+ax.plot([XM, XM], [YB + 1.2, YT - 0.4], color=LINE, lw=1.0, zorder=1)
+ax.plot([XL + 0.4, XR - 1.2], [YM, YM], color=LINE, lw=1.0, zorder=1)
+
+# coloured bands along the top (Player 2's move) and the left (Player 1's move)
+g, off = 1.6, 1.4
+band(XL + g, YT + off, XM - g, YT + off, COOP); band(XM + g, YT + off, XR - g, YT + off, DEFECT)
+band(XL - off, YT - g, XL - off, YM + g, COOP); band(XL - off, YM - g, XL - off, YB + g, DEFECT)
+
+# column headers: Player 2
+for cx, mv in ((XL + CW / 2, "C"), (XM + CW / 2, "D")):
+    mark(cx, YT + 8.9, mv, 1.5, 2, lw=1.6)
+    two_weight(cx, YT + 4.7, "Player 2", WORD[mv], 13)
+
+# row headers: Player 1
+hx = (3.0 + XL - off) / 2
+for cy, mv in ((YT - CH / 2, "C"), (YM - CH / 2, "D")):
+    mark(hx, cy + 4.6, mv, 1.5, 1)
+    ax.text(hx, cy + 0.4, "Player 1", ha="center", va="center", fontsize=13, color=INK2)
+    ax.text(hx, cy - 3.0, WORD[mv], ha="center", va="center", fontsize=13, fontweight="bold", color=INK)
+
+# the four outcomes: (Player 1's move, Player 2's move) -> (Player 1's points, Player 2's points)
+NAMES = {3: "Reward (R)", 0: "Sucker's payoff (S)", 5: "Temptation (T)", 1: "Punishment (P)"}
+PAY = {("C", "C"): (3, 3), ("C", "D"): (0, 5), ("D", "C"): (5, 0), ("D", "D"): (1, 1)}
+DX = 8.6
+for (m1, m2), (p1, p2) in PAY.items():
+    x0, y1 = (XL if m2 == "C" else XM), (YT if m1 == "C" else YM)
+    cx, cy = x0 + CW / 2, y1 - CH / 2 + 0.5
+    for x, mv, pts, who in ((cx - DX, m1, p1, 1), (cx + DX, m2, p2, 2)):
+        mark(x, cy + 4.8, mv, 3.0, who)
+        ax.text(x, cy - 3.2, str(pts), ha="center", va="center", fontsize=30, fontweight="bold", color=INK)
+    if p1 == p2:
+        ax.text(cx, cy - 8.8, NAMES[p1] + " for both", ha="center", va="center", fontsize=11.5, color=INK2)
+    else:
+        ax.text(cx - DX, cy - 8.8, NAMES[p1], ha="center", va="center", fontsize=11.5, color=INK2)
+        ax.text(cx + DX, cy - 8.8, NAMES[p2], ha="center", va="center", fontsize=11.5, color=INK2)
+    ax.text(x0 + 2.4, y1 - 2.9, m1 + m2, ha="left", va="center", fontsize=11.5, fontweight="bold", color=MUTED)
+
+# notes, as under the SSE ring
+ax.text(W / 2, 6.3, "Temptation (T = 5)  >  Reward (R = 3)  >  Punishment (P = 1)  >  Sucker's payoff (S = 0)\n"
+        "CC, CD, DC, DD: Player 1's move first, then Player 2's.",
+        ha="center", va="center", fontsize=12, color=MUTED, linespacing=1.5)
+fig.savefig(out, dpi=DPI, facecolor="white")
+print("ok", out)
