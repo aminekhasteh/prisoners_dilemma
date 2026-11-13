@@ -1,0 +1,11 @@
+subset,check,R2,MAE,test_rows
+all,unseen tournaments (v2),0.8821837805210064,0.06581299225460352,801019
+all,unseen strategies and tournaments,0.8137862441330865,0.08368625660847631,160203
+no_noise_no_probend,paper range only,0.9591551898531675,0.04001082759654703,200309
+no_noise_no_probend,"paper range, unseen strategies",0.7529419474760762,0.09753664575593368,40061
+no_noise_has_probend,paper range only,0.9170713751412587,0.05593619980960841,20273
+no_noise_has_probend,"paper range, unseen strategies",0.7029516659248835,0.10904540581308356,4054
+has_noise_no_probend,paper range only,0.885670957705608,0.0687913792499833,20523
+has_noise_no_probend,"paper range, unseen strategies",0.5085160152369702,0.14240554092772525,4104
+has_noise_has_probend,paper range only,0.8580471901672044,0.07807048618426982,2026
+has_noise_has_probend,"paper range, unseen strategies",0.6648948204994445,0.12233130830370413,405
