@@ -1,0 +1,273 @@
+Name,label
+EvolvedLookerUp2_2_2,nice
+Evolved ANN 5,nice
+Evolved HMM 5,nice
+Evolved FSM 16,nice
+"Omega TFT: 3, 8",nice
+Evolved ANN,nice
+Evolved FSM 16 Noise 05,nice
+PSO Gambler 2_2_2,nice
+PSO Gambler 2_2_2 Noise 05,nice
+PSO Gambler Mem1,nice
+Evolved FSM 4,nice
+PSO Gambler 1_1_1,nice
+Original Gradual,nice
+Gradual,nice
+"DBS: 0.75, 3, 4, 3, 5",nice
+Winner12,nice
+Spiteful Tit For Tat,nice
+k42r,nice
+k60r,nice
+k85r,nice
+"EugineNier: (D,)",nice
+k65r,nice
+"DoubleCrosser: (D, D)",nice
+k80r,nice
+k40r,nice
+k87r,nice
+Forgetful Fool Me Once: 0.05,nice
+k32r,nice
+Fool Me Once,nice
+k58r,nice
+k56r,nice
+"BackStabber: (D, D)",nice
+Revised Downing,nice
+k59r,nice
+k81r,nice
+k41r,nice
+k49r,nice
+MEM2,nice
+k55r,nice
+AON2,nice
+First by Shubik,nice
+Meta Hunter: 6 players,nice
+"ZD-GTFT-2: 0.25, 0.5",nice
+EvolvedLookerUp1_1_1,nice
+Soft Joss: 0.9,nice
+NMWE Finite Memory: 79 players,nice
+NMWE Stochastic: 67 players,nice
+"Michaelos: (D,)",nice
+k84r,nice
+k38r,nice
+"First by Stein and Rapoport: 0.05: (D, D)",nice
+NMWE Memory One: 36 players,nice
+k44r,nice
+Nice Meta Winner Ensemble: 213 players,nice
+GTFT: 0.33,nice
+Resurrection,nice
+NMWE Deterministic: 146 players,nice
+k92r,nice
+Adaptive Tit For Tat: 0.5,nice
+Forgiving Tit For Tat,nice
+Meta Majority Long Memory: 134 players,nice
+NMWE Long Memory: 134 players,nice
+Level Punisher,nice
+k86r,nice
+Evolved ANN 5 Noise 05,nasty
+"General Soft Grudger: n=1,d=4,c=2",nice
+TF3,nice
+Soft Grudger,nice
+Meta Majority: 213 players,nice
+Firm But Fair,nice
+Nice Meta Winner: 213 players,nice
+k34r,nice
+k43r,nasty
+k68r,nice
+"Memory Decay: 0.1, 0.03, -2, 1, Tit For Tat, 15",nice
+k66r,nice
+"ZD-GEN-2: 0.125, 0.5, 3",nice
+Meta Majority Finite Memory: 79 players,nice
+GrudgerAlternator,nice
+Doubler,nice
+k47r,nasty
+k46r,nice
+Second by Eatherley,nice
+k79r,nice
+k72r,nice
+k35r,nice
+"First by Tideman and Chieruzzi: (D, D)",nice
+Meta Majority Memory One: 36 players,nasty
+Adaptive Pavlov 2006,nice
+First by Davis: 10,nice
+Adaptive Pavlov 2011,nice
+Second by Champion,nice
+"Limited Retaliate 3: 0.05, 20",nice
+k61r,nice
+k91r,nice
+ShortMem,nice
+Once Bitten,nice
+k64r,nice
+Inverse Punisher,nice
+k73r,nice
+Soft Go By Majority: 5,nice
+Forgiver,nice
+Dynamic Two Tits For Tat,nice
+k53r,nice
+"Limited Retaliate 2: 0.08, 15",nice
+k75r,nasty
+k70r,nice
+Slow Tit For Two Tats 2,nice
+k37r,nice
+Tricky Level Punisher,nice
+"Stalker: (D,)",nice
+Retaliate 3: 0.05,nice
+"Limited Retaliate: 0.1, 20",nice
+k83r,nice
+First by Grofman,nice
+k57r,nice
+VeryBad,nice
+Soft Go By Majority: 10,nice
+Hard Tit For 2 Tats,nice
+Retaliate 2: 0.08,nice
+Soft Go By Majority: 20,nice
+Punisher,nice
+Soft Go By Majority: 40,nice
+Worse and Worse 3,nice
+Nice Average Copier,nice
+Retaliate: 0.1,nice
+Forgetful Grudger,nice
+k88r,nice
+Second by Appold,nice
+k31r,nice
+k78r,nasty
+AdaptorBrief,nasty
+Math Constant Hunter,nice
+k39r,nasty
+"N Tit(s) For M Tat(s): 3, 2",nice
+k90r,nice
+Thumper,nice
+"Grumpy: Nice, 10, -10",nice
+Two Tits For Tat,nice
+Inverse,nice
+k82r,nasty
+Delayed AON1,nice
+Hard Tit For Tat,nice
+Win-Stay Lose-Shift,nice
+Appeaser,nice
+First by Graaskamp: 0.05,nasty
+k69r,nasty
+k67r,nasty
+Eventual Cycle Hunter,nice
+First by Nydegger,nice
+k48r,nasty
+Random Hunter,nice
+UsuallyCooperates,nice
+AdaptorLong,nasty
+Cycle Hunter,nice
+k76r,nasty
+Second by Tester,nasty
+Defector Hunter,nice
+Raider,nasty
+Alternator Hunter,nice
+Average Copier,nasty
+k77r,nasty
+k45r,nasty
+Ripoff,nasty
+k52r,nasty
+k51r,nasty
+Prober 2,nasty
+Knowledgeable Worse and Worse,nice
+Cooperator,nice
+Hard Prober,nasty
+k33r,nasty
+"First by Feld: 1.0, 0.5, 200",nasty
+k62r,nasty
+Sneaky Tit For Tat,nasty
+Worse and Worse 2,nasty
+DoubleResurrection,nasty
+Remorseful Prober: 0.1,nasty
+Suspicious Tit For Tat,nasty
+Willing,nasty
+ZD-Mem2,nasty
+First by Downing,nasty
+First by Tullock,nasty
+Random Tit for Tat: 0.5,nasty
+k89r,nasty
+Risky QLearner,nasty
+Cautious QLearner,nasty
+Arrogant QLearner,nasty
+Hesitant QLearner,nasty
+Detective,nasty
+Worse and Worse,nasty
+k74r,nasty
+k54r,nasty
+Adaptive,nasty
+Prober,nasty
+Stochastic Cooperator,nasty
+Naive Prober: 0.1,nasty
+Hard Go By Majority: 5,nasty
+First by Joss: 0.9,nasty
+Hard Go By Majority,nasty
+Opposite Grudger,nasty
+Calculator,nasty
+ALLCorALLD,nasty
+Pun1,nasty
+Hard Go By Majority: 40,nasty
+EasyGo,nasty
+Prober 3,nasty
+Prober 4,nasty
+Hard Go By Majority: 20,nasty
+Hard Go By Majority: 10,nasty
+Meta Mixer: 213 players,nasty
+SolutionB5,nasty
+Stochastic WSLS: 0.05,nasty
+Winner21,nasty
+Meta Hunter Aggressive: 7 players,nasty
+Cycler CCCCCD,nasty
+k71r,nasty
+"ZD-SET-2: 0.25, 0.0, 2",nasty
+Fortress3,nasty
+Cycler CCCDCD,nasty
+Fortress4,nasty
+Cycler CCCD,nasty
+TF2,nasty
+Meta Winner Long Memory: 134 players,nasty
+Meta Winner: 213 players,nasty
+SelfSteem,nasty
+Cooperator Hunter,nasty
+"ZD-Extort-2: 0.1111111111111111, 0.5",nasty
+"ZD-Extort-2 v2: 0.125, 0.5, 1",nasty
+Cycler CCD,nasty
+Meta Winner Deterministic: 146 players,nasty
+SolutionB1,nasty
+Alternator,nasty
+k63r,nasty
+Meta Winner Finite Memory: 79 players,nasty
+Meta Winner Ensemble: 213 players,nasty
+Meta Winner Stochastic: 67 players,nasty
+Win-Shift Lose-Stay: D,nasty
+Cycler DC,nasty
+Meta Winner Memory One: 36 players,nasty
+k50r,nasty
+"ZD-Extort3: 0.11538461538461539, 0.3333333333333333, 1",nasty
+ThueMorse,nasty
+TF1,nasty
+Cycler DDC,nasty
+"ZD-Extort-4: 0.23529411764705882, 0.25, 1",nasty
+k36r,nasty
+Predator,nasty
+ThueMorseInverse,nasty
+AntiCycler,nasty
+CollectiveStrategy,nasty
+UsuallyDefects,nasty
+"ZD-Mischief: 0.1, 0.0, 1",nasty
+$\pi$,nasty
+"ZD-Extortion: 0.2, 0.1, 1",nasty
+Tricky Cooperator,nasty
+First by Anonymous,nasty
+Aggravater,nasty
+krandomc,nasty
+Better and Better,nasty
+$e$,nasty
+"Bush Mosteller: 0.5, 0.5, 3.0, 0.5",nasty
+Desperate,nasty
+"Gradual Killer: (D, D, D, D, D, C, C)",nasty
+Meta Minority: 213 players,nasty
+Hopeless,nasty
+Defector,nasty
+Bully,nasty
+Handshake,nasty
+Tricky Defector,nasty
+$\phi$,nasty
+Negation,nasty
+Anti Tit For Tat,nasty

@@ -1,0 +1,273 @@
+Name,fortran,python_class,author,original_rank,Stochastic,Memory_depth,Makes_use_of_game,Makes_use_of_length,long_run_time
+k31r,1,Go By Majority,Gail Grisell,23,0,inf,0,0,0
+k32r,1,Second by Kluepfel,Charles Kluepfel,10,1,inf,0,0,0
+k33r,1,,Harold Rabbie,59,0,inf,0,0,0
+k34r,1,Grudger,James W Friedman,52,0,inf,0,0,0
+k35r,1,Second by Getzler,Abraham Getzler,11,1,inf,0,0,0
+k36r,1,,Roger Hotz,63,1,inf,0,0,0
+k37r,1,,George Lefevre,37,0,inf,0,0,0
+k38r,1,,Nelson Weiderman,34,0,inf,0,0,0
+k39r,1,,Tom Almy,25,0,inf,0,0,0
+k40r,1,,Robert Adams,35,1,inf,0,0,0
+k41r,1,Second by Weiner,Herb Weiner,7,0,inf,0,0,0
+k42r,1,Second by Borufsen,Otto Borufsen,3,0,inf,0,0,0
+k43r,1,,R D Anderson,39,0,inf,0,0,0
+k44r,1,Second by WmAdams,William Adams,5,1,inf,0,0,0
+k45r,1,,Michael F McGurrin,50,0,inf,0,0,0
+k46r,1,,Graham J Eatherley,14,1,inf,0,0,0
+k47r,1,Second by RichardHufford,Richard Hufford,16,0,inf,0,0,0
+k48r,1,,George Hufford,53,0,inf,0,0,0
+k49r,1,Second by Cave,Rob Cave,4,1,inf,0,0,0
+k50r,1,,Rik Smoody,54,1,inf,0,0,0
+k51r,1,Second by Colbert,John William Colbert,18,0,4,0,0,0
+k52r,1,,David A Smith,48,1,inf,0,0,0
+k53r,1,,Henry Nussbacher,45,1,inf,0,0,0
+k54r,1,,William H Robertson,58,0,inf,0,0,0
+k55r,1,,Steve Newman,42,0,inf,0,0,0
+k56r,1,,Stanley F Quayle,38,0,inf,0,0,0
+k57r,1,,Rudy Nydegger,31,0,inf,0,0,0
+k58r,1,Second by Rowsam,Glen Rowsam,21,0,inf,1,0,0
+k59r,1,,Leslie Downing,40,0,inf,0,0,0
+k60r,1,Second by GraaskampKatzen,Jim Graaskamp and Ken Katzen,6,0,inf,1,0,0
+k61r,1,,Danny C Champion,2,1,inf,0,0,0
+k62r,1,,Howard R Hollander,51,1,inf,0,0,0
+k63r,1,,George Duisman,57,0,inf,0,0,0
+k64r,1,Second by Yamachi,Brian Yamachi,17,0,inf,0,0,0
+k65r,1,,Mark F Batell,47,0,inf,0,0,0
+k66r,1,Second by Mikkelson,Ray Mikkelson,20,0,inf,0,0,0
+k67r,1,Second by Tranquilizer,Craig Feathers,27,1,inf,0,0,0
+k68r,1,Second by Leyvraz,Fransois Leyvraz,12,1,3,0,0,0
+k69r,1,,Johann Joss,29,1,inf,0,0,0
+k70r,1,,Robert Pebly,32,1,inf,0,0,0
+k71r,1,,James E Hall,60,0,inf,0,0,0
+k72r,1,Second by White,Edward C White Jr,13,1,inf,0,0,0
+k73r,1,,George Zimmerman,41,0,inf,0,0,0
+k74r,1,,Edward Friedland,61,0,inf,0,0,0
+k75r,1,Second by Harrington,Paul D Harrington,8,1,inf,0,0,0
+k76r,1,Second by Gladstein,David Gladstein,46,0,inf,0,0,0
+k77r,1,,Scott Feld,55,1,inf,0,0,0
+k78r,1,,Fred Mauk,19,1,inf,0,0,0
+k79r,1,,Dennis Ambuehl and Kevin Hickey,26,0,inf,0,0,0
+k80r,1,,Robyn M Dawes and Mark Batell,36,0,inf,0,0,0
+k81r,1,,Martyn Jones,43,0,inf,0,0,0
+k82r,1,,Robert A Leyland,49,1,inf,0,0,0
+k83r,1,Second by Black,Paul E Black,15,1,5,0,0,0
+k84r,1,Second by Tideman and Chieruzzi,T Nicolaus Tideman and Paula Chieruzz,9,0,inf,1,0,0
+k85r,1,,Robert B Falk and James M Langsted,33,0,inf,0,0,0
+k86r,1,Second by Grofman,Bernard Grofman,28,0,8,0,0,0
+k87r,1,,E E H Schurmann,44,1,inf,0,0,0
+k88r,1,,Scott Appold,22,1,inf,0,0,0
+k89r,1,,Gene Snodgrass,56,0,inf,0,0,0
+k90r,1,Tit For 2 Tats,John Maynard Smith,24,0,2,0,0,0
+k91r,1,,Jonathan Pinkley,30,0,inf,0,0,0
+k92r,1,Tit For Tat,Anatol Rapoport,1,0,1,0,0,0
+krandomc,1,Random,,62,1,0,0,0,0
+ALLCorALLD,0,ALLCorALLD,,,1,1,0,0,0
+AON2,0,AON2,,,0,2,0,0,0
+Adaptive Pavlov 2006,0,Adaptive Pavlov 2006,,,0,inf,0,0,0
+Adaptive Pavlov 2011,0,Adaptive Pavlov 2011,,,0,inf,0,0,0
+Adaptive,0,Adaptive,,,0,inf,1,0,0
+Adaptive Tit For Tat: 0.5,0,Adaptive Tit For Tat,,,0,inf,0,0,0
+AdaptorBrief,0,AdaptorBrief,,,1,inf,0,0,0
+AdaptorLong,0,AdaptorLong,,,1,inf,0,0,0
+Aggravater,0,Aggravater,,,0,inf,0,0,0
+Alternator,0,Alternator,,,0,1,0,0,0
+Alternator Hunter,0,Alternator Hunter,,,0,inf,0,0,0
+AntiCycler,0,AntiCycler,,,0,inf,0,0,0
+Anti Tit For Tat,0,Anti Tit For Tat,,,0,1,0,0,0
+Appeaser,0,Appeaser,,,0,inf,0,0,0
+Arrogant QLearner,0,Arrogant QLearner,,,1,inf,1,0,0
+Average Copier,0,Average Copier,,,1,inf,0,0,0
+"BackStabber: (D, D)",0,BackStabber,,,0,inf,0,1,0
+Better and Better,0,Better and Better,,,1,inf,0,0,0
+Bully,0,Bully,,,0,1,0,0,0
+"Bush Mosteller: 0.5, 0.5, 3.0, 0.5",0,Bush Mosteller,,,1,inf,1,0,0
+Calculator,0,Calculator,,,1,inf,0,0,0
+Cautious QLearner,0,Cautious QLearner,,,1,inf,1,0,0
+CollectiveStrategy,0,CollectiveStrategy,,,0,inf,0,0,0
+Cooperator,0,Cooperator,,,0,0,0,0,0
+Cooperator Hunter,0,Cooperator Hunter,,,0,inf,0,0,0
+Cycle Hunter,0,Cycle Hunter,,,0,inf,0,0,0
+Cycler CCCCCD,0,Cycler CCCCCD,,,0,5,0,0,0
+Cycler CCCD,0,Cycler CCCD,,,0,3,0,0,0
+Cycler CCCDCD,0,Cycler CCCDCD,,,0,5,0,0,0
+Cycler CCD,0,Cycler CCD,,,0,2,0,0,0
+Cycler DC,0,Cycler DC,,,0,1,0,0,0
+Cycler DDC,0,Cycler DDC,,,0,2,0,0,0
+"DBS: 0.75, 3, 4, 3, 5",0,DBS,,,0,inf,0,0,1
+Defector,0,Defector,,,0,0,0,0,0
+Defector Hunter,0,Defector Hunter,,,0,inf,0,0,0
+Delayed AON1,0,Delayed AON1,,,0,2,0,0,0
+Desperate,0,Desperate,,,1,1,0,0,0
+Detective,0,Detective,,,0,inf,0,0,0
+"DoubleCrosser: (D, D)",0,DoubleCrosser,,,0,inf,0,1,0
+DoubleResurrection,0,DoubleResurrection,,,0,5,0,0,0
+Doubler,0,Doubler,,,0,inf,0,0,0
+Dynamic Two Tits For Tat,0,Dynamic Two Tits For Tat,,,1,inf,0,0,0
+EasyGo,0,EasyGo,,,0,inf,0,0,0
+"EugineNier: (D,)",0,EugineNier,,,0,inf,0,1,0
+Eventual Cycle Hunter,0,Eventual Cycle Hunter,,,0,inf,0,0,0
+Evolved ANN,0,Evolved ANN,,,0,inf,0,0,0
+Evolved ANN 5,0,Evolved ANN 5,,,0,inf,0,0,0
+Evolved ANN 5 Noise 05,0,Evolved ANN 5 Noise 05,,,0,inf,0,0,0
+Evolved FSM 16,0,Evolved FSM 16,,,0,inf,0,0,0
+Evolved FSM 16 Noise 05,0,Evolved FSM 16 Noise 05,,,0,inf,0,0,0
+Evolved FSM 4,0,Evolved FSM 4,,,0,inf,0,0,0
+Evolved HMM 5,0,Evolved HMM 5,,,1,5,0,0,0
+EvolvedLookerUp1_1_1,0,EvolvedLookerUp1_1_1,,,0,inf,0,0,0
+EvolvedLookerUp2_2_2,0,EvolvedLookerUp2_2_2,,,0,inf,0,0,0
+Firm But Fair,0,Firm But Fair,,,1,1,0,0,0
+First by Anonymous,0,First by Anonymous,,,1,0,0,0,0
+First by Davis: 10,0,First by Davis,,,0,inf,0,0,0
+First by Downing,0,First by Downing,,,0,inf,1,0,0
+"First by Feld: 1.0, 0.5, 200",0,First by Feld,,,1,200,0,0,0
+First by Graaskamp: 0.05,0,First by Graaskamp,,,1,inf,0,0,0
+First by Grofman,0,First by Grofman,,,1,1,0,0,0
+First by Joss: 0.9,0,First by Joss,,,1,1,0,0,0
+First by Nydegger,0,First by Nydegger,,,0,3,0,0,0
+First by Shubik,0,First by Shubik,,,0,inf,0,0,0
+"First by Stein and Rapoport: 0.05: (D, D)",0,First by Stein and Rapoport,,,0,inf,0,1,0
+"First by Tideman and Chieruzzi: (D, D)",0,First by Tideman and Chieruzzi,,,0,inf,1,1,0
+First by Tullock,0,First by Tullock,,,1,inf,0,0,0
+Fool Me Once,0,Fool Me Once,,,0,inf,0,0,0
+Forgetful Fool Me Once: 0.05,0,Forgetful Fool Me Once,,,1,inf,0,0,0
+Forgetful Grudger,0,Forgetful Grudger,,,0,10,0,0,0
+Forgiver,0,Forgiver,,,0,inf,0,0,0
+Forgiving Tit For Tat,0,Forgiving Tit For Tat,,,0,inf,0,0,0
+Fortress3,0,Fortress3,,,0,2,0,0,0
+Fortress4,0,Fortress4,,,0,3,0,0,0
+GTFT: 0.33,0,GTFT,,,1,1,1,0,0
+"General Soft Grudger: n=1,d=4,c=2",0,General Soft Grudger,,,0,inf,0,0,0
+Soft Go By Majority: 10,0,Go By Majority 10,,,0,10,0,0,0
+Soft Go By Majority: 20,0,Go By Majority 20,,,0,20,0,0,0
+Soft Go By Majority: 40,0,Go By Majority 40,,,0,40,0,0,0
+Soft Go By Majority: 5,0,Go By Majority 5,,,0,5,0,0,0
+$\phi$,0,$\phi$,,,0,inf,0,0,0
+Gradual,0,Gradual,,,0,inf,0,0,0
+"Gradual Killer: (D, D, D, D, D, C, C)",0,Gradual Killer,,,0,inf,0,0,0
+GrudgerAlternator,0,GrudgerAlternator,,,0,inf,0,0,0
+"Grumpy: Nice, 10, -10",0,Grumpy,,,0,inf,0,0,0
+Handshake,0,Handshake,,,0,inf,0,0,0
+Hard Go By Majority,0,Hard Go By Majority,,,0,inf,0,0,0
+Hard Go By Majority: 10,0,Hard Go By Majority 10,,,0,10,0,0,0
+Hard Go By Majority: 20,0,Hard Go By Majority 20,,,0,20,0,0,0
+Hard Go By Majority: 40,0,Hard Go By Majority 40,,,0,40,0,0,0
+Hard Go By Majority: 5,0,Hard Go By Majority 5,,,0,5,0,0,0
+Hard Prober,0,Hard Prober,,,0,inf,0,0,0
+Hard Tit For 2 Tats,0,Hard Tit For 2 Tats,,,0,3,0,0,0
+Hard Tit For Tat,0,Hard Tit For Tat,,,0,3,0,0,0
+Hesitant QLearner,0,Hesitant QLearner,,,1,inf,1,0,0
+Hopeless,0,Hopeless,,,1,1,0,0,0
+Inverse,0,Inverse,,,1,inf,0,0,0
+Inverse Punisher,0,Inverse Punisher,,,0,inf,0,0,0
+Knowledgeable Worse and Worse,0,Knowledgeable Worse and Worse,,,1,inf,0,1,0
+Level Punisher,0,Level Punisher,,,0,inf,0,0,0
+"Limited Retaliate: 0.1, 20",0,Limited Retaliate,,,0,inf,0,0,0
+"Limited Retaliate 2: 0.08, 15",0,Limited Retaliate 2,,,0,inf,0,0,0
+"Limited Retaliate 3: 0.05, 20",0,Limited Retaliate 3,,,0,inf,0,0,0
+MEM2,0,MEM2,,,0,inf,0,0,0
+Math Constant Hunter,0,Math Constant Hunter,,,0,inf,0,0,0
+"Michaelos: (D,)",0,Michaelos,,,1,inf,0,1,0
+"N Tit(s) For M Tat(s): 3, 2",0,N Tit(s) For M Tat(s),,,0,3,0,0,0
+Naive Prober: 0.1,0,Naive Prober,,,1,1,0,0,0
+Negation,0,Negation,,,1,1,0,0,0
+Nice Average Copier,0,Nice Average Copier,,,1,inf,0,0,0
+"Omega TFT: 3, 8",0,Omega TFT,,,0,inf,0,0,0
+Once Bitten,0,Once Bitten,,,0,12,0,0,0
+Opposite Grudger,0,Opposite Grudger,,,0,inf,0,0,0
+Original Gradual,0,Original Gradual,,,0,inf,0,0,0
+PSO Gambler 1_1_1,0,PSO Gambler 1_1_1,,,1,inf,0,0,0
+PSO Gambler 2_2_2,0,PSO Gambler 2_2_2,,,1,inf,0,0,0
+PSO Gambler 2_2_2 Noise 05,0,PSO Gambler 2_2_2 Noise 05,,,1,inf,0,0,0
+PSO Gambler Mem1,0,PSO Gambler Mem1,,,1,1,0,0,0
+$\pi$,0,$\pi$,,,0,inf,0,0,0
+Predator,0,Predator,,,0,inf,0,0,0
+Prober,0,Prober,,,0,inf,0,0,0
+Prober 2,0,Prober 2,,,0,inf,0,0,0
+Prober 3,0,Prober 3,,,0,inf,0,0,0
+Prober 4,0,Prober 4,,,0,inf,0,0,0
+Pun1,0,Pun1,,,0,inf,0,0,0
+Punisher,0,Punisher,,,0,inf,0,0,0
+Raider,0,Raider,,,0,inf,0,0,0
+Random Hunter,0,Random Hunter,,,0,inf,0,0,0
+Random Tit for Tat: 0.5,0,Random Tit for Tat,,,1,1,0,0,0
+Remorseful Prober: 0.1,0,Remorseful Prober,,,1,2,0,0,0
+Resurrection,0,Resurrection,,,0,5,0,0,0
+Retaliate: 0.1,0,Retaliate,,,0,inf,0,0,0
+Retaliate 2: 0.08,0,Retaliate 2,,,0,inf,0,0,0
+Retaliate 3: 0.05,0,Retaliate 3,,,0,inf,0,0,0
+Revised Downing,0,Revised Downing,,,0,inf,0,0,0
+Ripoff,0,Ripoff,,,0,3,0,0,0
+Risky QLearner,0,Risky QLearner,,,1,inf,1,0,0
+Second by Appold,0,Second by Appold,,,1,inf,0,0,0
+Second by Champion,0,Second by Champion,,,1,inf,0,0,0
+Second by Eatherley,0,Second by Eatherley,,,1,inf,0,0,0
+Second by Tester,0,Second by Tester,,,0,inf,0,0,0
+SelfSteem,0,SelfSteem,,,1,inf,0,0,0
+ShortMem,0,ShortMem,,,0,inf,0,0,0
+Slow Tit For Two Tats 2,0,Slow Tit For Two Tats 2,,,0,2,0,0,0
+Sneaky Tit For Tat,0,Sneaky Tit For Tat,,,0,inf,0,0,0
+Soft Grudger,0,Soft Grudger,,,0,6,0,0,0
+Soft Joss: 0.9,0,Soft Joss,,,1,1,0,0,0
+SolutionB1,0,SolutionB1,,,0,2,0,0,0
+SolutionB5,0,SolutionB5,,,0,inf,0,0,0
+Spiteful Tit For Tat,0,Spiteful Tit For Tat,,,0,inf,0,0,0
+"Stalker: (D,)",0,Stalker,,,1,inf,1,1,0
+Stochastic Cooperator,0,Stochastic Cooperator,,,1,1,0,0,0
+Stochastic WSLS: 0.05,0,Stochastic WSLS,,,1,1,0,0,0
+Suspicious Tit For Tat,0,Suspicious Tit For Tat,,,0,1,0,0,0
+TF1,0,TF1,,,0,inf,0,0,0
+TF2,0,TF2,,,0,inf,0,0,0
+TF3,0,TF3,,,0,inf,0,0,0
+ThueMorse,0,ThueMorse,,,0,inf,0,0,0
+ThueMorseInverse,0,ThueMorseInverse,,,0,inf,0,0,0
+Thumper,0,Thumper,,,0,inf,0,0,0
+Tricky Cooperator,0,Tricky Cooperator,,,0,10,0,0,0
+Tricky Defector,0,Tricky Defector,,,0,inf,0,0,0
+Tricky Level Punisher,0,Tricky Level Punisher,,,0,inf,0,0,0
+Two Tits For Tat,0,Two Tits For Tat,,,0,2,0,0,0
+UsuallyCooperates,0,UsuallyCooperates,,,0,inf,0,0,0
+UsuallyDefects,0,UsuallyDefects,,,0,inf,0,0,0
+VeryBad,0,VeryBad,,,0,inf,0,0,0
+Willing,0,Willing,,,1,1,0,0,0
+Win-Shift Lose-Stay: D,0,Win-Shift Lose-Stay,,,0,1,0,0,0
+Win-Stay Lose-Shift,0,Win-Stay Lose-Shift,,,0,1,0,0,0
+Winner12,0,Winner12,,,0,2,0,0,0
+Winner21,0,Winner21,,,0,2,0,0,0
+Worse and Worse,0,Worse and Worse,,,1,inf,0,0,0
+Worse and Worse 2,0,Worse and Worse 2,,,1,inf,0,0,0
+Worse and Worse 3,0,Worse and Worse 3,,,1,inf,0,0,0
+"ZD-Extort-2: 0.1111111111111111, 0.5",0,ZD-Extort-2,,,1,1,1,0,0
+"ZD-Extort-2 v2: 0.125, 0.5, 1",0,ZD-Extort-2 v2,,,1,1,1,0,0
+"ZD-Extort3: 0.11538461538461539, 0.3333333333333333, 1",0,ZD-Extort3,,,1,1,1,0,0
+"ZD-Extort-4: 0.23529411764705882, 0.25, 1",0,ZD-Extort-4,,,1,1,1,0,0
+"ZD-Extortion: 0.2, 0.1, 1",0,ZD-Extortion,,,1,1,1,0,0
+"ZD-GTFT-2: 0.25, 0.5",0,ZD-GTFT-2,,,1,1,1,0,0
+"ZD-GEN-2: 0.125, 0.5, 3",0,ZD-GEN-2,,,1,1,1,0,0
+ZD-Mem2,0,ZD-Mem2,,,1,2,0,0,0
+"ZD-Mischief: 0.1, 0.0, 1",0,ZD-Mischief,,,1,1,1,0,0
+"ZD-SET-2: 0.25, 0.0, 2",0,ZD-SET-2,,,1,1,1,0,0
+$e$,0,$e$,,,0,inf,0,0,0
+"Memory Decay: 0.1, 0.03, -2, 1, Tit For Tat, 15",0,Memory Decay,,,1,inf,0,0,0
+Meta Hunter: 6 players,0,Meta Hunter,,,0,inf,0,0,0
+Meta Hunter Aggressive: 7 players,0,Meta Hunter Aggressive,,,0,inf,0,0,0
+Meta Majority: 213 players,0,Meta Majority,,,1,inf,1,1,1
+Meta Majority Memory One: 36 players,0,Meta Majority Memory One,,,1,inf,1,0,0
+Meta Majority Finite Memory: 79 players,0,Meta Majority Finite Memory,,,1,inf,1,0,1
+Meta Majority Long Memory: 134 players,0,Meta Majority Long Memory,,,1,inf,1,1,1
+Meta Minority: 213 players,0,Meta Minority,,,1,inf,1,1,1
+Meta Mixer: 213 players,0,Meta Mixer,,,1,inf,0,0,1
+Meta Winner: 213 players,0,Meta Winner,,,1,inf,1,1,1
+Meta Winner Deterministic: 146 players,0,Meta Winner Deterministic,,,0,inf,1,1,1
+Meta Winner Ensemble: 213 players,0,Meta Winner Ensemble,,,1,inf,1,1,1
+Meta Winner Memory One: 36 players,0,Meta Winner Memory One,,,1,inf,1,0,0
+Meta Winner Finite Memory: 79 players,0,Meta Winner Finite Memory,,,1,inf,1,0,1
+Meta Winner Long Memory: 134 players,0,Meta Winner Long Memory,,,1,inf,1,1,1
+Meta Winner Stochastic: 67 players,0,Meta Winner Stochastic,,,1,inf,1,1,1
+NMWE Deterministic: 146 players,0,NMWE Deterministic,,,1,inf,1,1,1
+NMWE Finite Memory: 79 players,0,NMWE Finite Memory,,,1,inf,1,0,1
+NMWE Long Memory: 134 players,0,NMWE Long Memory,,,1,inf,1,1,1
+NMWE Memory One: 36 players,0,NMWE Memory One,,,1,inf,1,0,0
+NMWE Stochastic: 67 players,0,NMWE Stochastic,,,1,inf,1,1,1
+Nice Meta Winner: 213 players,0,Nice Meta Winner,,,1,inf,1,1,1
+Nice Meta Winner Ensemble: 213 players,0,Nice Meta Winner Ensemble,,,1,inf,1,1,1
