@@ -1,4 +1,4 @@
-"""Turn the Knight et al. 2026 per-seed summaries (Zenodo 17250038) into one table shaped like our Glynatsi-based
+"""Turn the Knight et al. 2025 per-seed summaries (Zenodo 17250038) into one table shaped like our Glynatsi-based
 Data/combined_dataset.parquet: one row per strategy per tournament, with Normalized_Rank, SSE and the cooperation ratios.
 
 A "tournament" here is one (setting, turns, seed) file: a 272-player round robin, 250 repetitions.

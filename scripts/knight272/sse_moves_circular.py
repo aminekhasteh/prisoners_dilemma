@@ -1,4 +1,4 @@
-"""The all-272 SSE ring (Knight et al. 2026 data), with every bar built from the strategy's own moves against one shared opponent.
+"""The all-272 SSE ring (Knight et al. 2025 data), with every bar built from the strategy's own moves against one shared opponent.
 Circle = cooperate, square = defect (defections a shade darker). Bar length = median SSE, as in sse_circular.py;
 each move takes the same length, so a longer bar shows more of the game. Labels: final nice / nasty / end-game.
 Usage: python3 sse_moves_circular.py results/sse_ranking_fullnames.csv data/cover_moves_140.csv OPP_SEQ out.png [--full] [--landscape [--intro]]

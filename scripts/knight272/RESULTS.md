@@ -1,4 +1,4 @@
-# Article 1 rerun on the 272 strategies of Knight et al. 2026
+# Article 1 rerun on the 272 strategies of Knight et al. 2025
 
 Data: Zenodo 17250038, unpacked to `Data/knight2026/` (not in git; see README.md). 272 players = 209 Axelrod-Python library strategies + the 63 original
 Fortran entries of Axelrod's second tournament. 100 no-noise round robins (lengths 63, 77, 151, 156, 308; 20 seeds each;
@@ -6,7 +6,7 @@ Fortran entries of Axelrod's second tournament. 100 no-noise round robins (lengt
 
 Run order: see README.md.
 
-| Result | Article today (195 strategies, Glynatsi 2024 data) | Rerun (272 strategies, Knight 2026 data) |
+| Result | Article today (195 strategies, Glynatsi 2024 data) | Rerun (272 strategies, Knight 2025 data) |
 |---|---|---|
 | Tournaments | ~45,600, random subsets of 3 to 195 players | 120, always all 272 players |
 | Winner, no noise (mean normalized rank) | Evolved FSM 16 | EvolvedLookerUp2_2_2 |

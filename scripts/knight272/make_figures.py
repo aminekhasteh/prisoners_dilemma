@@ -44,7 +44,7 @@ ax.text(len(rows) - 0.55, -0.33, "cooperating more than the median\ngoes with a 
 ax.text(-0.45, 0.11, "cooperating more than the median goes with a worse rank", color=ORANGE, ha="left", va="center", fontsize=10.5)
 ax.grid(axis="x", visible=False)
 title(fig, "With 272 strategies, noise shrinks the edge but doesn't flip it by 5%",
-      "Average normalized rank of above-median cooperators minus below-median ones. 63-turn games, Knight et al. 2026 data.")
+      "Average normalized rank of above-median cooperators minus below-median ones. 63-turn games, Knight et al. 2025 data.")
 fig.savefig(OUT / "noise_flip_by_level.png"); plt.close(fig)
 
 # ---------- 2. How much of winning the model explains ----------
@@ -62,7 +62,7 @@ ax.set_xticks(range(len(sets)), [n for _, n in sets]); ax.set_ylim(0, 1.12); ax.
 ax.grid(axis="x", visible=False)
 ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.16), ncol=2, fontsize=10)
 title(fig, "The real test is a strategy the model has never seen",
-      "272 strategies, Knight et al. 2026 data. Every tournament has the same players, so new tournaments are easy.")
+      "272 strategies, Knight et al. 2025 data. Every tournament has the same players, so new tournaments are easy.")
 fig.savefig(OUT / "r2_by_setting.png"); plt.close(fig)
 
 # ---------- 3. Feature importance ----------

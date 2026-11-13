@@ -1,4 +1,4 @@
-"""Replay all 272 players of Knight et al. 2026 against the article's fixed cover opponent and save their moves.
+"""Replay all 272 players of Knight et al. 2025 against the article's fixed cover opponent and save their moves.
 
 Library strategies run through axelrod (4.14). The 63 original entries run as the original Fortran, called straight
 from lib/libstrategies.so (built with gfortran from github.com/Axelrod-Python/TourExec), with the same arguments the

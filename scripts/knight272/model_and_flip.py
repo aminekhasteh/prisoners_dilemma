@@ -1,4 +1,4 @@
-"""XGBoost + SHAP and the noise flip, redone on the 272-strategy data of Knight et al. 2026.
+"""XGBoost + SHAP and the noise flip, redone on the 272-strategy data of Knight et al. 2025.
 
 Same recipe as scripts/train_and_explain.py, audit_holdout.py and noise_flip.py (Glynatsi 2024 data), with what this
 data allows: 100 no-noise tournaments (5 lengths x 20 seeds) and 20 noisy ones (63 turns; 13 at 1%, 7 at 5%).

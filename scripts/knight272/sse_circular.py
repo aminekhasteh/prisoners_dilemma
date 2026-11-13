@@ -118,7 +118,7 @@ fig.text(0.5, 0.985, (f"All {N} strategies" if ALL else f"The top {N} strategies
          fontsize=26 if HUGE else 21,
          fontweight="bold", color=INK)
 fig.text(0.5, 0.947,
-         "Knight et al. 2026: 272 strategies, 100 round robins without noise. Bar = median SSE across tournaments; the line\n"
+         "Knight et al. 2025: 272 strategies, 100 round robins without noise. Bar = median SSE across tournaments; the line\n"
          "inside it spans the middle half. Shorter bar = closer to a zero-determinant strategy.",
          ha="center", va="top", fontsize=15 if HUGE else 12.5, color=MUTED, linespacing=1.45)
 fig.text(0.5, 0.018,

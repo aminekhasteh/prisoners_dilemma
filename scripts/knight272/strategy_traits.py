@@ -1,4 +1,4 @@
-"""Classifier traits for the 272 players of Knight et al. 2026 (Zenodo 17250038).
+"""Classifier traits for the 272 players of Knight et al. 2025 (Zenodo 17250038).
 
 Python strategies: matched to the installed axelrod library (4.14) by repr or by name. Fortran entries: stochastic flag
 from the archive's fortran_characteristics.json, and the classifier of the Python re-implementation where one exists.

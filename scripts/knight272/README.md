@@ -1,6 +1,6 @@
-# Article 1 rerun on the 272 strategies of Knight et al. 2026
+# Article 1 rerun on the 272 strategies of Knight et al. 2025
 
-Redoes the Article 1 analysis on the tournament data from Knight, Campbell, Harper, Gaffney and Glynatsi (2026),
+Redoes the Article 1 analysis on the tournament data from Knight, Campbell, Harper, Gaffney and Glynatsi (2025),
 "Reviving, reproducing, and revisiting Axelrod's second tournament" (arXiv 2510.15438). Their 272 players are 209
 Axelrod-Python strategies plus the 63 original Fortran entries of Axelrod's 1980 second tournament (k31r to k92r and
 krandomc; k92r is Tit for Tat). Old-vs-new numbers are in `RESULTS.md`.
