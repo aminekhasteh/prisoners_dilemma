@@ -1,0 +1,195 @@
+$\phi$
+$\pi$
+$e$
+ALLCorALLD
+Adaptive
+Adaptive Pavlov 2006
+Adaptive Pavlov 2011
+Adaptive Tit For Tat
+Aggravater
+Alexei
+Alternator
+Alternator Hunter
+Anti Tit For Tat
+AntiCycler
+Appeaser
+Arrogant QLearner
+Average Copier
+BackStabber
+Better and Better
+Bully
+Calculator
+Cautious QLearner
+Champion
+CollectiveStrategy
+Contrite Tit For Tat
+Cooperator
+Cooperator Hunter
+Cycle Hunter
+Cycler CCCCCD
+Cycler CCCD
+Cycler CCCDCD
+Cycler CCD
+Cycler DC
+Cycler DDC
+DBS
+Davis
+Defector
+Defector Hunter
+Desperate
+DoubleCrosser
+DoubleResurrection
+Doubler
+Dynamic Two Tits For Tat
+EasyGo
+Eatherley
+EugineNier
+Eventual Cycle Hunter
+Evolved ANN
+Evolved ANN 5
+Evolved ANN 5 Noise 05
+Evolved FSM 16
+Evolved FSM 16 Noise 05
+Evolved FSM 4
+Evolved HMM 5
+EvolvedLookerUp1_1_1
+EvolvedLookerUp2_2_2
+Feld
+Firm But Fair
+Fool Me Forever
+Fool Me Once
+Forgetful Fool Me Once
+Forgetful Grudger
+Forgiver
+Forgiving Tit For Tat
+Fortress3
+Fortress4
+GTFT
+General Soft Grudger
+Gradual
+Gradual Killer
+Grofman
+Grudger
+GrudgerAlternator
+Grumpy
+Handshake
+Hard Go By Majority
+Hard Go By Majority 10
+Hard Go By Majority 20
+Hard Go By Majority 40
+Hard Go By Majority 5
+Hard Prober
+Hard Tit For 2 Tats
+Hard Tit For Tat
+Hesitant QLearner
+Hopeless
+Inverse
+Inverse Punisher
+Joss
+Knowledgeable Worse and Worse
+Level Punisher
+Limited Retaliate
+Limited Retaliate 2
+Limited Retaliate 3
+MEM2
+Math Constant Hunter
+Meta Hunter
+Meta Hunter Aggressive
+Meta Majority
+Meta Majority Finite Memory
+Meta Majority Long Memory
+Meta Majority Memory One
+Meta Minority
+Meta Mixer
+Meta Winner
+Meta Winner Deterministic
+Meta Winner Ensemble
+Meta Winner Finite Memory
+Meta Winner Long Memory
+Meta Winner Memory One
+Meta Winner Stochastic
+NMWE Deterministic
+NMWE Finite Memory
+NMWE Long Memory
+NMWE Memory One
+NMWE Stochastic
+Naive Prober
+Negation
+Nice Average Copier
+Nice Meta Winner
+Nice Meta Winner Ensemble
+Nydegger
+Omega TFT
+Once Bitten
+Opposite Grudger
+PSO Gambler 1_1_1
+PSO Gambler 2_2_2
+PSO Gambler 2_2_2 Noise 05
+PSO Gambler Mem1
+Predator
+Prober
+Prober 2
+Prober 3
+Prober 4
+Pun1
+Punisher
+Raider
+Random
+Random Hunter
+Remorseful Prober
+Resurrection
+Retaliate
+Retaliate 2
+Retaliate 3
+Revised Downing
+Ripoff
+Risky QLearner
+SelfSteem
+ShortMem
+Shubik
+Slow Tit For Two Tats
+Slow Tit For Two Tats 2
+Sneaky Tit For Tat
+Soft Go By Majority
+Soft Go By Majority 10
+Soft Go By Majority 20
+Soft Go By Majority 40
+Soft Go By Majority 5
+Soft Grudger
+Soft Joss
+SolutionB1
+SolutionB5
+Spiteful Tit For Tat
+Stalker
+Stein and Rapoport
+Stochastic Cooperator
+Stochastic WSLS
+Suspicious Tit For Tat
+TF1
+TF2
+TF3
+Tester
+ThueMorse
+ThueMorseInverse
+Thumper
+Tit For 2 Tats
+Tit For Tat
+Tricky Cooperator
+Tricky Defector
+Tullock
+Two Tits For Tat
+VeryBad
+Willing
+Win-Shift Lose-Stay
+Win-Stay Lose-Shift
+Winner12
+Winner21
+Worse and Worse
+Worse and Worse 2
+Worse and Worse 3
+ZD-Extort-2
+ZD-Extort-2 v2
+ZD-Extort-4
+ZD-GEN-2
+ZD-GTFT-2
+ZD-SET-2

@@ -1,0 +1,36 @@
+all 272                      n=272  R²=0.792  Spearman=0.911  Kendall=0.742  MAE=0.103 (~28 places)
+seen (in the 195)            n=186  R²=0.841  Spearman=0.940  Kendall=0.786  MAE=0.093 (~25 places)
+new (never seen)             n= 86  R²=0.633  Spearman=0.806  Kendall=0.615  MAE=0.122 (~33 places)
+  new: 1980 Fortran          n= 63  R²=0.611  Spearman=0.765  Kendall=0.580  MAE=0.115 (~31 places)
+  new: library               n= 23  R²=0.541  Spearman=0.834  Kendall=0.660  MAE=0.141 (~38 places)
+row level, new strategies (100 tournaments each): R²=0.600
+
+worst misses among new strategies (error = predicted - actual normalized rank; + means model thought it worse):
+                              Name                   group  actual_place  pred_place  actual   pred  error
+Bush Mosteller: 0.5, 0.5, 3.0, 0.5   new: library strategy           261         174   0.956  0.569 -0.387
+                              k53r new: 1980 Fortran entry           104          16   0.366  0.008 -0.358
+                              k57r new: 1980 Fortran entry           116          29   0.429  0.073 -0.356
+                 UsuallyCooperates   new: library strategy           153         270   0.565  0.914  0.349
+                              k52r new: 1980 Fortran entry           165          83   0.603  0.264 -0.340
+                              k37r new: 1980 Fortran entry           109          32   0.410  0.099 -0.311
+             Tricky Level Punisher   new: library strategy           110          35   0.413  0.111 -0.302
+                              k32r new: 1980 Fortran entry            28         132   0.104  0.386  0.282
+       N Tit(s) For M Tat(s): 3, 2   new: library strategy           135          67   0.489  0.213 -0.277
+          First by Graaskamp: 0.05   new: library strategy           146          82   0.526  0.263 -0.263
+                              k73r new: 1980 Fortran entry           100          36   0.362  0.114 -0.247
+                              k86r new: 1980 Fortran entry            64          13   0.239 -0.003 -0.242
+
+best new strategies, actual vs predicted place:
+            Name  actual_place  pred_place
+Original Gradual            13          26
+            k42r            18          46
+            k60r            19          93
+            k85r            20          10
+            k65r            22          11
+            k80r            24          49
+            k40r            25          53
+            k87r            26          42
+            k32r            28         132
+            k58r            30          78
+
+runs outside the training range: turns 63-308 (trained on 1-200), repetitions 250 (trained on 10-100), N=272 (trained on 3-195)

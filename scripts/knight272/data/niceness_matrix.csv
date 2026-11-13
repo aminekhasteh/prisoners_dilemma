@@ -1,0 +1,273 @@
+Name,label_matrix,min_coop_vs_cooperator,min_coop_vs_nice,always_cooperates_with_cooperator
+k31r,nice,1.0,1.0,True
+k32r,nice,1.0,1.0,True
+k33r,nasty,0.03896103896103896,0.03896103896103896,False
+k34r,nice,1.0,1.0,True
+k35r,nice,1.0,1.0,True
+k36r,nasty,0.08005128205128205,0.07741025641025641,False
+k37r,nice,1.0,1.0,True
+k38r,nice,1.0,1.0,True
+k39r,nasty,0.5162337662337663,0.05844155844155844,False
+k40r,nice,1.0,1.0,True
+k41r,nice,1.0,1.0,True
+k42r,nice,1.0,1.0,True
+k43r,nasty,0.7597402597402597,0.07792207792207792,False
+k44r,nice,1.0,1.0,True
+k45r,nasty,0.8701298701298701,0.00974025974025974,False
+k46r,nice,1.0,1.0,True
+k47r,nasty,0.7922077922077922,0.06818181818181818,False
+k48r,nasty,0.048701298701298704,0.048701298701298704,False
+k49r,nice,1.0,1.0,True
+k50r,nasty,0.8952727272727272,0.8939220779220779,False
+k51r,nasty,0.9841269841269841,0.5097402597402597,False
+k52r,nasty,0.9461298701298702,0.1377922077922078,False
+k53r,nice,1.0,1.0,True
+k54r,nasty,0.1038961038961039,0.01948051948051948,False
+k55r,nice,1.0,1.0,True
+k56r,nice,1.0,1.0,True
+k57r,nice,1.0,1.0,True
+k58r,nice,1.0,1.0,True
+k59r,nice,1.0,1.0,True
+k60r,nice,1.0,1.0,True
+k61r,nice,1.0,1.0,True
+k62r,nasty,0.9161059602649007,0.03866233766233766,False
+k63r,nasty,0.5,0.5,False
+k64r,nice,1.0,1.0,True
+k65r,nice,1.0,1.0,True
+k66r,nice,1.0,1.0,True
+k67r,nasty,0.8224025974025974,0.10162337662337663,False
+k68r,nice,1.0,1.0,True
+k69r,nasty,0.9131428571428571,0.04451948051948052,False
+k70r,nice,1.0,1.0,True
+k71r,nasty,0.5,0.006493506493506494,False
+k72r,nice,1.0,1.0,True
+k73r,nice,1.0,1.0,True
+k74r,nasty,0.003246753246753247,0.003246753246753247,False
+k75r,nasty,0.7193506493506493,0.14285714285714285,False
+k76r,nasty,0.5,0.006493506493506494,False
+k77r,nasty,0.11331168831168831,0.07867532467532468,False
+k78r,nasty,0.9199350649350649,0.16883116883116883,False
+k79r,nice,1.0,1.0,True
+k80r,nice,1.0,1.0,True
+k81r,nice,1.0,1.0,True
+k82r,nasty,0.17706493506493506,0.11481818181818182,False
+k83r,nice,1.0,1.0,True
+k84r,nice,1.0,1.0,True
+k85r,nice,1.0,1.0,True
+k86r,nice,1.0,1.0,True
+k87r,nice,1.0,1.0,True
+k88r,nice,1.0,1.0,True
+k89r,nasty,0.32142857142857145,0.14935064935064934,False
+k90r,nice,1.0,1.0,True
+k91r,nice,1.0,1.0,True
+k92r,nice,1.0,1.0,True
+krandomc,nasty,0.49123809523809525,0.48698412698412696,False
+ALLCorALLD,nasty,0.54,0.496,False
+AON2,nice,1.0,1.0,True
+Adaptive Pavlov 2006,nice,1.0,1.0,True
+Adaptive Pavlov 2011,nice,1.0,1.0,True
+Adaptive,nasty,0.01948051948051948,0.01948051948051948,False
+Adaptive Tit For Tat: 0.5,nice,1.0,1.0,True
+AdaptorBrief,nasty,0.5463246753246753,0.2734025974025974,False
+AdaptorLong,nasty,0.28644155844155844,0.2785844155844156,False
+Aggravater,nasty,0.9523809523809523,0.0,False
+Alternator,nasty,0.5,0.5,False
+Alternator Hunter,nice,1.0,1.0,True
+AntiCycler,nasty,0.8253968253968254,0.8253968253968254,False
+Anti Tit For Tat,nasty,0.003246753246753247,0.003246753246753247,False
+Appeaser,nice,1.0,1.0,True
+Arrogant QLearner,nasty,0.9465396825396826,0.19354545454545455,False
+Average Copier,nasty,0.9906666666666667,0.44042857142857145,False
+"BackStabber: (D, D)",nice,1.0,1.0,True
+Better and Better,nasty,0.03003174603174603,0.027555555555555555,False
+Bully,nasty,0.0,0.0,False
+"Bush Mosteller: 0.5, 0.5, 3.0, 0.5",nasty,0.47365079365079366,0.12574025974025974,False
+Calculator,nasty,0.05846753246753247,0.026805194805194804,False
+Cautious QLearner,nasty,0.946031746031746,0.19024675324675325,False
+CollectiveStrategy,nasty,0.003246753246753247,0.003246753246753247,False
+Cooperator,nice,1.0,1.0,True
+Cooperator Hunter,nasty,0.012987012987012988,0.012987012987012988,False
+Cycle Hunter,nice,1.0,1.0,True
+Cycler CCCCCD,nasty,0.8333333333333334,0.8333333333333334,False
+Cycler CCCD,nasty,0.75,0.75,False
+Cycler CCCDCD,nasty,0.6666666666666666,0.6666666666666666,False
+Cycler CCD,nasty,0.6666666666666666,0.6666666666666666,False
+Cycler DC,nasty,0.49206349206349204,0.49206349206349204,False
+Cycler DDC,nasty,0.3246753246753247,0.3246753246753247,False
+"DBS: 0.75, 3, 4, 3, 5",nice,1.0,1.0,True
+Defector,nasty,0.0,0.0,False
+Defector Hunter,nice,1.0,1.0,True
+Delayed AON1,nice,1.0,1.0,True
+Desperate,nasty,0.0015194805194805195,0.0013376623376623376,False
+Detective,nasty,0.00974025974025974,0.00974025974025974,False
+"DoubleCrosser: (D, D)",nice,1.0,1.0,True
+DoubleResurrection,nasty,0.8333333333333334,0.18181818181818182,False
+Doubler,nice,1.0,1.0,True
+Dynamic Two Tits For Tat,nice,1.0,1.0,True
+EasyGo,nasty,0.0,0.0,False
+"EugineNier: (D,)",nice,1.0,1.0,True
+Eventual Cycle Hunter,nice,1.0,1.0,True
+Evolved ANN,nice,1.0,1.0,True
+Evolved ANN 5,nice,1.0,1.0,True
+Evolved ANN 5 Noise 05,nasty,0.37987012987012986,0.17207792207792208,False
+Evolved FSM 16,nice,1.0,1.0,True
+Evolved FSM 16 Noise 05,nice,1.0,1.0,True
+Evolved FSM 4,nice,1.0,1.0,True
+Evolved HMM 5,nice,1.0,1.0,True
+EvolvedLookerUp1_1_1,nice,1.0,1.0,True
+EvolvedLookerUp2_2_2,nice,1.0,1.0,True
+Firm But Fair,nice,1.0,1.0,True
+First by Anonymous,nasty,0.4922077922077922,0.4871111111111111,False
+First by Davis: 10,nice,1.0,1.0,True
+First by Downing,nasty,0.003246753246753247,0.003246753246753247,False
+"First by Feld: 1.0, 0.5, 200",nasty,0.6612337662337663,0.07636363636363637,False
+First by Graaskamp: 0.05,nasty,0.9118571428571428,0.251051948051948,False
+First by Grofman,nice,1.0,1.0,True
+First by Joss: 0.9,nasty,0.8967272727272727,0.03066233766233766,False
+First by Nydegger,nice,1.0,1.0,True
+First by Shubik,nice,1.0,1.0,True
+"First by Stein and Rapoport: 0.05: (D, D)",nice,1.0,1.0,True
+"First by Tideman and Chieruzzi: (D, D)",nice,1.0,1.0,True
+First by Tullock,nasty,0.9013246753246753,0.07425974025974026,False
+Fool Me Once,nice,1.0,1.0,True
+Forgetful Fool Me Once: 0.05,nice,1.0,1.0,True
+Forgetful Grudger,nice,1.0,1.0,True
+Forgiver,nice,1.0,1.0,True
+Forgiving Tit For Tat,nice,1.0,1.0,True
+Fortress3,nasty,0.0,0.0,False
+Fortress4,nasty,0.0,0.0,False
+GTFT: 0.33,nice,1.0,1.0,True
+"General Soft Grudger: n=1,d=4,c=2",nice,1.0,1.0,True
+Soft Go By Majority: 10,nice,1.0,1.0,True
+Soft Go By Majority: 20,nice,1.0,1.0,True
+Soft Go By Majority: 40,nice,1.0,1.0,True
+Soft Go By Majority: 5,nice,1.0,1.0,True
+$\phi$,nasty,0.003246753246753247,0.003246753246753247,False
+Gradual,nice,1.0,1.0,True
+"Gradual Killer: (D, D, D, D, D, C, C)",nasty,0.9206349206349206,0.006493506493506494,False
+GrudgerAlternator,nice,1.0,1.0,True
+"Grumpy: Nice, 10, -10",nice,1.0,1.0,True
+Handshake,nasty,0.003246753246753247,0.003246753246753247,False
+Hard Go By Majority,nasty,0.9841269841269841,0.003246753246753247,False
+Hard Go By Majority: 10,nasty,0.9841269841269841,0.003246753246753247,False
+Hard Go By Majority: 20,nasty,0.9841269841269841,0.003246753246753247,False
+Hard Go By Majority: 40,nasty,0.9841269841269841,0.003246753246753247,False
+Hard Go By Majority: 5,nasty,0.9841269841269841,0.003246753246753247,False
+Hard Prober,nasty,0.006493506493506494,0.006493506493506494,False
+Hard Tit For 2 Tats,nice,1.0,1.0,True
+Hard Tit For Tat,nice,1.0,1.0,True
+Hesitant QLearner,nasty,0.9467301587301588,0.19716883116883116,False
+Hopeless,nasty,0.49866666666666665,0.49866666666666665,False
+Inverse,nice,1.0,1.0,True
+Inverse Punisher,nice,1.0,1.0,True
+Knowledgeable Worse and Worse,nice,1.0,1.0,True
+Level Punisher,nice,1.0,1.0,True
+"Limited Retaliate: 0.1, 20",nice,1.0,1.0,True
+"Limited Retaliate 2: 0.08, 15",nice,1.0,1.0,True
+"Limited Retaliate 3: 0.05, 20",nice,1.0,1.0,True
+MEM2,nice,1.0,1.0,True
+Math Constant Hunter,nice,1.0,1.0,True
+"Michaelos: (D,)",nice,1.0,1.0,True
+"N Tit(s) For M Tat(s): 3, 2",nice,1.0,1.0,True
+Naive Prober: 0.1,nasty,0.8939047619047619,0.030233766233766234,False
+Negation,nasty,0.0014155844155844155,0.0012857142857142856,False
+Nice Average Copier,nice,1.0,1.0,True
+"Omega TFT: 3, 8",nice,1.0,1.0,True
+Once Bitten,nice,1.0,1.0,True
+Opposite Grudger,nasty,0.9841269841269841,0.9841269841269841,False
+Original Gradual,nice,1.0,1.0,True
+PSO Gambler 1_1_1,nice,1.0,1.0,True
+PSO Gambler 2_2_2,nice,1.0,1.0,True
+PSO Gambler 2_2_2 Noise 05,nice,1.0,1.0,True
+PSO Gambler Mem1,nice,1.0,1.0,True
+$\pi$,nasty,0.003246753246753247,0.003246753246753247,False
+Predator,nasty,0.003246753246753247,0.003246753246753247,False
+Prober,nasty,0.006493506493506494,0.006493506493506494,False
+Prober 2,nasty,0.9841269841269841,0.006493506493506494,False
+Prober 3,nasty,0.003246753246753247,0.003246753246753247,False
+Prober 4,nasty,0.032467532467532464,0.032467532467532464,False
+Pun1,nasty,0.9841269841269841,0.49206349206349204,False
+Punisher,nice,1.0,1.0,True
+Raider,nasty,0.0,0.0,False
+Random Hunter,nice,1.0,1.0,True
+Random Tit for Tat: 0.5,nasty,0.7482119205298013,0.25846753246753246,False
+Remorseful Prober: 0.1,nasty,0.8963636363636364,0.030805194805194804,False
+Resurrection,nice,1.0,1.0,True
+Retaliate: 0.1,nice,1.0,1.0,True
+Retaliate 2: 0.08,nice,1.0,1.0,True
+Retaliate 3: 0.05,nice,1.0,1.0,True
+Revised Downing,nice,1.0,1.0,True
+Ripoff,nasty,0.49206349206349204,0.006493506493506494,False
+Risky QLearner,nasty,0.9478701298701299,0.18622077922077923,False
+Second by Appold,nice,1.0,1.0,True
+Second by Champion,nice,1.0,1.0,True
+Second by Eatherley,nice,1.0,1.0,True
+Second by Tester,nasty,0.5,0.006493506493506494,False
+SelfSteem,nasty,0.6852987012987013,0.294025974025974,False
+ShortMem,nice,1.0,1.0,True
+Slow Tit For Two Tats 2,nice,1.0,1.0,True
+Sneaky Tit For Tat,nasty,0.006493506493506494,0.006493506493506494,False
+Soft Grudger,nice,1.0,1.0,True
+Soft Joss: 0.9,nice,1.0,1.0,True
+SolutionB1,nasty,0.9682539682539683,0.9682539682539683,False
+SolutionB5,nasty,0.9841269841269841,0.003246753246753247,False
+Spiteful Tit For Tat,nice,1.0,1.0,True
+"Stalker: (D,)",nice,1.0,1.0,True
+Stochastic Cooperator,nasty,0.8027792207792208,0.37555844155844154,False
+Stochastic WSLS: 0.05,nasty,0.5038571428571429,0.37585714285714283,False
+Suspicious Tit For Tat,nasty,0.9841269841269841,0.003246753246753247,False
+TF1,nasty,0.5,0.00974025974025974,False
+TF2,nasty,0.5974025974025974,0.006493506493506494,False
+TF3,nice,1.0,1.0,True
+ThueMorse,nasty,0.4966887417218543,0.4966887417218543,False
+ThueMorseInverse,nasty,0.49206349206349204,0.49206349206349204,False
+Thumper,nice,1.0,1.0,True
+Tricky Cooperator,nasty,0.00974025974025974,0.00974025974025974,False
+Tricky Defector,nasty,0.0,0.0,False
+Tricky Level Punisher,nice,1.0,1.0,True
+Two Tits For Tat,nice,1.0,1.0,True
+UsuallyCooperates,nice,1.0,1.0,True
+UsuallyDefects,nasty,0.0,0.0,False
+VeryBad,nice,1.0,1.0,True
+Willing,nasty,0.9908571428571429,0.9904761904761905,False
+Win-Shift Lose-Stay: D,nasty,0.49206349206349204,0.006493506493506494,False
+Win-Stay Lose-Shift,nice,1.0,1.0,True
+Winner12,nice,1.0,1.0,True
+Winner21,nasty,0.9841269841269841,0.003246753246753247,False
+Worse and Worse,nasty,0.8431688311688311,0.8407792207792207,False
+Worse and Worse 2,nasty,0.2394805194805195,0.23606493506493506,False
+Worse and Worse 3,nice,1.0,1.0,True
+"ZD-Extort-2: 0.1111111111111111, 0.5",nasty,0.7448741721854305,0.02809090909090909,False
+"ZD-Extort-2 v2: 0.125, 0.5, 1",nasty,0.7435761589403973,0.023571428571428573,False
+"ZD-Extort3: 0.11538461538461539, 0.3333333333333333, 1",nasty,0.6271746031746032,0.018935064935064937,False
+"ZD-Extort-4: 0.23529411764705882, 0.25, 1",nasty,0.5684444444444444,0.009506493506493506,False
+"ZD-Extortion: 0.2, 0.1, 1",nasty,0.43466233766233764,0.008779220779220779,False
+"ZD-GTFT-2: 0.25, 0.5",nice,1.0,1.0,True
+"ZD-GEN-2: 0.125, 0.5, 3",nice,1.0,1.0,True
+ZD-Mem2,nasty,0.8764871794871795,0.13444155844155845,False
+"ZD-Mischief: 0.1, 0.0, 1",nasty,0.3318311688311688,0.014207792207792207,False
+"ZD-SET-2: 0.25, 0.0, 2",nasty,0.6622857142857143,0.2557922077922078,False
+$e$,nasty,0.003246753246753247,0.003246753246753247,False
+"Memory Decay: 0.1, 0.03, -2, 1, Tit For Tat, 15",nice,1.0,1.0,True
+Meta Hunter: 6 players,nice,1.0,1.0,True
+Meta Hunter Aggressive: 7 players,nasty,0.012987012987012988,0.012987012987012988,False
+Meta Majority: 213 players,nice,1.0,1.0,True
+Meta Majority Memory One: 36 players,nasty,0.9983376623376623,0.849987012987013,False
+Meta Majority Finite Memory: 79 players,nice,1.0,1.0,True
+Meta Majority Long Memory: 134 players,nice,1.0,1.0,True
+Meta Minority: 213 players,nasty,0.0,0.0,False
+Meta Mixer: 213 players,nasty,0.7771688311688312,0.24528571428571427,False
+Meta Winner: 213 players,nasty,0.019909090909090908,0.019844155844155845,False
+Meta Winner Deterministic: 146 players,nasty,0.016233766233766232,0.016233766233766232,False
+Meta Winner Ensemble: 213 players,nasty,0.0075974025974025975,0.007441558441558442,False
+Meta Winner Memory One: 36 players,nasty,0.0078051948051948055,0.0078051948051948055,False
+Meta Winner Finite Memory: 79 players,nasty,0.010298701298701298,0.010298701298701298,False
+Meta Winner Long Memory: 134 players,nasty,0.019701298701298702,0.019584415584415583,False
+Meta Winner Stochastic: 67 players,nasty,0.012415584415584416,0.012337662337662338,False
+NMWE Deterministic: 146 players,nice,1.0,1.0,True
+NMWE Finite Memory: 79 players,nice,1.0,1.0,True
+NMWE Long Memory: 134 players,nice,1.0,1.0,True
+NMWE Memory One: 36 players,nice,1.0,1.0,True
+NMWE Stochastic: 67 players,nice,1.0,1.0,True
+Nice Meta Winner: 213 players,nice,1.0,1.0,True
+Nice Meta Winner Ensemble: 213 players,nice,1.0,1.0,True
