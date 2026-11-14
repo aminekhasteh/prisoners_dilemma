@@ -40,25 +40,29 @@ lv["lab"] = lv.subset.str.replace("noise_level ", "").map(labels)
 lv = lv.dropna(subset=["lab"])
 rows = [("none", std.raw_rank_gap_above_minus_below, std.gap_ci_low, std.gap_ci_high)] + \
        list(zip(lv.lab, lv.raw_rank_gap_above_minus_below, lv.gap_ci_low, lv.gap_ci_high))
-fig, ax = plt.subplots(figsize=(9, 5))
+fig, ax = plt.subplots(figsize=(9, 5.6))
+fig.subplots_adjust(left=0.1, right=0.98, top=0.78, bottom=0.12)
 ax.axhspan(-0.2, 0, color=BLUE, alpha=0.06, lw=0); ax.axhspan(0, 0.6, color=ORANGE, alpha=0.06, lw=0)
 ax.axhline(0, color=INK2, lw=1)
 xs = list(range(len(rows)))
 for x, (lab, g, lo, hi) in zip(xs, rows):
     c = BLUE if g < 0 else ORANGE
     ax.plot([x, x], [lo, hi], color=c, lw=2, solid_capstyle="round")
-    ax.scatter([x], [g], s=70, color=c, edgecolor="white", linewidth=2, zorder=3)
-    ax.annotate(f"{g:+.2f}", (x, g), xytext=(0, 12 if g >= 0 else -18), textcoords="offset points",
+    # diamonds, not circles: in this series circles and squares mean cooperate and defect
+    ax.scatter([x], [g], s=85, marker="D", color=c, edgecolor="white", linewidth=1.8, zorder=3)
+    ax.annotate(f"{g:+.2f}".replace("-", "\u2212"), (x, g), xytext=(0, 12 if g >= 0 else -18), textcoords="offset points",
                 ha="center", fontsize=10.5, color="#0b0b0b")
 ax.plot(xs, [r[1] for r in rows], color=MUTED, lw=1, zorder=1)
 ax.set_xticks(xs, [r[0] for r in rows]); ax.set_xlim(-0.5, len(rows) - 0.5); ax.set_ylim(-0.2, 0.6)
 ax.set_xlabel("Noise: chance that any single move gets flipped")
-ax.set_ylabel("Rank gap (above − below median)")
+ax.set_ylabel("Rank gap (above \u2212 below median)")
 ax.text(len(rows) - 0.6, -0.17, "cooperating more than the median\ngoes with a better rank", color=BLUE, ha="right", va="bottom", fontsize=10.5)
-ax.text(-0.35, 0.52, "cooperating more than the median goes with a worse rank", color=ORANGE, ha="left", va="center", fontsize=10.5)
+ax.text(-0.35, 0.55, "cooperating more than the median goes with a worse rank", color=ORANGE, ha="left", va="center", fontsize=10.5)
 ax.grid(axis="x", visible=False)
-title(fig, "A little noise turns cooperation from an asset into a liability",
-      "Average normalized rank of above-median cooperators minus below-median ones, per tournament. Lines are 95% intervals.")
+# title block sits above the plot, left-aligned with the y-axis label, and stays inside the plot's width
+fig.text(0.02, 0.965, "A little noise turns cooperation from an asset into a liability", fontsize=16, fontweight="bold", ha="left", va="top")
+fig.text(0.02, 0.905, "How much worse the above-median cooperators rank than the below-median ones, per tournament.\n"
+         "Below zero, cooperating more pays. Lines are 95% intervals.", fontsize=11.5, color=INK2, ha="left", va="top", linespacing=1.4)
 fig.savefig(OUT / "noise_flip_by_level.png"); plt.close(fig)
 
 # 2. How much of winning the model explains
