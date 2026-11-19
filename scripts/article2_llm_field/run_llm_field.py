@@ -179,13 +179,20 @@ def run_pairs(tasks, partial):
     done = {}
     if partial.exists():
         for line in open(partial):
-            d = json.loads(line); done[(d["i"], d["j"])] = d
+            try:
+                d = json.loads(line)
+            except json.JSONDecodeError:                                   # a line cut short by a kill
+                continue
+            done[(d["i"], d["j"])] = d
     todo = [t for t in tasks if (t[0], t[1]) not in done]
     todo.sort(key=lambda t: not (SPECS[t[0]][3] or SPECS[t[1]][3]))           # slow Meta pairs first
     if todo:
+        if partial.exists() and partial.stat().st_size and not partial.read_bytes().endswith(b"\n"):
+            with open(partial, "a") as out:                                # end a torn last line
+                out.write("\n")
         with open(partial, "a") as out, mp.get_context("fork").Pool(ARGS.processes) as pool:
             for n, d in enumerate(pool.imap_unordered(play_pair, todo, chunksize=1), 1):
-                out.write(json.dumps(d) + "\n"); out.flush(); done[(d["i"], d["j"])] = d
+                out.write(json.dumps(d) + "\n"); out.flush(); os.fsync(out.fileno()); done[(d["i"], d["j"])] = d
                 if n % 50 == 0 or n == len(todo):
                     print(f"  {n}/{len(todo)} pairs", flush=True)
     return done
@@ -293,6 +300,7 @@ def main():
 
     ARGS.out.mkdir(parents=True, exist_ok=True); (ARGS.out / "pairs").mkdir(exist_ok=True)
     llm = range(n_old, len(SPECS))
+    tag = ARGS.condition if ARGS.reps == 250 else f"{ARGS.condition}_{ARGS.reps}reps"
     per_t, timing = [], []
     for turns in turns_list:
         for seed in seeds:
@@ -312,8 +320,8 @@ def main():
                                    seconds=d["seconds"]))
             for row in combine(pairs, n_old, turns, stem, knight_reps):
                 per_t.append(dict(condition=ARGS.condition, noise=noise, turns=turns, seed=seed, reps=ARGS.reps, **row))
+            write(ARGS.out / f"{tag}_per_tournament.csv", per_t)                 # saved after every tournament
 
-    tag = ARGS.condition if ARGS.reps == 250 else f"{ARGS.condition}_{ARGS.reps}reps"
     write(ARGS.out / f"{tag}_per_tournament.csv", per_t)
     write(ARGS.out / f"timing_{tag}.csv", timing)
     by = {}
