@@ -72,9 +72,9 @@ sets = [("no_noise_no_probend", "Standard", 0.54), ("has_noise_no_probend", "Noi
 def get(sub, chk): return float(h[(h.subset == sub) & (h.check == chk)].R2.iloc[0])
 fig, ax = plt.subplots(figsize=(9, 4.8))
 w = 0.26
-series = [("Paper's linear model", BLUE, [p for _, _, p in sets]),
-          ("XGBoost, new tournaments", ORANGE, [get(k, "paper range only") for k, _, _ in sets]),
-          ("XGBoost, new tournaments and unseen strategies", AQUA, [get(k, "paper range, unseen strategies") for k, _, _ in sets])]
+series = [("Paper's linear model (scored on the tournaments it was fit on)", BLUE, [p for _, _, p in sets]),
+          ("XGBoost, scored on tournaments it never saw", ORANGE, [get(k, "paper range only") for k, _, _ in sets]),
+          ("XGBoost, scored on tournaments and strategies it never saw", AQUA, [get(k, "paper range, unseen strategies") for k, _, _ in sets])]
 for i, (name, c, vals) in enumerate(series):
     bx = [j + (i - 1) * w for j in range(len(sets))]
     ax.bar(bx, vals, width=w - 0.03, color=c, label=name, zorder=2)
@@ -82,7 +82,7 @@ for i, (name, c, vals) in enumerate(series):
         ax.text(x, v + 0.015, f"{v:.2f}", ha="center", fontsize=9.5)
 ax.set_xticks(range(len(sets)), [n for _, n, _ in sets]); ax.set_ylim(0, 1.08); ax.set_ylabel("R² (share of rank explained)")
 ax.grid(axis="x", visible=False)
-ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=3, fontsize=10)
+ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=1, fontsize=10)
 title(fig, "A non-linear model explains much more of who wins",
       "Tournaments with noise and ending chance of 10% or less, the paper's range. Paper values are adjusted R².")
 fig.savefig(OUT / "r2_by_setting.png"); plt.close(fig)
