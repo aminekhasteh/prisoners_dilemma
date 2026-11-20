@@ -72,9 +72,9 @@ sets = [("no_noise_no_probend", "Standard", 0.54), ("has_noise_no_probend", "Noi
 def get(sub, chk): return float(h[(h.subset == sub) & (h.check == chk)].R2.iloc[0])
 fig, ax = plt.subplots(figsize=(9, 4.8))
 w = 0.26
-series = [("Paper's linear model (scored on the tournaments it was fit on)", BLUE, [p for _, _, p in sets]),
-          ("XGBoost, scored on tournaments it never saw", ORANGE, [get(k, "paper range only") for k, _, _ in sets]),
-          ("XGBoost, scored on tournaments and strategies it never saw", AQUA, [get(k, "paper range, unseen strategies") for k, _, _ in sets])]
+series = [("Linear model (paper): tested on the data it learned from", BLUE, [p for _, _, p in sets]),
+          ("XGBoost: tested on new tournaments, familiar strategies", ORANGE, [get(k, "paper range only") for k, _, _ in sets]),
+          ("XGBoost: tested on new tournaments and new strategies", AQUA, [get(k, "paper range, unseen strategies") for k, _, _ in sets])]
 for i, (name, c, vals) in enumerate(series):
     bx = [j + (i - 1) * w for j in range(len(sets))]
     ax.bar(bx, vals, width=w - 0.03, color=c, label=name, zorder=2)
