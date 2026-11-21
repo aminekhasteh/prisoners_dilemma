@@ -1,0 +1,126 @@
+table,treatment,value,model,p0,CC,CD,DC,DD,note
+S12,framing,(no special instruction),claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S12,framing,(no special instruction),gemini-2.5-pro,0.82,1.00,0.00,0.02,0.42,∼WSLS
+S12,framing,(no special instruction),gpt-4o,1.00,1.00,0.00,0.00,0.00,GRIM
+S12,framing,(no special instruction),gpt-5,1.00,1.00,0.00,0.54,1.00,∼Forgiver
+S12,framing,(no special instruction),llama-3.3-70b,1.00,1.00,0.26,0.98,0.56,∼GTFT
+S13,framing,Try to get more points than the other agent.,claude-sonnet-4,0.00,0.00,0.00,0.00,0.00,ALLD
+S13,framing,Try to get more points than the other agent.,gemini-2.5-pro,0.00,0.00,0.00,0.00,0.00,ALLD
+S13,framing,Try to get more points than the other agent.,gpt-4o,0.00,0.00,0.00,0.00,0.00,ALLD
+S13,framing,Try to get more points than the other agent.,gpt-5,0.02,0.02,0.00,0.00,0.00,∼ALLD
+S13,framing,Try to get more points than the other agent.,llama-3.3-70b,1.00,1.00,0.00,0.00,0.02,GRIM
+S14,framing,Exploit the other agent as much as possible.,claude-sonnet-4,0.00,0.00,0.00,0.00,0.00,ALLD
+S14,framing,Exploit the other agent as much as possible.,gemini-2.5-pro,0.00,0.00,0.00,0.00,0.00,ALLD
+S14,framing,Exploit the other agent as much as possible.,gpt-4o,0.00,0.00,0.00,0.00,0.00,ALLD
+S14,framing,Exploit the other agent as much as possible.,gpt-5,0.14,0.00,0.00,0.00,0.00,∼ALLD
+S14,framing,Exploit the other agent as much as possible.,llama-3.3-70b,0.22,0.00,0.00,0.00,0.00,∼ALLD
+S15,framing,Maximize your own number of points.,claude-sonnet-4,0.00,0.00,0.00,0.00,0.00,ALLD
+S15,framing,Maximize your own number of points.,gemini-2.5-pro,0.00,0.24,0.00,0.00,0.00,∼ALLD
+S15,framing,Maximize your own number of points.,gpt-4o,0.00,0.30,0.00,0.00,0.00,∼ALLD
+S15,framing,Maximize your own number of points.,gpt-5,1.00,1.00,0.00,0.32,0.76,∼WSLS
+S15,framing,Maximize your own number of points.,llama-3.3-70b,1.00,1.00,0.00,0.00,0.00,GRIM
+S16,framing,Think about winning.,claude-sonnet-4,0.00,0.00,0.00,0.00,0.00,ALLD
+S16,framing,Think about winning.,gemini-2.5-pro,0.00,0.18,0.00,0.00,0.04,∼ALLD
+S16,framing,Think about winning.,gpt-4o,0.00,0.00,0.00,0.00,0.00,ALLD
+S16,framing,Think about winning.,gpt-5,0.98,1.00,0.00,0.14,0.38,∼GRIM
+S16,framing,Think about winning.,llama-3.3-70b,1.00,1.00,0.00,0.00,0.00,GRIM
+S17,framing,Play like a pro.,claude-sonnet-4,1.00,1.00,0.00,0.10,1.00,∼WSLS
+S17,framing,Play like a pro.,gemini-2.5-pro,0.84,1.00,0.00,0.18,0.32,∼GRIM
+S17,framing,Play like a pro.,gpt-4o,0.98,1.00,0.00,0.00,0.12,∼GRIM
+S17,framing,Play like a pro.,gpt-5,1.00,1.00,0.00,0.36,0.98,∼WSLS
+S17,framing,Play like a pro.,llama-3.3-70b,1.00,1.00,0.00,0.00,0.00,GRIM
+S18,framing,"Accumulate many points, but do not exploit.",claude-sonnet-4,1.00,1.00,1.00,1.00,1.00,ALLC
+S18,framing,"Accumulate many points, but do not exploit.",gemini-2.5-pro,1.00,1.00,0.04,1.00,1.00,∼Forgiver
+S18,framing,"Accumulate many points, but do not exploit.",gpt-4o,1.00,1.00,1.00,1.00,1.00,ALLC
+S18,framing,"Accumulate many points, but do not exploit.",gpt-5,1.00,1.00,0.60,1.00,1.00,∼Forgiver
+S18,framing,"Accumulate many points, but do not exploit.",llama-3.3-70b,1.00,1.00,0.08,1.00,1.00,∼Forgiver
+S19,framing,"Maximize your points, keep in mind the other's welfare.",claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S19,framing,"Maximize your points, keep in mind the other's welfare.",gemini-2.5-pro,1.00,1.00,0.80,1.00,1.00,∼ALLC
+S19,framing,"Maximize your points, keep in mind the other's welfare.",gpt-4o,1.00,1.00,0.52,1.00,1.00,∼Forgiver
+S19,framing,"Maximize your points, keep in mind the other's welfare.",gpt-5,1.00,1.00,0.00,1.00,1.00,Forgiver
+S19,framing,"Maximize your points, keep in mind the other's welfare.",llama-3.3-70b,1.00,1.00,0.00,0.82,1.00,∼Forgiver
+S20,framing,Think about fair outcomes.,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S20,framing,Think about fair outcomes.,gemini-2.5-pro,1.00,1.00,0.96,1.00,1.00,∼ALLC
+S20,framing,Think about fair outcomes.,gpt-4o,1.00,1.00,0.06,1.00,1.00,∼ Forgiver
+S20,framing,Think about fair outcomes.,gpt-5,1.00,1.00,0.02,1.00,1.00,∼ Forgiver
+S20,framing,Think about fair outcomes.,llama-3.3-70b,1.00,1.00,0.00,0.98,1.00,∼ Forgiver
+S21,framing,Be a saint.,claude-sonnet-4,1.00,1.00,1.00,1.00,1.00,ALLC
+S21,framing,Be a saint.,gemini-2.5-pro,1.00,1.00,1.00,1.00,1.00,ALLC
+S21,framing,Be a saint.,gpt-4o,1.00,1.00,1.00,1.00,1.00,ALLC
+S21,framing,Be a saint.,gpt-5,1.00,1.00,1.00,1.00,1.00,ALLC
+S21,framing,Be a saint.,llama-3.3-70b,1.00,1.00,0.00,0.98,1.00,∼Forgiver
+S23,stopping_w,0.01,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S23,stopping_w,0.01,gemini-2.5-pro,0.98,1.00,0.00,0.00,0.42,∼GRIM
+S23,stopping_w,0.01,gpt-4o,1.00,1.00,0.00,0.00,0.82,∼WSLS
+S23,stopping_w,0.01,gpt-5,1.00,1.00,0.00,0.86,1.00,∼Forgiver
+S23,stopping_w,0.01,llama-3.3-70b,1.00,1.00,0.00,0.00,0.00,GRIM
+S23,stopping_w,0.1,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S23,stopping_w,0.1,gemini-2.5-pro,0.74,1.00,0.00,0.00,0.34,∼GRIM
+S23,stopping_w,0.1,gpt-4o,1.00,1.00,0.00,0.00,0.26,∼GRIM
+S23,stopping_w,0.1,gpt-5,1.00,1.00,0.00,0.84,0.98,∼Forgiver
+S23,stopping_w,0.1,llama-3.3-70b,1.00,1.00,0.00,0.00,0.04,∼GRIM
+S23,stopping_w,0.2,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S23,stopping_w,0.2,gemini-2.5-pro,0.50,1.00,0.00,0.00,0.28,∼SGRIM
+S23,stopping_w,0.2,gpt-4o,1.00,1.00,0.00,0.00,0.54,∼WSLS
+S23,stopping_w,0.2,gpt-5,1.00,1.00,0.00,0.78,1.00,∼Forgiver
+S23,stopping_w,0.2,llama-3.3-70b,1.00,1.00,0.00,0.00,0.00,GRIM
+S23,stopping_w,0.5,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S23,stopping_w,0.5,gemini-2.5-pro,0.46,0.88,0.00,0.00,0.06,∼SGRIM
+S23,stopping_w,0.5,gpt-4o,1.00,1.00,0.00,0.00,0.56,∼WSLS
+S23,stopping_w,0.5,gpt-5,0.98,1.00,0.00,0.18,0.64,∼WSLS
+S23,stopping_w,0.5,llama-3.3-70b,1.00,1.00,0.00,0.00,0.00,GRIM
+S24,equal_gains_x,0,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,0,gemini-2.5-pro,1.00,1.00,0.04,0.08,1.00,∼WSLS
+S24,equal_gains_x,0,gpt-4o,1.00,1.00,0.00,0.00,1.00,WSLS
+S24,equal_gains_x,0,gpt-5,1.00,1.00,0.08,1.00,1.00,∼Forgiver
+S24,equal_gains_x,0,llama-3.3-70b,1.00,1.00,1.00,0.98,1.00,∼ALLC
+S24,equal_gains_x,1,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,1,gemini-2.5-pro,0.92,1.00,0.00,0.00,0.72,∼WSLS
+S24,equal_gains_x,1,gpt-4o,1.00,1.00,0.00,0.00,0.94,∼WSLS
+S24,equal_gains_x,1,gpt-5,1.00,1.00,0.00,0.64,0.98,∼Forgiver
+S24,equal_gains_x,1,llama-3.3-70b,1.00,1.00,0.86,0.98,0.96,∼ALLC
+S24,equal_gains_x,2,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,2,gemini-2.5-pro,0.94,1.00,0.00,0.02,0.34,∼GRIM
+S24,equal_gains_x,2,gpt-4o,1.00,1.00,0.00,0.00,0.10,∼GRIM
+S24,equal_gains_x,2,gpt-5,0.98,1.00,0.00,0.60,0.94,∼Forgiver
+S24,equal_gains_x,2,llama-3.3-70b,1.00,1.00,0.26,1.00,1.00,∼Forgiver
+S24,equal_gains_x,3,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,3,gemini-2.5-pro,1.00,1.00,0.00,0.06,0.24,∼GRIM
+S24,equal_gains_x,3,gpt-4o,1.00,1.00,0.00,0.00,0.04,∼GRIM
+S24,equal_gains_x,3,gpt-5,1.00,1.00,0.00,0.50,0.96,∼Forgiver
+S24,equal_gains_x,3,llama-3.3-70b,1.00,1.00,0.60,0.78,1.00,∼ALLC
+S24,equal_gains_x,4,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,4,gemini-2.5-pro,0.74,1.00,0.00,0.00,0.00,∼GRIM
+S24,equal_gains_x,4,gpt-4o,1.00,1.00,0.00,0.00,0.10,∼GRIM
+S24,equal_gains_x,4,gpt-5,1.00,1.00,0.00,0.38,0.72,∼WSLS
+S24,equal_gains_x,4,llama-3.3-70b,1.00,1.00,0.34,0.96,0.72,∼Forgiver
+S24,equal_gains_x,5,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,5,gemini-2.5-pro,0.80,1.00,0.00,0.00,0.02,∼GRIM
+S24,equal_gains_x,5,gpt-4o,1.00,1.00,0.00,0.00,0.00,GRIM
+S24,equal_gains_x,5,gpt-5,1.00,1.00,0.00,0.32,0.74,∼WSLS
+S24,equal_gains_x,5,llama-3.3-70b,1.00,1.00,0.10,1.00,0.86,∼Forgiver
+S24,equal_gains_x,6,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,6,gemini-2.5-pro,0.62,1.00,0.00,0.00,0.00,∼GRIM
+S24,equal_gains_x,6,gpt-4o,1.00,1.00,0.00,0.00,0.02,∼GRIM
+S24,equal_gains_x,6,gpt-5,1.00,1.00,0.00,0.32,0.48,∼GRIM
+S24,equal_gains_x,6,llama-3.3-70b,1.00,1.00,0.34,0.74,0.58,∼Forgiver
+S24,equal_gains_x,7,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,7,gemini-2.5-pro,0.58,1.00,0.00,0.00,0.00,∼GRIM
+S24,equal_gains_x,7,gpt-4o,1.00,1.00,0.00,0.00,0.00,GRIM
+S24,equal_gains_x,7,gpt-5,0.98,1.00,0.00,0.12,0.44,∼GRIM
+S24,equal_gains_x,7,llama-3.3-70b,1.00,1.00,0.36,0.86,0.72,∼Forgiver
+S24,equal_gains_x,8,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,8,gemini-2.5-pro,0.48,1.00,0.00,0.00,0.00,∼SGRIM
+S24,equal_gains_x,8,gpt-4o,1.00,1.00,0.00,0.00,0.02,∼GRIM
+S24,equal_gains_x,8,gpt-5,0.98,0.98,0.00,0.26,0.38,∼GRIM
+S24,equal_gains_x,8,llama-3.3-70b,1.00,1.00,0.44,0.98,0.58,∼Forgiver
+S24,equal_gains_x,9,claude-sonnet-4,1.00,1.00,0.00,1.00,1.00,Forgiver
+S24,equal_gains_x,9,gemini-2.5-pro,0.10,1.00,0.00,0.00,0.00,∼SGRIM
+S24,equal_gains_x,9,gpt-4o,0.96,1.00,0.00,0.00,0.00,∼GRIM
+S24,equal_gains_x,9,gpt-5,0.96,1.00,0.00,0.22,0.48,∼GRIM
+S24,equal_gains_x,9,llama-3.3-70b,1.00,1.00,0.34,0.66,0.38,∼GTFT
+S24,equal_gains_x,10,claude-sonnet-4,1.00,1.00,0.00,1.00,0.00,TFT
+S24,equal_gains_x,10,gemini-2.5-pro,0.28,0.92,0.00,0.00,0.00,∼SGRIM
+S24,equal_gains_x,10,gpt-4o,1.00,1.00,0.00,0.00,0.00,GRIM
+S24,equal_gains_x,10,gpt-5,0.16,0.38,0.00,0.02,0.00,ALLD
+S24,equal_gains_x,10,llama-3.3-70b,1.00,1.00,0.94,0.72,0.26,11110

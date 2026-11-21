@@ -86,3 +86,43 @@ wall-seconds, per repetition-turn for all 1,370 new pairs. The 22 Meta*/NMWE* op
 | `standard`, all five lengths (100 tournaments) | about 100 h (4 days) |
 
 Per standard length (20 seeds): 63 turns 8.5 h, 77 turns 10.5 h, 151 turns 20 h, 156 turns 21 h, 308 turns 41.5 h.
+
+## Pal et al. 2026 tables beyond S12 (memory-2, framings, w, x)
+
+Source: arXiv 2601.09849v1 (101-page PDF with the supplement; kept untracked at `Studies/2601.09849v1.pdf` in the main
+checkout). `extract_pal2026.py` reads it with pypdf and writes the two CSVs below. In the paper L = cooperate and
+R = defect, and an outcome "LR" means the LLM played L and the other agent played R; the CSVs write C/D with the
+LLM's own move first (LR = CD).
+
+| Paper table | PDF page (printed SI page) | What it is |
+|---|---|---|
+| S11 | 45 (23) | Memory-2 raw counts: times L was chosen out of 50, in 21 scenarios |
+| S25 | 55-56 (33-34) | The same 21 numbers as means with Wilson intervals (the inferred memory-2 strategies) |
+| S12 | 47 (25) | Memory-1, no framing (the five players already in the tournament) |
+| S13-S21 | 47-50 (25-28) | Memory-1 under nine framing sentences; S22 (p. 50) summarises the strategy labels |
+| S23 | 51 (29) | Memory-1 with a stated stopping probability w = 0.01, 0.1, 0.2, 0.5 |
+| S24 | 51-54 (29-32) | Memory-1 in the equal-gains games, x = 0 to 10 |
+
+Section 4.4 (p. 37, printed 15) has the memory-2 prompts. The memory-2 experiment re-asks round 1 and round 2 rather
+than reusing S12, so its first-move numbers differ a little (Gemini cooperates first 45/50 times here, 41/50 in S12).
+S11 counts / 50 match the S25 means in all 105 cells.
+
+`pal2026_memory2.csv`: one row per model and scenario.
+- `scenario`: `round1` (first move), `round2` (second move, given round 1's outcome in `prev1`), or `later` (any
+  round from 3 on, given the outcome two rounds ago `prev2` and last round `prev1`).
+- `count_C` out of `n` = 50 trials; `p_C` = count_C / n, the probability of cooperating.
+
+`pal2026_memory1_treatments.csv`: one row per model and treatment, with `p0` and P(C) after `CC`, `CD`, `DC`, `DD`
+(own move first) and the paper's label in `note`. `treatment` is `framing` (value = the added sentence, worded as in
+Table S22), `stopping_w` or `equal_gains_x`.
+
+### Memory-2 players (planned, not yet in run_llm_field.py)
+
+A `MemoryTwoLLM(axl.Player)` with p0, four round-2 probabilities and sixteen later-round probabilities: move 1 uses
+p0; move 2 looks up (own, opponent) in round 1; from move 3 on it looks up (round t-2 outcome, round t-1 outcome). Like
+`StochasticStartMemoryOne`, it draws from its own seeded RNG and returns C/D directly when a probability is 0 or 1
+(deterministic players are not seeded by `axl.Match`). Memory depth 2. Names like "LLM-m2: Claude Sonnet 4".
+
+The natural design is a 282-player field: Knight's 272, the five memory-1 players and the five memory-2 players. Only
+the memory-2 players' pairs are new (5 x 272 + 5 x 5 against memory-1 + 10 among themselves = 1,395 pairs). The
+memory-1 pairs already played are reused, which needs `combine` to read two pair files per tournament.
