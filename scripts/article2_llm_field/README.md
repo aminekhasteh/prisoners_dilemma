@@ -126,3 +126,8 @@ p0; move 2 looks up (own, opponent) in round 1; from move 3 on it looks up (roun
 The natural design is a 282-player field: Knight's 272, the five memory-1 players and the five memory-2 players. Only
 the memory-2 players' pairs are new (5 x 272 + 5 x 5 against memory-1 + 10 among themselves = 1,395 pairs). The
 memory-1 pairs already played are reused, which needs `combine` to read two pair files per tournament.
+
+`run_m2_field.py` now implements this (`MemoryTwoLLM`, players named "LLM-m2: ..."), importing `run_llm_field.py`
+and writing to `results_m2/`. `run_m2_all.sh` waits for `run_all.sh` to finish, then runs the three 63-turn conditions
+(about 17 h on 4 cores). A 2-repetition test at 5% noise ran end to end (1,395 new pairs merged with the memory-1 pairs
+into a 282-player ranking).
