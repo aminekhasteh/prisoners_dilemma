@@ -95,7 +95,7 @@ fig.text(0.02, 0.93, "Tournaments in the paper's range (noise and ending chance 
          fontsize=10.5, color=INK2, ha="left", va="top")
 fig.savefig(OUT / "r2_by_setting.png"); plt.close(fig)
 
-# 3. Feature importance, all settings pooled
+# 3. Feature importance, all settings pooled, each bar labelled with the lesson it points to
 imp = pd.read_csv(RES / "shap_importance_ci.csv")
 imp = imp[imp.model == "all"].head(12).iloc[::-1]
 names = {"Cooperation_rating_comp_to_median": "Cᵣ / C_median", "Cooperation_rating_comp_to_max": "Cᵣ / C_max",
@@ -104,17 +104,40 @@ names = {"Cooperation_rating_comp_to_median": "Cᵣ / C_median", "Cooperation_ra
          "CD_to_C_rate": "CD to C rate", "SSE": "SSE", "Cooperation_rating_mean": "C_mean",
          "Cooperation_rating_comp_to_min": "Cᵣ / C_min", "DC_to_C_rate": "DC to C rate"}
 ratio = {"Cooperation_rating_comp_to_median", "Cooperation_rating_comp_to_max", "Cooperation_rating_comp_to_mean", "Cooperation_rating_comp_to_min"}
-fig, ax = plt.subplots(figsize=(9, 5.4))
-cols = [ORANGE if f in ratio else BLUE for f in imp.feature]
+setting = {"noise", "probend", "Cooperation_rating_mean"}
+lesson = {"CC_to_C_rate": "Be nice", "memory_usage": "Be clever", "CD_to_C_rate": "Don't be a pushover",
+          "SSE": "Be a little envious", "DC_to_C_rate": "Don't apologise too fast",
+          "noise": "the room, not a habit", "probend": "the room, not a habit", "Cooperation_rating_mean": "the room, not a habit"}
+GREY = "#b9b8b3"
+fig, ax = plt.subplots(figsize=(9, 6.2))
+fig.subplots_adjust(left=0.2, right=0.97, top=0.8, bottom=0.1)
+cols = [ORANGE if f in ratio else GREY if f in setting else BLUE for f in imp.feature]
 ys = list(range(len(imp)))
 ax.barh(ys, imp.mean_abs_shap, color=cols, height=0.62, zorder=2)
 ax.errorbar(imp.mean_abs_shap, ys, xerr=[imp.mean_abs_shap - imp.ci_low, imp.ci_high - imp.mean_abs_shap],
             fmt="none", ecolor="#0b0b0b", elinewidth=1, capsize=2, zorder=3)
+xmax = imp.ci_high.max()
+for y, (f, hi) in enumerate(zip(imp.feature, imp.ci_high)):
+    if f in lesson:
+        ital = f in setting
+        ax.text(hi + xmax * 0.015, y, lesson[f], va="center", fontsize=10.5, color=MUTED if ital else "#0b0b0b",
+                style="italic" if ital else "normal", fontweight="normal" if ital else "bold")
+# the "compare with the crowd" bars share one lesson: spell it inside the top bar, mark the rest as the same idea
+top = imp.feature.iloc[-1]
+for y, (f, v, hi) in enumerate(zip(imp.feature, imp.mean_abs_shap, imp.ci_high)):
+    if f not in ratio: continue
+    if f == top:
+        ax.text(v - xmax * 0.02, y, "Cooperate about as much as the crowd", va="center", ha="right", fontsize=11,
+                color="white", fontweight="bold")
+    else:
+        ax.text(hi + xmax * 0.015, y, "same lesson, other yardstick", va="center", fontsize=10.5, color=ORANGE, style="italic")
+ax.set_xlim(0, xmax * 1.05)
 ax.set_yticks(ys, [names[f] for f in imp.feature]); ax.set_xlabel("Mean |SHAP| (average shift in predicted rank)")
 ax.grid(axis="y", visible=False)
-ax.legend(handles=[Patch(color=ORANGE, label="Your cooperation compared with the field"), Patch(color=BLUE, label="Other features")],
-          frameon=False, loc="lower right", fontsize=10)
-title(fig, "How you compare with the crowd matters most",
-      "Top 12 features, all four settings pooled. Black lines are 95% bootstrap intervals over tournaments.")
+ax.legend(handles=[Patch(color=ORANGE, label="Your cooperation compared with the field"), Patch(color=BLUE, label="Your own habits"),
+                   Patch(color=GREY, label="The tournament itself")], frameon=False, loc="lower right", fontsize=10)
+fig.text(0.02, 0.965, "How you compare with the crowd matters most", fontsize=16, fontweight="bold", ha="left", va="top")
+fig.text(0.02, 0.915, "Top 12 features, all four settings pooled, each labelled with the lesson it points to.\n"
+         "Black lines are 95% bootstrap intervals over tournaments.", fontsize=11.5, color=INK2, ha="left", va="top", linespacing=1.4)
 fig.savefig(OUT / "importance_all.png"); plt.close(fig)
 print("done")
