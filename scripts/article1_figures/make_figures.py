@@ -65,26 +65,34 @@ fig.text(0.02, 0.905, "How much worse the above-median cooperators rank than the
          "Below zero, cooperating more pays. Lines are 95% intervals.", fontsize=11.5, color=INK2, ha="left", va="top", linespacing=1.4)
 fig.savefig(OUT / "noise_flip_by_level.png"); plt.close(fig)
 
-# 2. How much of winning the model explains
+# 2. How much of winning the model explains (horizontal: one row per setting, explained in its label)
 h = pd.read_csv(RES / "holdout_r2.csv")
-sets = [("no_noise_no_probend", "Standard", 0.54), ("has_noise_no_probend", "Noisy", 0.37),
-        ("no_noise_has_probend", "Probabilistic ending", 0.46), ("has_noise_has_probend", "Noisy + prob. ending", 0.54)]
+sets = [("no_noise_no_probend", "Standard", "Every move lands as chosen; games have a fixed length", 0.54),
+        ("has_noise_no_probend", "Noisy", "Each move has up to a 10% chance of being flipped by mistake", 0.37),
+        ("no_noise_has_probend", "Probabilistic ending", "After each round, up to a 10% chance the game ends,\nso nobody knows which round is last", 0.46),
+        ("has_noise_has_probend", "Noisy + probabilistic ending", "Both of the above at once", 0.54)]
 def get(sub, chk): return float(h[(h.subset == sub) & (h.check == chk)].R2.iloc[0])
-fig, ax = plt.subplots(figsize=(9, 4.8))
-w = 0.26
-series = [("Linear model (paper): tested on the data it learned from", BLUE, [p for _, _, p in sets]),
-          ("XGBoost: tested on new tournaments, familiar strategies", ORANGE, [get(k, "paper range only") for k, _, _ in sets]),
-          ("XGBoost: tested on new tournaments and new strategies", AQUA, [get(k, "paper range, unseen strategies") for k, _, _ in sets])]
+series = [("Linear model (paper): tested on the data it learned from", BLUE, [s[3] for s in sets]),
+          ("XGBoost: tested on new tournaments, familiar strategies", ORANGE, [get(s[0], "paper range only") for s in sets]),
+          ("XGBoost: tested on new tournaments and new strategies", AQUA, [get(s[0], "paper range, unseen strategies") for s in sets])]
+fig, ax = plt.subplots(figsize=(9, 6.6))
+fig.subplots_adjust(left=0.36, right=0.97, top=0.74, bottom=0.1)
+bh, gap = 0.24, 1.0
 for i, (name, c, vals) in enumerate(series):
-    bx = [j + (i - 1) * w for j in range(len(sets))]
-    ax.bar(bx, vals, width=w - 0.03, color=c, label=name, zorder=2)
-    for x, v in zip(bx, vals):
-        ax.text(x, v + 0.015, f"{v:.2f}", ha="center", fontsize=9.5)
-ax.set_xticks(range(len(sets)), [n for _, n, _ in sets]); ax.set_ylim(0, 1.08); ax.set_ylabel("R² (share of rank explained)")
-ax.grid(axis="x", visible=False)
-ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=1, fontsize=10)
-title(fig, "A non-linear model explains much more of who wins",
-      "Tournaments with noise and ending chance of 10% or less, the paper's range. Paper values are adjusted R².")
+    ys = [j * gap + (i - 1) * bh for j in range(len(sets))]
+    ax.barh(ys, vals, height=bh - 0.04, color=c, label=name, zorder=2)
+    for y, v in zip(ys, vals):
+        ax.text(v + 0.012, y, f"{v:.2f}", va="center", fontsize=9.5)
+ax.set_yticks([j * gap for j in range(len(sets))], [""] * len(sets)); ax.tick_params(axis="y", length=0)
+for j, (_, nm, expl, _) in enumerate(sets):
+    ax.text(-0.03, j * gap - 0.1, nm, transform=ax.get_yaxis_transform(), ha="right", va="bottom", fontsize=11.5, fontweight="bold")
+    ax.text(-0.03, j * gap - 0.06, expl, transform=ax.get_yaxis_transform(), ha="right", va="top", fontsize=9, color=INK2, linespacing=1.3)
+ax.invert_yaxis(); ax.set_xlim(0, 1.05); ax.set_xlabel("R² (share of rank explained; 1 = perfect)")
+ax.grid(axis="y", visible=False)
+ax.legend(frameon=False, loc="lower left", bbox_to_anchor=(-0.55, 1.0), ncol=1, fontsize=10)
+fig.text(0.02, 0.975, "A non-linear model explains much more of who wins", fontsize=16, fontweight="bold", ha="left", va="top")
+fig.text(0.02, 0.93, "Tournaments in the paper's range (noise and ending chance of 10% or less). Paper values are adjusted R².",
+         fontsize=10.5, color=INK2, ha="left", va="top")
 fig.savefig(OUT / "r2_by_setting.png"); plt.close(fig)
 
 # 3. Feature importance, all settings pooled
