@@ -69,8 +69,8 @@ fig.savefig(OUT / "noise_flip_by_level.png"); plt.close(fig)
 h = pd.read_csv(RES / "holdout_r2.csv")
 sets = [("no_noise_no_probend", "Standard", "Every move lands as chosen; games have a fixed length", 0.54),
         ("has_noise_no_probend", "Noisy", "Each move has up to a 10% chance of being flipped by mistake", 0.37),
-        ("no_noise_has_probend", "Probabilistic ending", "After each round, up to a 10% chance the game ends,\nso nobody knows which round is last", 0.46),
-        ("has_noise_has_probend", "Noisy + probabilistic ending", "Both of the above at once", 0.54)]
+        ("no_noise_has_probend", "Random ending", "After each round, up to a 10% chance the game ends,\nso nobody knows which round is last", 0.46),
+        ("has_noise_has_probend", "Noisy + random ending", "Both of the above at once", 0.54)]
 def get(sub, chk): return float(h[(h.subset == sub) & (h.check == chk)].R2.iloc[0])
 series = [("Linear model (paper): tested on the data it learned from", BLUE, [s[3] for s in sets]),
           ("XGBoost: tested on new tournaments, familiar strategies", ORANGE, [get(s[0], "paper range only") for s in sets]),
