@@ -8,7 +8,7 @@ strategies can join the tournament the same way the paper's five did.
 | File | What it does |
 |---|---|
 | `prompts.py` | Prompt templates and scenarios: `memory1` (5), `memory2` (21), `framing` (9 x 5), `stopping` (w, 4 x 5), `gains` (x = 0..10, 11 x 5) |
-| `providers.py` | Async adapters for Anthropic and Gemini, a `fake` model for free testing, and the price table |
+| `providers.py` | Async adapters for Anthropic, OpenAI (Responses API) and Gemini, a `fake` model for free testing, and the price table |
 | `elicit.py` | Runs the calls, appends every reply to `results/raw/<tag>.jsonl`, resumes, enforces `--max-usd` |
 | `estimate.py` | Counts, Wilson intervals, strategy labels, CSVs, and `--compare` against the paper's numbers |
 
@@ -30,11 +30,12 @@ Keys live outside the repo in `~/.config/pd-llm/keys.env` (mode 600, checked at 
 ```
 ANTHROPIC_API_KEY=...
 GEMINI_API_KEY=...
+OPENAI_API_KEY=...
 ```
 
 ## Running
 
-Use the repo `.venv` (it has `anthropic` and `google-genai`). Always do a `--dry-run` first.
+Use the repo `.venv` (it has `anthropic`, `openai` and `google-genai`). Always do a `--dry-run` first.
 
 ```
 python elicit.py --provider fake --model fake --tag fake_test                      # free end-to-end test

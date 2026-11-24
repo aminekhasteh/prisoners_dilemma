@@ -23,6 +23,9 @@ PRICES = {
     "gemini-3.5-flash-lite": (0.30, 2.50),
     "gemini-2.5-flash-lite": (0.10, 0.40),
     "gemini-2.5-pro": (1.25, 10.0),
+    "gpt-6-luna": (0.10, 0.50),
+    "gpt-6.1-terra": (1.0, 5.0),
+    "gpt-6.1-sol": (2.0, 10.0),
     "fake": (0.0, 0.0),
 }
 
@@ -120,6 +123,30 @@ class GeminiProvider(Provider):
         return Reply(r.text or "", u.prompt_token_count or 0, out, thoughts, stop)
 
 
+class OpenAIProvider(Provider):
+    name = "openai"
+
+    def __init__(self, model, effort=None, temperature=None, max_tokens=4000):
+        import openai
+        self.model, self.effort, self.temperature, self.max_tokens = model, effort, temperature, max_tokens
+        self.client = openai.AsyncOpenAI(api_key=load_key("OPENAI_API_KEY"), max_retries=6)
+
+    def settings(self):
+        return {"provider": self.name, "model": self.model, "reasoning_effort": self.effort,
+                "temperature": self.temperature, "max_tokens": self.max_tokens}
+
+    async def ask(self, system, prompt):
+        kw = dict(model=self.model, instructions=system, input=prompt, max_output_tokens=self.max_tokens)
+        if self.effort:
+            kw["reasoning"] = {"effort": self.effort}
+        if self.temperature is not None:
+            kw["temperature"] = self.temperature
+        r = await self.client.responses.create(**kw)
+        u = r.usage
+        rt = getattr(getattr(u, "output_tokens_details", None), "reasoning_tokens", None)
+        return Reply(r.output_text or "", u.input_tokens, u.output_tokens, rt, r.status)
+
+
 class FakeProvider(Provider):
     """Offline stand-in: answers L with a fixed probability per outcome, for testing the pipeline at no cost."""
     name = "fake"
@@ -149,6 +176,8 @@ def make_provider(args) -> Provider:
         return FakeProvider(seed=args.seed or 0)
     if args.provider == "anthropic":
         return AnthropicProvider(args.model, effort=args.effort, thinking=args.thinking)
+    if args.provider == "openai":
+        return OpenAIProvider(args.model, effort=args.effort, temperature=args.temperature)
     if args.provider == "gemini":
         return GeminiProvider(args.model, temperature=args.temperature, seed=args.seed,
                               thinking_budget=args.thinking_budget)
