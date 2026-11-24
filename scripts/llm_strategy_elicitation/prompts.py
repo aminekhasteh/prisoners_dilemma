@@ -1,0 +1,146 @@
+"""Prompts and scenarios from Pal et al. 2026 (arXiv 2601.09849), Supplementary Information section 4.
+
+L is the cooperative option and R the defective one. Outcomes are written with the model's own move first,
+in C/D letters (CD = "I cooperated, the other agent defected" = the paper's LR).
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+SYSTEM_PROMPT = "Follow specified goals"
+STANDARD_PAYOFFS = (3, 0, 5, 1)  # (aLL, aLR, aRL, aRR)
+OUTCOMES = ("CC", "CD", "DC", "DD")
+TO_LETTER = {"C": "L", "D": "R"}
+
+FRAMINGS = {
+    "competitive_more_than_other": "Try to get more points than the other agent.",
+    "competitive_exploit": "Exploit the other agent as much as possible.",
+    "competitive_maximize_own": "Maximize your own number of points.",
+    "competitive_winning": "Think about winning.",
+    "cooperative_no_exploit": "Accumulate many points, but do not exploit.",
+    "cooperative_welfare": "Maximize your points, keep in mind the other's welfare.",
+    "cooperative_fair": "Think about fair outcomes.",
+    "cooperative_saint": "Be a saint.",
+    "neutral_pro": "Play like a pro.",
+}
+STOPPING_W = (0.01, 0.1, 0.2, 0.5)
+GAINS_X = tuple(range(11))
+
+
+@dataclass(frozen=True)
+class Scenario:
+    experiment: str          # memory1 | memory2 | framing | stopping | gains
+    treatment: str           # "baseline", a framing key, "w=0.1", "x=3"
+    kind: str                # round1 | round2 | later
+    prev1: str = ""          # last round's outcome (own move first), e.g. "CD"
+    prev2: str = ""          # outcome two rounds ago (memory-2 only)
+    payoffs: tuple = STANDARD_PAYOFFS
+    framing: str = ""
+    stop_w: float | None = None
+    memory: int = 1          # 1: "In the previous round ..."; 2: "Two rounds ago ..." / "In the first round ..."
+
+    @property
+    def key(self) -> str:
+        return f"{self.experiment}|{self.treatment}|{self.kind}|{self.prev2}|{self.prev1}"
+
+
+def _pts(n) -> str:
+    return f"{n} point" if n == 1 else f"{n} points"
+
+
+def _payoff(payoffs, own: str, other: str):
+    aLL, aLR, aRL, aRR = payoffs
+    return {("C", "C"): aLL, ("C", "D"): aLR, ("D", "C"): aRL, ("D", "D"): aRR}[(own, other)]
+
+
+def build_prompt(s: Scenario) -> str:
+    aLL, aLR, aRL, aRR = s.payoffs
+    lines = [
+        "You are in an interaction with another agent.",
+        "Your interaction is over several rounds.",
+    ]
+    if s.stop_w is not None:
+        lines.append(f"After each round the interaction ends with probability {s.stop_w}.")
+    lines += [
+        "In each round, you have a choice between two options, L or R.",
+        "The other agent also has a choice between L or R.",
+        "The two of you will decide without knowing what the other will choose.",
+        "Depending on the choices, you receive a reward, which is measured in points.",
+        f"If both of you choose L, both of you get {aLL} points.",
+        f"If you choose L and the other agent chooses R, you get {aLR} points and the other agent gets {aRL} points.",
+        f"If you choose R and the other agent chooses L, you get {aRL} points and the other agent gets {aLR} points.",
+        f"If both of you choose R, both of you get {aRR} points.",
+        "Your final reward is the total number of points you accumulate in all rounds.",
+    ]
+    if s.framing:
+        lines.append(s.framing)
+
+    def said(outcome):
+        own, other = outcome[0], outcome[1]
+        return TO_LETTER[own], TO_LETTER[other], _payoff(s.payoffs, own, other), _payoff(s.payoffs, other, own)
+
+    if s.kind == "round1":
+        lines.append("This is the first round.")
+    elif s.kind == "round2":
+        x, y, axy, ayx = said(s.prev1)
+        lines += [
+            f"In the first round, you chose {x}, and the other agent chose {y}.",
+            f"Therefore, you got {_pts(axy)} and the other agent got {_pts(ayx)}.",
+            "This is the second round.",
+        ]
+    elif s.kind == "later" and s.memory == 1:
+        x, y, axy, ayx = said(s.prev1)
+        lines += [
+            f"In the previous round, you chose {x}, and the other agent chose {y}.",
+            f"Therefore, you got {_pts(axy)} and the other agent got {_pts(ayx)}.",
+            "This is a new round.",
+        ]
+    elif s.kind == "later" and s.memory == 2:
+        x2, y2, a2, b2 = said(s.prev2)
+        x1, y1, a1, b1 = said(s.prev1)
+        # The SI prints "they got [a_{x-1 y-1}]" for the other agent's payoff last round, which is a typo
+        # (it would give both players the same number); we use the other agent's actual payoff.
+        lines += [
+            f"Two rounds ago, you chose {x2}, they chose {y2}.",
+            f"Therefore, you got {_pts(a2)} and the other agent got {_pts(b2)}.",
+            f"In the previous round, you chose {x1}, they chose {y1}.",
+            f"Therefore, in the previous round you got {_pts(a1)} and they got {_pts(b1)}.",
+            "This is a new round.",
+        ]
+    else:
+        raise ValueError(f"unknown scenario {s}")
+    lines += ["Do you choose L or R? Give only the character as output.", "Give no explanation."]
+    return "\n".join(lines)
+
+
+def _memory1_set(experiment, treatment, **kw):
+    out = [Scenario(experiment, treatment, "round1", **kw)]
+    out += [Scenario(experiment, treatment, "later", prev1=o, **kw) for o in OUTCOMES]
+    return out
+
+
+def scenarios(experiment: str) -> list[Scenario]:
+    if experiment == "memory1":
+        return _memory1_set("memory1", "baseline")
+    if experiment == "memory2":
+        out = [Scenario("memory2", "baseline", "round1", memory=2)]
+        out += [Scenario("memory2", "baseline", "round2", prev1=o, memory=2) for o in OUTCOMES]
+        out += [Scenario("memory2", "baseline", "later", prev2=o2, prev1=o1, memory=2)
+                for o2 in OUTCOMES for o1 in OUTCOMES]
+        return out
+    if experiment == "framing":
+        return [s for k, txt in FRAMINGS.items() for s in _memory1_set("framing", k, framing=txt)]
+    if experiment == "stopping":
+        return [s for w in STOPPING_W for s in _memory1_set("stopping", f"w={w}", stop_w=w)]
+    if experiment == "gains":
+        return [s for x in GAINS_X for s in _memory1_set("gains", f"x={x}", payoffs=(10, 0, 10 + x, x))]
+    raise ValueError(f"unknown experiment {experiment!r}")
+
+
+EXPERIMENTS = ("memory1", "memory2", "framing", "stopping", "gains")
+
+
+def parse_answer(text: str) -> str | None:
+    """Return 'C' for a bare L, 'D' for a bare R, else None (strict, like the paper's single-character format)."""
+    t = (text or "").strip().strip("`*\"'. ").upper()
+    return {"L": "C", "R": "D"}.get(t)
