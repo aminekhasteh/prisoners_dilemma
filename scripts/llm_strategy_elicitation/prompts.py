@@ -152,3 +152,39 @@ def parse_answer(text: str) -> str | None:
     """Return 'C' for a bare L, 'D' for a bare R, else None (strict, like the paper's single-character format)."""
     t = (text or "").strip().strip("`*\"'. ").upper()
     return {"L": "C", "R": "D"}.get(t)
+
+
+# ---- prompt IDs ---------------------------------------------------------------------------------------------------
+# <wording>-<block>-<scenario>, e.g. SI-M1-CD, CL-M2-CC-CD, SI-F3-R1, SI-W0.1-DC, SI-X10-DD.
+# wording: CL = clean, SI = paper verbatim, SP = paper verbatim joined into one paragraph (PD_PROMPT_JOIN=space).
+# block: M1 memory-1, M2 memory-2, F1..F9 framings (order of FRAMINGS), W<w> stopping probability, X<x> payoff cost.
+# scenario: R1 first round; CC/CD/DC/DD last round (own move first); R2-<o> second round after o (memory-2);
+# <o2>-<o1> two rounds ago o2, last round o1 (memory-2).
+FRAMING_IDS = {k: f"F{i + 1}" for i, k in enumerate(FRAMINGS)}
+
+
+def wording_id(variant=None, join=None):
+    variant = variant or VARIANT
+    join = join if join is not None else os.environ.get("PD_PROMPT_JOIN")
+    if variant == "si":
+        return "SP" if join == "space" else "SI"
+    return "CL"
+
+
+def prompt_uid(s: Scenario, wording: str | None = None) -> str:
+    block = {"memory1": "M1", "memory2": "M2"}.get(s.experiment)
+    if s.experiment == "framing":
+        block = FRAMING_IDS[s.treatment]
+    elif s.experiment == "stopping":
+        block = "W" + s.treatment.split("=")[1]
+    elif s.experiment == "gains":
+        block = "X" + s.treatment.split("=")[1]
+    if s.kind == "round1":
+        sc = "R1"
+    elif s.kind == "round2":
+        sc = f"R2-{s.prev1}"
+    elif s.memory == 2:
+        sc = f"{s.prev2}-{s.prev1}"
+    else:
+        sc = s.prev1
+    return f"{wording or wording_id()}-{block}-{sc}"
