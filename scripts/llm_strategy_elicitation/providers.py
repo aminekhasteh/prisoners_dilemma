@@ -26,7 +26,7 @@ PRICES = {
     "gpt-6-luna": (0.10, 0.50),
     "gpt-6.1-terra": (1.0, 5.0),
     "gpt-6.1-sol": (2.0, 10.0),
-    "meta-llama/llama-3.3-70b-instruct": (0.10, 0.32),  # OpenRouter list price; varies by host
+    "meta-llama/llama-3.3-70b-instruct": (0.70, 0.80),  # what OpenRouter actually billed (CoreWeave/Bedrock); runs record the real charge
     "fake": (0.0, 0.0),
 }
 
@@ -50,6 +50,7 @@ class Reply:
     output_tokens: int     # includes thinking tokens
     thinking_tokens: int | None = None
     stop_reason: str | None = None
+    billed_usd: float | None = None  # actual charge when the API reports it (OpenRouter)
 
 
 class Provider:
@@ -63,6 +64,8 @@ class Provider:
         raise NotImplementedError
 
     def cost(self, r: Reply) -> float:
+        if r.billed_usd is not None:
+            return r.billed_usd
         pin, pout = PRICES.get(self.model, (None, None))
         if pin is None:
             raise SystemExit(f"no price for {self.model}; add it to PRICES in providers.py")
@@ -172,13 +175,16 @@ class OpenRouterProvider(Provider):
         for k in ("temperature", "top_p", "seed"):
             if getattr(self, k) is not None:
                 kw[k] = getattr(self, k)
+        kw["extra_body"] = {"usage": {"include": True}}  # ask OpenRouter for the actual charge per call
         if self.host:
-            kw["extra_body"] = {"provider": {"order": [self.host], "allow_fallbacks": False}}
+            kw["extra_body"]["provider"] = {"order": [self.host], "allow_fallbacks": False}
         r = await self.client.chat.completions.create(**kw)
         u = r.usage
         # stop_reason records the finish reason and which host served the call, e.g. "stop@DeepInfra"
+        billed = (u.model_extra or {}).get("cost")
         return Reply(r.choices[0].message.content or "", u.prompt_tokens, u.completion_tokens, None,
-                     f"{r.choices[0].finish_reason}@{getattr(r, 'provider', None)}")
+                     f"{r.choices[0].finish_reason}@{getattr(r, 'provider', None)}",
+                     float(billed) if billed is not None else None)
 
 
 class FakeProvider(Provider):

@@ -49,7 +49,7 @@ python estimate.py llama-3.3-70b --compare llama-3.3-70b
 
 ## First result: Llama 3.3 70B does not reproduce the paper (2026-11-24)
 
-Llama 3.3 70B via OpenRouter, 50 trials per scenario, memory-1 and memory-2 (1,300 calls, about $0.04 per run).
+Llama 3.3 70B via OpenRouter, 50 trials per scenario, memory-1 and memory-2 (1,300 calls; about $0.23 per run as actually billed by OpenRouter, $1.16 for all five, although the price table at the time said $0.04).
 Memory-1 P(C), own move first; paper = Table S12.
 
 | Run | p0 | CC | CD | DC | DD | Label |
