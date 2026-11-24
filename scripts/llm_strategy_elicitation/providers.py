@@ -26,6 +26,7 @@ PRICES = {
     "gpt-6-luna": (0.10, 0.50),
     "gpt-6.1-terra": (1.0, 5.0),
     "gpt-6.1-sol": (2.0, 10.0),
+    "meta-llama/llama-3.3-70b-instruct": (0.10, 0.32),  # OpenRouter list price; varies by host
     "fake": (0.0, 0.0),
 }
 
@@ -147,6 +148,38 @@ class OpenAIProvider(Provider):
         return Reply(r.output_text or "", u.input_tokens, u.output_tokens, rt, r.status)
 
 
+class OpenRouterProvider(Provider):
+    """Open-weight models (e.g. Llama 3.3 70B, one of the paper's five) via OpenRouter's chat API.
+
+    `host` pins one serving provider (e.g. "deepinfra") with no fallback, so every call uses the same weights and
+    quantization."""
+    name = "openrouter"
+
+    def __init__(self, model, temperature=None, top_p=None, seed=None, host=None, max_tokens=50):
+        import openai
+        self.model, self.temperature, self.top_p, self.seed, self.host = model, temperature, top_p, seed, host
+        self.max_tokens = max_tokens
+        self.client = openai.AsyncOpenAI(api_key=load_key("OPENROUTER_API_KEY"),
+                                         base_url="https://openrouter.ai/api/v1", max_retries=6)
+
+    def settings(self):
+        return {"provider": self.name, "model": self.model, "temperature": self.temperature, "top_p": self.top_p,
+                "seed": self.seed, "host": self.host, "max_tokens": self.max_tokens}
+
+    async def ask(self, system, prompt):
+        kw = dict(model=self.model, max_tokens=self.max_tokens,
+                  messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}])
+        for k in ("temperature", "top_p", "seed"):
+            if getattr(self, k) is not None:
+                kw[k] = getattr(self, k)
+        if self.host:
+            kw["extra_body"] = {"provider": {"order": [self.host], "allow_fallbacks": False}}
+        r = await self.client.chat.completions.create(**kw)
+        u = r.usage
+        return Reply(r.choices[0].message.content or "", u.prompt_tokens, u.completion_tokens, None,
+                     r.choices[0].finish_reason)
+
+
 class FakeProvider(Provider):
     """Offline stand-in: answers L with a fixed probability per outcome, for testing the pipeline at no cost."""
     name = "fake"
@@ -178,6 +211,9 @@ def make_provider(args) -> Provider:
         return AnthropicProvider(args.model, effort=args.effort, thinking=args.thinking)
     if args.provider == "openai":
         return OpenAIProvider(args.model, effort=args.effort, temperature=args.temperature)
+    if args.provider == "openrouter":
+        return OpenRouterProvider(args.model, temperature=args.temperature, top_p=args.top_p, seed=args.seed,
+                                  host=args.host)
     if args.provider == "gemini":
         return GeminiProvider(args.model, temperature=args.temperature, seed=args.seed,
                               thinking_budget=args.thinking_budget)

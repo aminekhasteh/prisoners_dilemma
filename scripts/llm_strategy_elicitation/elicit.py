@@ -37,7 +37,7 @@ def read_done(path: Path):
 
 async def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--provider", required=True, choices=["anthropic", "openai", "gemini", "fake"])
+    ap.add_argument("--provider", required=True, choices=["anthropic", "openai", "openrouter", "gemini", "fake"])
     ap.add_argument("--model", required=True)
     ap.add_argument("--tag", help="name of the run (default: model name)")
     ap.add_argument("--experiments", default="memory1,memory2")
@@ -48,6 +48,8 @@ async def main():
     ap.add_argument("--limit", type=int, help="stop after this many new calls (for timing/cost probes)")
     ap.add_argument("--temperature", type=float)
     ap.add_argument("--seed", type=int)
+    ap.add_argument("--top-p", type=float)
+    ap.add_argument("--host", help="OpenRouter: pin one serving provider, e.g. deepinfra")
     ap.add_argument("--effort", help="Anthropic effort or OpenAI reasoning effort (e.g. none, low, high)")
     ap.add_argument("--thinking", help="Anthropic thinking type, e.g. adaptive or between_tools")
     ap.add_argument("--thinking-budget", type=int, help="Gemini thinking budget (0 = off where allowed)")
