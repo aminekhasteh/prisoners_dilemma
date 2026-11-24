@@ -112,6 +112,14 @@ $14.24 in total (Opus 5.5 $8.56). `combine.py` adds the two wordings' counts (10
 | GPT-6.1 Terra | 1.00 | 1.00 | 0.00 | 0.25 | 0.00 | ~GRIM | 1 of 26 |
 | GPT-6 Luna | 0.12 | 0.55 | 0.01 | 0.09 | 0.18 | ~ALLD | 3 of 26 |
 
+Added at Amin's request: our reruns of two of the paper's models, with ids and labels kept apart from the Pal et al.
+players so both versions can be in the same field.
+
+| Model | p0 | CC | CD | DC | DD | Label | Source |
+|---|---|---|---|---|---|---|---|
+| Llama 3.3 70B (2026 rerun), id `llama-3.3-70b-rerun` | 1.00 | 1.00 | 0.00 | 0.46 | 1.00 | ~WSLS | runs `llama-3.3-70b` + `llama-3.3-70b_si` (paper settings, default hosts), memory-1 and memory-2 |
+| Gemini 2.5 Pro (2026 rerun), id `gemini-2.5-pro-rerun` | 1.00 | 1.00 | 0.00 | 0.72 | 0.70 | ~Forgiver | run `gemini-2.5-pro_si`, memory-1 only (n = 50) |
+
 Unlike Llama 3.3 70B, the new models barely move between the two wordings: the memory-1 vectors differ by at most
 0.22 (Sonnet after CC), and Opus gives identical answers in all 26 scenarios.
 
