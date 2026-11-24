@@ -114,3 +114,18 @@ $14.24 in total (Opus 5.5 $8.56). `combine.py` adds the two wordings' counts (10
 
 Unlike Llama 3.3 70B, the new models barely move between the two wordings: the memory-1 vectors differ by at most
 0.22 (Sonnet after CC), and Opus gives identical answers in all 26 scenarios.
+
+## Gemini 2.5 Pro check, memory-1 only (2026-11-24)
+
+Paper wording verbatim, temperature 0, seed 42, default thinking (median 1,170 reasoning tokens per answer), via
+OpenRouter (all calls served by Google AI Studio), 250 calls, $4.30. OpenRouter limits new accounts to 20 requests a
+minute for this model, so use `--concurrency 3`.
+
+| Run | p0 | CC | CD | DC | DD | Label |
+|---|---|---|---|---|---|---|
+| Paper (Table S12) | 0.82 [0.69, 0.90] | 1.00 | 0.00 | 0.02 [0.00, 0.10] | 0.42 [0.29, 0.56] | ~WSLS |
+| Ours (`gemini-2.5-pro_si`) | 1.00 [0.93, 1.00] | 1.00 | 0.00 | 0.72 [0.58, 0.83] | 0.70 [0.56, 0.81] | ~Forgiver |
+
+Same after CC and after being exploited; different on the first move (p = 0.003), after exploiting the other agent
+(p < 0.001) and after mutual defection (p = 0.008). As with Llama, the gaps are in the cells that decide between
+WSLS/Grim-like and Forgiver-like play.

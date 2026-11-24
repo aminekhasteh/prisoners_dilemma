@@ -49,6 +49,7 @@ async def main():
     ap.add_argument("--temperature", type=float)
     ap.add_argument("--seed", type=int)
     ap.add_argument("--top-p", type=float)
+    ap.add_argument("--max-tokens", type=int, help="override the provider's max output tokens (reasoning models need room)")
     ap.add_argument("--host", help="OpenRouter: pin one serving provider, e.g. deepinfra")
     ap.add_argument("--effort", help="Anthropic effort or OpenAI reasoning effort (e.g. none, low, high)")
     ap.add_argument("--thinking", help="Anthropic thinking type, e.g. adaptive or between_tools")

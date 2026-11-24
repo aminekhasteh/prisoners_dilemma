@@ -27,6 +27,7 @@ PRICES = {
     "gpt-6.1-terra": (1.0, 5.0),
     "gpt-6.1-sol": (2.0, 10.0),
     "meta-llama/llama-3.3-70b-instruct": (0.70, 0.80),  # what OpenRouter actually billed (CoreWeave/Bedrock); runs record the real charge
+    "google/gemini-2.5-pro": (1.25, 10.0),  # OpenRouter; runs record the real charge
     "fake": (0.0, 0.0),
 }
 
@@ -182,7 +183,8 @@ class OpenRouterProvider(Provider):
         u = r.usage
         # stop_reason records the finish reason and which host served the call, e.g. "stop@DeepInfra"
         billed = (u.model_extra or {}).get("cost")
-        return Reply(r.choices[0].message.content or "", u.prompt_tokens, u.completion_tokens, None,
+        rt = getattr(getattr(u, "completion_tokens_details", None), "reasoning_tokens", None)
+        return Reply(r.choices[0].message.content or "", u.prompt_tokens, u.completion_tokens, rt,
                      f"{r.choices[0].finish_reason}@{getattr(r, 'provider', None)}",
                      float(billed) if billed is not None else None)
 
@@ -220,7 +222,7 @@ def make_provider(args) -> Provider:
         return OpenAIProvider(args.model, effort=args.effort, temperature=args.temperature)
     if args.provider == "openrouter":
         return OpenRouterProvider(args.model, temperature=args.temperature, top_p=args.top_p, seed=args.seed,
-                                  host=args.host)
+                                  host=args.host, max_tokens=args.max_tokens or 50)
     if args.provider == "gemini":
         return GeminiProvider(args.model, temperature=args.temperature, seed=args.seed,
                               thinking_budget=args.thinking_budget)
