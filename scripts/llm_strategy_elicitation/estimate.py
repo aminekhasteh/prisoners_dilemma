@@ -126,30 +126,54 @@ def main():
         compare(args.compare, long)
 
 
+def _pal_key(r):
+    """Map one of our scenario rows to (Pal treatment, Pal value, kind, prev1)."""
+    from prompts import FRAMINGS
+    exp, treat = r["experiment"], r["treatment"]
+    if exp == "memory1":
+        return ("framing", "(no special instruction)", r["kind"], r["prev1"])
+    if exp == "framing":
+        return ("framing", FRAMINGS[treat], r["kind"], r["prev1"])
+    if exp == "stopping":
+        return ("stopping_w", treat.split("=")[1], r["kind"], r["prev1"])
+    if exp == "gains":
+        return ("equal_gains_x", treat.split("=")[1], r["kind"], r["prev1"])
+    return None
+
+
 def compare(pal_model, long):
-    """Side by side with Pal et al. (memory-1 baseline from S12, memory-2 from S11), with Fisher's exact test."""
-    pal = {}
+    """Side by side with Pal et al. (memory-1 tables S12-S24, memory-2 table S11), with Fisher's exact test."""
+    pal1, pal2 = {}, {}
     for r in csv.DictReader(open(PAL / "pal2026_memory1_treatments.csv")):
-        if r["model"] == pal_model and r["table"] == "S12":
+        if r["model"] == pal_model:
             for k in ["p0", "CC", "CD", "DC", "DD"]:
-                pal[("memory1", "round1" if k == "p0" else "later", "", "" if k == "p0" else k)] = \
-                    (round(float(r[k]) * 50), 50)
+                kind, prev1 = ("round1", "") if k == "p0" else ("later", k)
+                pal1[(r["treatment"], r["value"], kind, prev1)] = (round(float(r[k]) * 50), 50)
     for r in csv.DictReader(open(PAL / "pal2026_memory2.csv")):
         if r["model"] == pal_model:
-            pal[("memory2", r["scenario"], r["prev2"], r["prev1"])] = (int(r["count_C"]), int(r["n"]))
+            pal2[(r["scenario"], r["prev2"], r["prev1"])] = (int(r["count_C"]), int(r["n"]))
     print(f"\nComparison with Pal et al. ({pal_model}); p = Fisher's exact test, * = p < 0.05")
-    print(f"  {'scenario':28s} {'ours':>9s} {'paper':>9s}      p")
-    bad = 0
+    print(f"  {'scenario':58s} {'ours':>7s} {'paper':>7s}   diff      p")
+    by_exp = defaultdict(lambda: [0, 0, 0.0])
     for d in long:
-        key = (d["experiment"], d["kind"], d["prev2"], d["prev1"])
-        if d["treatment"] != "baseline" or key not in pal:
+        if d["experiment"] == "memory2":
+            ref = pal2.get((d["kind"], d["prev2"], d["prev1"]))
+        else:
+            ref = pal1.get(_pal_key(d))
+        if ref is None:
             continue
-        k2, n2 = pal[key]
+        k2, n2 = ref
         p = fisher_exact([[d["count_C"], d["n"] - d["count_C"]], [k2, n2 - k2]])[1]
-        bad += p < 0.05
-        sc = f"{d['experiment']} {d['kind']} {d['prev2']}{'>' if d['prev2'] else ''}{d['prev1']}"
-        print(f"  {sc:28s} {d['count_C']:>3d}/{d['n']:<3d}  {k2:>3d}/{n2:<3d}  {p:7.3f}{' *' if p < 0.05 else ''}")
-    print(f"  {bad} scenarios differ at p < 0.05 (expect about 1 in 20 by chance)")
+        diff = d["count_C"] / d["n"] - k2 / n2
+        e = by_exp[d["experiment"]]
+        e[0] += 1
+        e[1] += p < 0.05
+        e[2] += abs(diff)
+        hist = f"{d['prev2']}>{d['prev1']}" if d["prev2"] else d["prev1"]
+        sc = f"{d['experiment']} {d['treatment'][:24]} {d['kind']} {hist}"
+        print(f"  {sc:58s} {d['count_C']:>3d}/{d['n']:<3d} {k2:>3d}/{n2:<3d} {diff:+6.2f} {p:7.3f}{' *' if p < 0.05 else ''}")
+    for exp, (n, bad, tot) in by_exp.items():
+        print(f"  {exp}: {bad} of {n} scenarios differ at p < 0.05; mean |diff| {tot / n:.2f}")
 
 
 if __name__ == "__main__":

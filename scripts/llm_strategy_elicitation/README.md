@@ -66,3 +66,31 @@ All runs agree with the paper on the first move and after mutual cooperation, an
 exploiting the other agent swings from 4% to 88% with the wording ("1 point" vs "point(s)", line breaks). OpenRouter
 spread the calls over six hosts, and hosts sometimes answered the same prompt differently (`stop_reason` records the
 host). 16 to 18 of the 26 scenarios differ from the paper at p < 0.05 in every run.
+
+## Llama follow-up: one host at a time, and the treatment tables (2026-11-24)
+
+Paper wording verbatim (`PD_PROMPT_VARIANT=si`), temperature 0, top_p 1e-8, each run pinned to one OpenRouter host
+(`--host`, no fallback). Cloudflare rejects these settings (HTTP 400). Memory-1 P(C), own move first:
+
+| Host (weights) | p0 | CC | CD | DC | DD | Label | memory-2 scenarios that differ from the paper (p < 0.05) |
+|---|---|---|---|---|---|---|---|
+| Paper | 1.00 | 1.00 | 0.26 | 0.98 | 0.56 | ~GTFT | |
+| DeepInfra (fp8) | 1.00 | 1.00 | 0.00 | 0.00 | 1.00 | WSLS | 14 of 21 |
+| AkashML (fp8) | 1.00 | 1.00 | 0.00 | 0.38 | 1.00 | ~WSLS | 15 of 21 |
+| Parasail (fp8) | 1.00 | 1.00 | 0.00 | 0.50 | 1.00 | ~WSLS | 11 of 21 |
+| Amazon Bedrock | 1.00 | 1.00 | 0.00 | 0.72 | 1.00 | ~Forgiver | 15 of 21 |
+| Groq | 1.00 | 1.00 | 0.00 | 1.00 | 1.00 | Forgiver | 16 of 21 |
+| CoreWeave (fp16) | 1.00 | 1.00 | 0.00 | 1.00 | 1.00 | Forgiver | 11 of 21 |
+
+- Every host gives CD = 0 and DD = 1 (paper 0.26 and 0.56). DC, cooperating after exploiting the other agent, goes
+  from 0 to 1 depending on the host, so for this model it is a knife-edge choice.
+- Temperature 0 is not deterministic on these hosts: 2 to 10 of the 26 scenarios get mixed answers within one host.
+
+Treatment tables on Amazon Bedrock (`llama_si_bedrock_treatments`, 6,000 calls; full listing in
+`logs/bedrock_treat_compare.txt`): framings differ from the paper in 12 of 45 cells, stopping probabilities in 8 of
+20, payoff costs x in 23 of 55. The cooperative framings match almost cell for cell ("Think about fair outcomes"
+5 of 5, "Accumulate many points, but do not exploit" 5 of 5, "keep in mind the other's welfare" 4 of 5), and
+"Exploit the other agent as much as possible" gives ALLD in both. That pins down the answer coding (L = cooperate,
+own move first): with the coding reversed those cells could not match. The differences are in the competitive
+framings (ours defect from round 1, the paper's Llama opens with cooperation and then plays GRIM) and in the
+stopping-probability prompts (paper GRIM, ours Forgiver).

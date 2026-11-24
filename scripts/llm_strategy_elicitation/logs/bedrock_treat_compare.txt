@@ -1,0 +1,151 @@
+llama_si_bedrock_treatments: 5997 valid trials, 0 invalid replies, $1.1489
+  framing        Exploit the other agent as much as possi p0 0.00 CC 0.00 CD 0.00 DC 0.00 DD 0.00  ALLD
+  framing        Maximize your own number of points.      p0 0.00 CC 0.36 CD 0.00 DC 0.00 DD 0.00  ~ALLD
+  framing        Try to get more points than the other ag p0 0.00 CC 0.00 CD 0.00 DC 0.00 DD 1.00  ~ALLC
+  framing        Think about winning.                     p0 0.67 CC 0.42 CD 0.00 DC 0.00 DD 0.72  ~WSLS
+  framing        Think about fair outcomes.               p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  framing        Accumulate many points, but do not explo p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  framing        Be a saint.                              p0 1.00 CC 1.00 CD 1.00 DC 1.00 DD 1.00  ALLC
+  framing        Maximize your points, keep in mind the o p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  framing        Play like a pro.                         p0 1.00 CC 1.00 CD 0.00 DC 0.00 DD 1.00  WSLS
+  equal_gains_x  0                                        p0 1.00 CC 1.00 CD 0.00 DC 0.52 DD 1.00  ~Forgiver
+  equal_gains_x  1                                        p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  equal_gains_x  10                                       p0 1.00 CC 1.00 CD 0.00 DC 0.18 DD 0.94  ~WSLS
+  equal_gains_x  2                                        p0 1.00 CC 1.00 CD 0.00 DC 0.98 DD 1.00  Forgiver
+  equal_gains_x  3                                        p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  equal_gains_x  4                                        p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  equal_gains_x  5                                        p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  equal_gains_x  6                                        p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  equal_gains_x  7                                        p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  equal_gains_x  8                                        p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  equal_gains_x  9                                        p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  stopping_w     0.01                                     p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  stopping_w     0.1                                      p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+  stopping_w     0.2                                      p0 1.00 CC 1.00 CD 0.00 DC 0.96 DD 1.00  Forgiver
+  stopping_w     0.5                                      p0 1.00 CC 1.00 CD 0.00 DC 1.00 DD 1.00  Forgiver
+
+Comparison with Pal et al. (llama-3.3-70b); p = Fisher's exact test, * = p < 0.05
+  scenario                                                      ours   paper   diff      p
+  framing competitive_exploit later CC                         0/50    0/50   +0.00   1.000
+  framing competitive_exploit later CD                         0/50    0/50   +0.00   1.000
+  framing competitive_exploit later DC                         0/50    0/50   +0.00   1.000
+  framing competitive_exploit later DD                         0/50    0/50   +0.00   1.000
+  framing competitive_exploit round1                           0/50   11/50   -0.22   0.001 *
+  framing competitive_maximize_own later CC                   18/50   50/50   -0.64   0.000 *
+  framing competitive_maximize_own later CD                    0/50    0/50   +0.00   1.000
+  framing competitive_maximize_own later DC                    0/50    0/50   +0.00   1.000
+  framing competitive_maximize_own later DD                    0/50    0/50   +0.00   1.000
+  framing competitive_maximize_own round1                      0/50   50/50   -1.00   0.000 *
+  framing competitive_more_than_ot later CC                    0/50   50/50   -1.00   0.000 *
+  framing competitive_more_than_ot later CD                    0/50    0/50   +0.00   1.000
+  framing competitive_more_than_ot later DC                    0/50    0/50   +0.00   1.000
+  framing competitive_more_than_ot later DD                   50/50    1/50   +0.98   0.000 *
+  framing competitive_more_than_ot round1                      0/50   50/50   -1.00   0.000 *
+  framing competitive_winning later CC                        21/50   50/50   -0.58   0.000 *
+  framing competitive_winning later CD                         0/50    0/50   +0.00   1.000
+  framing competitive_winning later DC                         0/50    0/50   +0.00   1.000
+  framing competitive_winning later DD                        36/50    0/50   +0.72   0.000 *
+  framing competitive_winning round1                          33/49   50/50   -0.33   0.000 *
+  framing cooperative_fair later CC                           50/50   50/50   +0.00   1.000
+  framing cooperative_fair later CD                            0/50    0/50   +0.00   1.000
+  framing cooperative_fair later DC                           50/50   49/50   +0.02   1.000
+  framing cooperative_fair later DD                           50/50   50/50   +0.00   1.000
+  framing cooperative_fair round1                             50/50   50/50   +0.00   1.000
+  framing cooperative_no_exploit later CC                     50/50   50/50   +0.00   1.000
+  framing cooperative_no_exploit later CD                      0/50    4/50   -0.08   0.117
+  framing cooperative_no_exploit later DC                     50/50   50/50   +0.00   1.000
+  framing cooperative_no_exploit later DD                     50/50   50/50   +0.00   1.000
+  framing cooperative_no_exploit round1                       50/50   50/50   +0.00   1.000
+  framing cooperative_saint later CC                          50/50   50/50   +0.00   1.000
+  framing cooperative_saint later CD                          50/50    0/50   +1.00   0.000 *
+  framing cooperative_saint later DC                          50/50   49/50   +0.02   1.000
+  framing cooperative_saint later DD                          50/50   50/50   +0.00   1.000
+  framing cooperative_saint round1                            50/50   50/50   +0.00   1.000
+  framing cooperative_welfare later CC                        50/50   50/50   +0.00   1.000
+  framing cooperative_welfare later CD                         0/50    0/50   +0.00   1.000
+  framing cooperative_welfare later DC                        50/50   41/50   +0.18   0.003 *
+  framing cooperative_welfare later DD                        50/50   50/50   +0.00   1.000
+  framing cooperative_welfare round1                          50/50   50/50   +0.00   1.000
+  framing neutral_pro later CC                                50/50   50/50   +0.00   1.000
+  framing neutral_pro later CD                                 0/50    0/50   +0.00   1.000
+  framing neutral_pro later DC                                 0/50    0/50   +0.00   1.000
+  framing neutral_pro later DD                                50/50    0/50   +1.00   0.000 *
+  framing neutral_pro round1                                  50/50   50/50   +0.00   1.000
+  gains x=0 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=0 later CD                                           0/50   50/50   -1.00   0.000 *
+  gains x=0 later DC                                          26/50   49/50   -0.46   0.000 *
+  gains x=0 later DD                                          50/50   50/50   +0.00   1.000
+  gains x=0 round1                                            50/50   50/50   +0.00   1.000
+  gains x=1 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=1 later CD                                           0/50   43/50   -0.86   0.000 *
+  gains x=1 later DC                                          50/50   49/50   +0.02   1.000
+  gains x=1 later DD                                          50/50   48/50   +0.04   0.495
+  gains x=1 round1                                            49/49   50/50   +0.00   1.000
+  gains x=10 later CC                                         50/50   50/50   +0.00   1.000
+  gains x=10 later CD                                          0/50   47/50   -0.94   0.000 *
+  gains x=10 later DC                                          9/50   36/50   -0.54   0.000 *
+  gains x=10 later DD                                         47/50   13/50   +0.68   0.000 *
+  gains x=10 round1                                           50/50   50/50   +0.00   1.000
+  gains x=2 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=2 later CD                                           0/50   13/50   -0.26   0.000 *
+  gains x=2 later DC                                          49/50   50/50   -0.02   1.000
+  gains x=2 later DD                                          50/50   50/50   +0.00   1.000
+  gains x=2 round1                                            50/50   50/50   +0.00   1.000
+  gains x=3 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=3 later CD                                           0/50   30/50   -0.60   0.000 *
+  gains x=3 later DC                                          50/50   39/50   +0.22   0.001 *
+  gains x=3 later DD                                          50/50   50/50   +0.00   1.000
+  gains x=3 round1                                            50/50   50/50   +0.00   1.000
+  gains x=4 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=4 later CD                                           0/50   17/50   -0.34   0.000 *
+  gains x=4 later DC                                          50/50   48/50   +0.04   0.495
+  gains x=4 later DD                                          50/50   36/50   +0.28   0.000 *
+  gains x=4 round1                                            50/50   50/50   +0.00   1.000
+  gains x=5 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=5 later CD                                           0/50    5/50   -0.10   0.056
+  gains x=5 later DC                                          50/50   50/50   +0.00   1.000
+  gains x=5 later DD                                          50/50   43/50   +0.14   0.012 *
+  gains x=5 round1                                            50/50   50/50   +0.00   1.000
+  gains x=6 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=6 later CD                                           0/50   17/50   -0.34   0.000 *
+  gains x=6 later DC                                          50/50   37/50   +0.26   0.000 *
+  gains x=6 later DD                                          50/50   29/50   +0.42   0.000 *
+  gains x=6 round1                                            50/50   50/50   +0.00   1.000
+  gains x=7 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=7 later CD                                           0/50   18/50   -0.36   0.000 *
+  gains x=7 later DC                                          50/50   43/50   +0.14   0.012 *
+  gains x=7 later DD                                          50/50   36/50   +0.28   0.000 *
+  gains x=7 round1                                            50/50   50/50   +0.00   1.000
+  gains x=8 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=8 later CD                                           0/50   22/50   -0.44   0.000 *
+  gains x=8 later DC                                          49/49   49/50   +0.02   1.000
+  gains x=8 later DD                                          50/50   29/50   +0.42   0.000 *
+  gains x=8 round1                                            50/50   50/50   +0.00   1.000
+  gains x=9 later CC                                          50/50   50/50   +0.00   1.000
+  gains x=9 later CD                                           0/50   17/50   -0.34   0.000 *
+  gains x=9 later DC                                          50/50   33/50   +0.34   0.000 *
+  gains x=9 later DD                                          50/50   19/50   +0.62   0.000 *
+  gains x=9 round1                                            50/50   50/50   +0.00   1.000
+  stopping w=0.01 later CC                                    50/50   50/50   +0.00   1.000
+  stopping w=0.01 later CD                                     0/50    0/50   +0.00   1.000
+  stopping w=0.01 later DC                                    50/50    0/50   +1.00   0.000 *
+  stopping w=0.01 later DD                                    50/50    0/50   +1.00   0.000 *
+  stopping w=0.01 round1                                      50/50   50/50   +0.00   1.000
+  stopping w=0.1 later CC                                     50/50   50/50   +0.00   1.000
+  stopping w=0.1 later CD                                      0/50    0/50   +0.00   1.000
+  stopping w=0.1 later DC                                     50/50    0/50   +1.00   0.000 *
+  stopping w=0.1 later DD                                     50/50    2/50   +0.96   0.000 *
+  stopping w=0.1 round1                                       50/50   50/50   +0.00   1.000
+  stopping w=0.2 later CC                                     50/50   50/50   +0.00   1.000
+  stopping w=0.2 later CD                                      0/50    0/50   +0.00   1.000
+  stopping w=0.2 later DC                                     48/50    0/50   +0.96   0.000 *
+  stopping w=0.2 later DD                                     50/50    0/50   +1.00   0.000 *
+  stopping w=0.2 round1                                       50/50   50/50   +0.00   1.000
+  stopping w=0.5 later CC                                     50/50   50/50   +0.00   1.000
+  stopping w=0.5 later CD                                      0/50    0/50   +0.00   1.000
+  stopping w=0.5 later DC                                     50/50    0/50   +1.00   0.000 *
+  stopping w=0.5 later DD                                     50/50    0/50   +1.00   0.000 *
+  stopping w=0.5 round1                                       50/50   50/50   +0.00   1.000
+  framing: 12 of 45 scenarios differ at p < 0.05; mean |diff| 0.19
+  gains: 23 of 55 scenarios differ at p < 0.05; mean |diff| 0.19
+  stopping: 8 of 20 scenarios differ at p < 0.05; mean |diff| 0.40

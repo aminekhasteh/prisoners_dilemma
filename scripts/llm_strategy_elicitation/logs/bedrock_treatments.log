@@ -1,0 +1,64 @@
+llama_si_bedrock_treatments: 120 scenarios x 50 trials; 6000 calls to make; spent so far $0.0000; estimate for the rest $1.27 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $0.0188, 5 s
+  200 calls, 0 invalid, $0.0388, 10 s
+  300 calls, 0 invalid, $0.0576, 14 s
+  400 calls, 0 invalid, $0.0775, 19 s
+  500 calls, 0 invalid, $0.0974, 27 s
+  600 calls, 0 invalid, $0.1162, 44 s
+  700 calls, 0 invalid, $0.1360, 60 s
+  800 calls, 0 invalid, $0.1546, 77 s
+  900 calls, 0 invalid, $0.1741, 93 s
+error on framing|competitive_winning|round1|| trial 24: RateLimitError: Error code: 429 - Provider returned error
+  1000 calls, 0 invalid, $0.1936, 109 s
+  1100 calls, 0 invalid, $0.2125, 128 s
+  1200 calls, 0 invalid, $0.2326, 144 s
+  1300 calls, 0 invalid, $0.2516, 155 s
+  1400 calls, 0 invalid, $0.2718, 163 s
+  1500 calls, 0 invalid, $0.2918, 171 s
+  1600 calls, 0 invalid, $0.3104, 179 s
+  1700 calls, 0 invalid, $0.3300, 186 s
+  1800 calls, 0 invalid, $0.3484, 195 s
+  1900 calls, 0 invalid, $0.3680, 202 s
+  2000 calls, 0 invalid, $0.3874, 210 s
+  2100 calls, 0 invalid, $0.4060, 219 s
+  2200 calls, 0 invalid, $0.4256, 226 s
+  2300 calls, 0 invalid, $0.4444, 233 s
+  2400 calls, 0 invalid, $0.4646, 241 s
+  2500 calls, 0 invalid, $0.4847, 249 s
+  2600 calls, 0 invalid, $0.5037, 256 s
+  2700 calls, 0 invalid, $0.5240, 264 s
+  2800 calls, 0 invalid, $0.5430, 272 s
+  2900 calls, 0 invalid, $0.5632, 279 s
+  3000 calls, 0 invalid, $0.5833, 287 s
+  3100 calls, 0 invalid, $0.6024, 294 s
+  3200 calls, 0 invalid, $0.6226, 302 s
+  3300 calls, 0 invalid, $0.6412, 310 s
+  3400 calls, 0 invalid, $0.6604, 317 s
+  3500 calls, 0 invalid, $0.6796, 325 s
+  3600 calls, 0 invalid, $0.6978, 333 s
+  3700 calls, 0 invalid, $0.7171, 340 s
+error on gains|x=1|round1|| trial 17: RateLimitError: Error code: 429 - Provider returned error
+  3800 calls, 0 invalid, $0.7351, 348 s
+  3900 calls, 0 invalid, $0.7544, 356 s
+  4000 calls, 0 invalid, $0.7736, 364 s
+  4100 calls, 0 invalid, $0.7917, 371 s
+  4200 calls, 0 invalid, $0.8110, 379 s
+  4300 calls, 0 invalid, $0.8291, 387 s
+  4400 calls, 0 invalid, $0.8484, 394 s
+  4500 calls, 0 invalid, $0.8675, 402 s
+  4600 calls, 0 invalid, $0.8857, 409 s
+  4700 calls, 0 invalid, $0.9050, 417 s
+  4800 calls, 0 invalid, $0.9231, 425 s
+  4900 calls, 0 invalid, $0.9423, 433 s
+  5000 calls, 0 invalid, $0.9615, 440 s
+  5100 calls, 0 invalid, $0.9797, 448 s
+  5200 calls, 0 invalid, $0.9989, 455 s
+  5300 calls, 0 invalid, $1.0170, 463 s
+  5400 calls, 0 invalid, $1.0363, 471 s
+  5500 calls, 0 invalid, $1.0554, 479 s
+  5600 calls, 0 invalid, $1.0736, 487 s
+  5700 calls, 0 invalid, $1.0929, 494 s
+error on gains|x=8|later||DC trial 44: RateLimitError: Error code: 429 - Provider returned error
+  5800 calls, 0 invalid, $1.1110, 502 s
+  5900 calls, 0 invalid, $1.1302, 509 s
+done: {'calls': 5997, 'valid': 5997, 'errors': 3}; total spent $1.1489; 524 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/llama_si_bedrock_treatments.jsonl

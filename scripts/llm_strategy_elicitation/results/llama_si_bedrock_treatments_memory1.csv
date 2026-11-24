@@ -1,0 +1,25 @@
+table,treatment,value,model,p0,CC,CD,DC,DD,note
+new,framing,Exploit the other agent as much as possible.,llama-3.3-70b,0.00,0.00,0.00,0.00,0.00,ALLD
+new,framing,Maximize your own number of points.,llama-3.3-70b,0.00,0.36,0.00,0.00,0.00,~ALLD
+new,framing,Try to get more points than the other agent.,llama-3.3-70b,0.00,0.00,0.00,0.00,1.00,~ALLC
+new,framing,Think about winning.,llama-3.3-70b,0.67,0.42,0.00,0.00,0.72,~WSLS
+new,framing,Think about fair outcomes.,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,framing,"Accumulate many points, but do not exploit.",llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,framing,Be a saint.,llama-3.3-70b,1.00,1.00,1.00,1.00,1.00,ALLC
+new,framing,"Maximize your points, keep in mind the other's welfare.",llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,framing,Play like a pro.,llama-3.3-70b,1.00,1.00,0.00,0.00,1.00,WSLS
+new,equal_gains_x,0,llama-3.3-70b,1.00,1.00,0.00,0.52,1.00,~Forgiver
+new,equal_gains_x,1,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,equal_gains_x,10,llama-3.3-70b,1.00,1.00,0.00,0.18,0.94,~WSLS
+new,equal_gains_x,2,llama-3.3-70b,1.00,1.00,0.00,0.98,1.00,Forgiver
+new,equal_gains_x,3,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,equal_gains_x,4,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,equal_gains_x,5,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,equal_gains_x,6,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,equal_gains_x,7,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,equal_gains_x,8,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,equal_gains_x,9,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,stopping_w,0.01,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,stopping_w,0.1,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
+new,stopping_w,0.2,llama-3.3-70b,1.00,1.00,0.00,0.96,1.00,Forgiver
+new,stopping_w,0.5,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
