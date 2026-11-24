@@ -6,7 +6,7 @@ Pal et al. 2026 (arXiv 2601.09849), Table S12. Small inputs are kept in `data/` 
 
 ```
 bash make_all.sh OUT_DIR                 # redraw everything from data/
-bash make_all.sh OUT_DIR RESULTS_DIR     # refresh data/ from the run's results/ first, then redraw
+bash make_all.sh OUT_DIR RESULTS_DIR [RESULTS_M2_DIR]   # refresh data/ from the runs' results first, then redraw
 ```
 
 | Script | Output | Inputs |
@@ -17,6 +17,8 @@ bash make_all.sh OUT_DIR RESULTS_DIR     # refresh data/ from the run's results/
 | `llm_rank_63.py` | `llm_rank_63.png` (all 277 players, mean rank vs mean score per turn, 63 turns, no noise; LLMs as diamonds, zoom on GPT-5 and Gemini) | `data/field_63.csv` |
 | `llm_rank_lines.py ... noise` | `llm_rank_noise.png` (mean rank at 0, 1 and 5% noise, 63 turns) | `data/ranks_by_setting.csv` |
 | `llm_rank_lines.py ... length` | `llm_rank_by_length.png` (mean rank at 63, 77, 151, 156 and 308 turns, no noise) | `data/ranks_by_setting.csv` |
+| `llm_m1_vs_m2.py` | `llm_m1_vs_m2.png` (one dumbbell per model: rank out of 282 as memory-1 vs memory-2; one panel per setting in the data: 63 turns, mean over the five lengths, 1% and 5% noise) | `data/m2_ranks.csv` |
+| `prep_m2.py RESULTS_M2_DIR data` | `data/m2_ranks.csv` | `results_m2/*_per_tournament.csv` (282-player field) |
 | `prep_data.py RESULTS_DIR data` | `data/field_63.csv`, `data/ranks_by_setting.csv` | `results/{standard,noise1,noise5}_per_tournament.csv` |
 
 `data/llm_strategies.csv` is Table S12 of Pal et al. (also `pal2026_memory1_treatments.csv` on the run branch).

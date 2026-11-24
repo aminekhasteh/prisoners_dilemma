@@ -1,0 +1,12 @@
+setting,model,memory,mean_rank,tournaments
+s63,LLM: Claude Sonnet 4,1,131.7000,20
+s63,LLM: Claude Sonnet 4,2,27.0000,20
+s63,LLM: GPT-4o,1,55.7000,20
+s63,LLM: GPT-4o,2,54.9500,20
+s63,LLM: GPT-5,1,153.0000,20
+s63,LLM: GPT-5,2,18.6000,20
+s63,LLM: Gemini 2.5 Pro,1,154.8500,20
+s63,LLM: Gemini 2.5 Pro,2,124.2000,20
+s63,LLM: Llama 3.3 70B,1,77.0000,20
+s63,LLM: Llama 3.3 70B,2,154.1500,20
+s63,k92r,1,67.3000,20
