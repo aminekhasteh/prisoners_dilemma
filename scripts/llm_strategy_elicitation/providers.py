@@ -176,8 +176,9 @@ class OpenRouterProvider(Provider):
             kw["extra_body"] = {"provider": {"order": [self.host], "allow_fallbacks": False}}
         r = await self.client.chat.completions.create(**kw)
         u = r.usage
+        # stop_reason records the finish reason and which host served the call, e.g. "stop@DeepInfra"
         return Reply(r.choices[0].message.content or "", u.prompt_tokens, u.completion_tokens, None,
-                     r.choices[0].finish_reason)
+                     f"{r.choices[0].finish_reason}@{getattr(r, 'provider', None)}")
 
 
 class FakeProvider(Provider):

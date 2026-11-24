@@ -46,3 +46,23 @@ python elicit.py --provider openrouter --model meta-llama/llama-3.3-70b-instruct
     --temperature 0 --top-p 1e-8 --experiments memory1,memory2,framing,stopping,gains --max-usd 3   # paper settings
 python estimate.py llama-3.3-70b --compare llama-3.3-70b
 ```
+
+## First result: Llama 3.3 70B does not reproduce the paper (2026-11-24)
+
+Llama 3.3 70B via OpenRouter, 50 trials per scenario, memory-1 and memory-2 (1,300 calls, about $0.04 per run).
+Memory-1 P(C), own move first; paper = Table S12.
+
+| Run | p0 | CC | CD | DC | DD | Label |
+|---|---|---|---|---|---|---|
+| Paper (temperature 0, top_p 1e-8) | 1.00 | 1.00 | 0.26 | 0.98 | 0.56 | ~GTFT |
+| `llama-3.3-70b`: our clean wording, temperature 0 | 1.00 | 1.00 | 0.00 | 0.04 | 1.00 | WSLS |
+| `_si`: SI wording verbatim ("point(s)"), temperature 0 | 1.00 | 1.00 | 0.00 | 0.88 | 1.00 | ~Forgiver |
+| `_si_space`: SI wording as one paragraph, temperature 0 | 1.00 | 1.00 | 0.00 | 0.18 | 1.00 | ~WSLS |
+| `_si_t07`: SI wording, temperature 0.7 | 1.00 | 1.00 | 0.00 | 0.72 | 1.00 | ~Forgiver |
+| `_t1`: clean wording, default temperature | 1.00 | 1.00 | 0.00 | 0.04 | 1.00 | WSLS |
+
+All runs agree with the paper on the first move and after mutual cooperation, and all disagree after being exploited
+(never forgives, paper 26%) and after mutual defection (always cooperates, paper 56%). Whether Llama cooperates after
+exploiting the other agent swings from 4% to 88% with the wording ("1 point" vs "point(s)", line breaks). OpenRouter
+spread the calls over six hosts, and hosts sometimes answered the same prompt differently (`stop_reason` records the
+host). 16 to 18 of the 26 scenarios differ from the paper at p < 0.05 in every run.

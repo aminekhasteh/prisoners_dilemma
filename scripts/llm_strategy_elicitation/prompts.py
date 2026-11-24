@@ -44,7 +44,15 @@ class Scenario:
         return f"{self.experiment}|{self.treatment}|{self.kind}|{self.prev2}|{self.prev1}"
 
 
+# "clean": "1 point"/"N points" and the other agent's real payoff in the memory-2 prompt (our default).
+# "si": the SI text verbatim, i.e. literal "point(s)" and the SI's memory-2 line that repeats the focal payoff.
+import os
+VARIANT = os.environ.get("PD_PROMPT_VARIANT", "clean")
+
+
 def _pts(n) -> str:
+    if VARIANT == "si":
+        return f"{n} point(s)"
     return f"{n} point" if n == 1 else f"{n} points"
 
 
@@ -104,13 +112,13 @@ def build_prompt(s: Scenario) -> str:
             f"Two rounds ago, you chose {x2}, they chose {y2}.",
             f"Therefore, you got {_pts(a2)} and the other agent got {_pts(b2)}.",
             f"In the previous round, you chose {x1}, they chose {y1}.",
-            f"Therefore, in the previous round you got {_pts(a1)} and they got {_pts(b1)}.",
+            f"Therefore, in the previous round you got {_pts(a1)} and they got {_pts(a1 if VARIANT == 'si' else b1)}.",
             "This is a new round.",
         ]
     else:
         raise ValueError(f"unknown scenario {s}")
     lines += ["Do you choose L or R? Give only the character as output.", "Give no explanation."]
-    return "\n".join(lines)
+    return (" " if os.environ.get("PD_PROMPT_JOIN") == "space" else "\n").join(lines)
 
 
 def _memory1_set(experiment, treatment, **kw):

@@ -80,7 +80,8 @@ async def main():
         return
 
     prov = make_provider(args)
-    settings = prov.settings()
+    from prompts import VARIANT
+    settings = {**prov.settings(), "prompt_variant": VARIANT}
     lock, sem = asyncio.Lock(), asyncio.Semaphore(args.concurrency)
     stats = Counter()
     stop = asyncio.Event()
