@@ -13,6 +13,7 @@ bash make_all.sh OUT_DIR RESULTS_DIR     # refresh data/ from the run's results/
 |---|---|---|
 | `cover.py` | `article2_cover.png` (wide cover, same format as Article 1's: key on the left, the five strategies as chance bars on the right) | `data/llm_strategies.csv` |
 | `llm_strategies.py` | `llm_strategies.png` (the five strategies as numbers with chance bars, laid out like Article 1's `sse_math_p.png`) | `data/llm_strategies.csv` |
+| `llm_strategies.py ... --new=data/new_llm_memory1.csv` | `new_llm_strategies.png` (the six newer models, grouped by maker under their Pal et al. predecessors) | `data/llm_strategies.csv`, `data/new_llm_memory1.csv` (copied from branch `claude/project-thread-xnwceg`, `scripts/article2_llm_field/new_llm_memory1.csv`) |
 | `llm_rank_63.py` | `llm_rank_63.png` (all 277 players, mean rank vs mean score per turn, 63 turns, no noise; LLMs as diamonds, zoom on GPT-5 and Gemini) | `data/field_63.csv` |
 | `llm_rank_lines.py ... noise` | `llm_rank_noise.png` (mean rank at 0, 1 and 5% noise, 63 turns) | `data/ranks_by_setting.csv` |
 | `llm_rank_lines.py ... length` | `llm_rank_by_length.png` (mean rank at 63, 77, 151, 156 and 308 turns, no noise) | `data/ranks_by_setting.csv` |
