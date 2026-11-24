@@ -30,8 +30,8 @@ One row per tournament player. Memory-1 players are named "LLM: <model>", memory
 | 20 | GPT-6.1 Terra | new elicitation (2026) | memory-2 | `CL-M2-*` + `SI-M2-*` | 100 | $1.35 | Planned (ETA about Nov 24 8:45 PM) | Planned (ETA about Nov 26 8 PM) | Planned (ETA about Nov 25 12:45 AM) | Planned (ETA about Nov 24 10:10 PM) |
 | 21 | GPT-6 Luna | new elicitation (2026) | memory-1 | `CL-M1-*` + `SI-M1-*` | 100 | $0.04 | Planned (ETA about Nov 24 8:45 PM) | Planned (ETA about Nov 26 8 PM) | Planned (ETA about Nov 25 12:45 AM) | Planned (ETA about Nov 24 10:10 PM) |
 | 22 | GPT-6 Luna | new elicitation (2026) | memory-2 | `CL-M2-*` + `SI-M2-*` | 100 | $0.17 | Planned (ETA about Nov 24 8:45 PM) | Planned (ETA about Nov 26 8 PM) | Planned (ETA about Nov 25 12:45 AM) | Planned (ETA about Nov 24 10:10 PM) |
-| 23 | Llama 3.3 70B (2026 rerun) | 2026 rerun of a paper model | memory-1 | `CL-M1-*` + `SI-M1-*` | 100 | ≈$0.08 | Planned (ETA about Nov 24 8:45 PM) | Planned (ETA about Nov 26 8 PM) | Planned (ETA about Nov 25 12:45 AM) | Planned (ETA about Nov 24 10:10 PM) |
-| 24 | Llama 3.3 70B (2026 rerun) | 2026 rerun of a paper model | memory-2 | `CL-M2-*` + `SI-M2-*` | 100 | ≈$0.39 | Planned (ETA about Nov 24 8:45 PM) | Planned (ETA about Nov 26 8 PM) | Planned (ETA about Nov 25 12:45 AM) | Planned (ETA about Nov 24 10:10 PM) |
+| 23 | Llama 3.3 70B (2026 rerun) | 2026 rerun of a paper model | memory-1 | `CL-M1-*` + `SI-M1-*` | 100 | ≈$0.07 | Planned (ETA about Nov 24 8:45 PM) | Planned (ETA about Nov 26 8 PM) | Planned (ETA about Nov 25 12:45 AM) | Planned (ETA about Nov 24 10:10 PM) |
+| 24 | Llama 3.3 70B (2026 rerun) | 2026 rerun of a paper model | memory-2 | `CL-M2-*` + `SI-M2-*` | 100 | ≈$0.32 | Planned (ETA about Nov 24 8:45 PM) | Planned (ETA about Nov 26 8 PM) | Planned (ETA about Nov 25 12:45 AM) | Planned (ETA about Nov 24 10:10 PM) |
 | 25 | Gemini 2.5 Pro (2026 rerun) | 2026 rerun of a paper model | memory-1 | `SI-M1-*` | 50 | $4.30 | Planned (ETA about Nov 24 8:45 PM) | Planned (ETA about Nov 26 8 PM) | Planned (ETA about Nov 25 12:45 AM) | Planned (ETA about Nov 24 10:10 PM) |
 
 Gemini 2.5 Pro (2026 rerun) has no memory-2 player: its memory-2 scenarios were not run (about $20).
@@ -61,11 +61,11 @@ Every API run so far, including the checks that did not become tournament strate
 
 | Run | Model | Settings | Prompt IDs | Calls | Invalid | Cost | Started (ET) | Wall time | Used for |
 |---|---|---|---|---|---|---|---|---|---|
-| `llama-3.3-70b` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=any | `CL-M1-*, CL-M2-*` | 1,300 | 0 | ≈$0.23 | Nov 24 02:29 PM | 59 s | strategy Llama 3.3 70B (2026 rerun) |
-| `llama-3.3-70b_si` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=any | `SI-M1-*, SI-M2-*` | 1,300 | 0 | ≈$0.24 | Nov 24 02:30 PM | 47 s | strategy Llama 3.3 70B (2026 rerun) |
-| `llama-3.3-70b_t1` | meta-llama/llama-3.3-70b-instruct | default T, host=any | `CL-M1-*, CL-M2-*` | 1,300 | 0 | ≈$0.23 | Nov 24 02:31 PM | 58 s | Llama replication check |
-| `llama-3.3-70b_si_space` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=any | `SP-M1-*, SP-M2-*` | 1,300 | 0 | ≈$0.24 | Nov 24 02:33 PM | 51 s | Llama replication check |
-| `llama-3.3-70b_si_t07` | meta-llama/llama-3.3-70b-instruct | T=0.7, host=any | `SI-M1-*, SI-M2-*` | 1,300 | 0 | ≈$0.24 | Nov 24 02:33 PM | 71 s | Llama replication check |
+| `llama-3.3-70b` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=any | `CL-M1-*, CL-M2-*` | 1,300 | 0 | ≈$0.19 | Nov 24 02:29 PM | 59 s | strategy Llama 3.3 70B (2026 rerun) |
+| `llama-3.3-70b_si` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=any | `SI-M1-*, SI-M2-*` | 1,300 | 0 | ≈$0.19 | Nov 24 02:30 PM | 47 s | strategy Llama 3.3 70B (2026 rerun) |
+| `llama-3.3-70b_t1` | meta-llama/llama-3.3-70b-instruct | default T, host=any | `CL-M1-*, CL-M2-*` | 1,300 | 0 | ≈$0.19 | Nov 24 02:31 PM | 58 s | Llama replication check |
+| `llama-3.3-70b_si_space` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=any | `SP-M1-*, SP-M2-*` | 1,300 | 0 | ≈$0.19 | Nov 24 02:33 PM | 51 s | Llama replication check |
+| `llama-3.3-70b_si_t07` | meta-llama/llama-3.3-70b-instruct | T=0.7, host=any | `SI-M1-*, SI-M2-*` | 1,300 | 0 | ≈$0.19 | Nov 24 02:33 PM | 71 s | Llama replication check |
 | `llama_si_bedrock_treatments` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=amazon-bedrock | `SI-F1..F9-*, SI-W*-*, SI-X0..X10-*` | 5,997 | 0 | $1.15 | Nov 24 02:42 PM | 9 min | Llama replication check |
 | `llama_si_host_amazon-bedrock` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=amazon-bedrock | `SI-M1-*, SI-M2-*` | 1,297 | 0 | $0.26 | Nov 24 02:42 PM | 3 min | Llama replication check |
 | `llama_si_host_coreweave` | meta-llama/llama-3.3-70b-instruct | T=0.0, top_p=1e-08, host=coreweave | `SI-M1-*, SI-M2-*` | 1,300 | 0 | $0.24 | Nov 24 02:42 PM | 31 s | Llama replication check |
@@ -87,4 +87,4 @@ Every API run so far, including the checks that did not become tournament strate
 | `gpt-6.1-terra_si` | gpt-6.1-terra | defaults (default reasoning) | `SI-M1-*, SI-M2-*` | 1,300 | 0 | $0.82 | Nov 24 02:56 PM | 4 min | strategy GPT-6.1 Terra |
 | `gemini-2.5-pro_si` | google/gemini-2.5-pro | T=0.0, seed=42, host=any | `SI-M1-*` | 250 | 0 | $4.30 | Nov 24 03:12 PM | 21 min (two sittings, rate limited) | strategy Gemini 2.5 Pro (2026 rerun) |
 
-Total API spend by provider: anthropic $10.54, openai $3.71, openrouter $7.47; all $21.71. ≈ marks the five early Llama runs, which logged OpenRouter's list price; their cost here is scaled to what OpenRouter billed. OpenRouter's own usage counter (including smoke tests and probes) read $7.29 after the Gemini run.
+Total API spend by provider: anthropic $10.54, openai $3.71, openrouter $7.25; all $21.49. ≈ marks the five early Llama runs, which logged OpenRouter's list price; their cost here is scaled to what OpenRouter billed. OpenRouter's own usage counter (including smoke tests and probes) read $7.29 after the Gemini run.

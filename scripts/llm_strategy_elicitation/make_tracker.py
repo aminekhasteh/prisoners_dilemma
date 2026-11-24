@@ -17,11 +17,11 @@ NEW = [("claude-opus-5-5", "Claude Opus 5.5"), ("claude-sonnet-5-5", "Claude Son
        ("gpt-6-luna", "GPT-6 Luna")]
 RERUN = {"llama-3.3-70b-rerun": ("Llama 3.3 70B (2026 rerun)", ["llama-3.3-70b", "llama-3.3-70b_si"]),
          "gemini-2.5-pro-rerun": ("Gemini 2.5 Pro (2026 rerun)", ["gemini-2.5-pro_si"])}
-# The first five Llama runs logged OpenRouter's list price; OpenRouter actually billed about 6.6x that (CoreWeave and
+# The first five Llama runs logged OpenRouter's list price; OpenRouter actually billed about 5.4x that (CoreWeave and
 # Bedrock hosts). Later runs log the billed charge. Scale those five so the tracker shows what was paid.
 LIST_PRICE_RUNS = {"llama-3.3-70b", "llama-3.3-70b_si", "llama-3.3-70b_t1", "llama-3.3-70b_si_space",
                    "llama-3.3-70b_si_t07"}
-BILLED_FACTOR = 6.6
+BILLED_FACTOR = 5.4  # (OpenRouter usage counter - logged billed runs) / logged list-price cost
 USED = {f"{m}_{w}": f"strategy {lab}" for m, lab in NEW for w in ("clean", "si")}
 USED.update({t: f"strategy {lab}" for lab, tags in RERUN.values() for t in tags})
 
