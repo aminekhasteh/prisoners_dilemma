@@ -47,6 +47,11 @@ for name, (short, _, col) in LLMS.items():
     ax.plot(xs, series[name], color=col, lw=2.2, zorder=3, solid_capstyle="round")
     ax.scatter(xs, series[name], s=90, marker="D", color=col, edgecolor="white", lw=1.4, zorder=4)
 
+def rk(v):
+    """Rank as a whole number, halves rounded up (100.5 -> 101), as in the article's tables."""
+    return "%d" % int(v + 0.5)
+
+
 GAP = 11   # rank units between label centres, so no two labels overlap
 
 
@@ -61,14 +66,14 @@ def spread(vals):
 ends = sorted([(series[n][-1], n) for n in list(LLMS) + [TFT]])
 for (y, n), y_lab in zip(ends, spread([e[0] for e in ends])):
     short = "Tit for Tat" if n == TFT else LLMS[n][0]
-    ax.annotate(f"{short}, {y:.0f}", (xs[-1], y), xytext=(xs[-1] + 0.18, y_lab), textcoords="data",
+    ax.annotate(f"{short}, {rk(y)}", (xs[-1], y), xytext=(xs[-1] + 0.18, y_lab), textcoords="data",
                 ha="left", va="center", fontsize=11, color=INK2 if n == TFT else INK,
                 fontweight="normal" if n == TFT else "bold", annotation_clip=False,
                 arrowprops=dict(arrowstyle="-", color=LINE, lw=0.8, shrinkA=0, shrinkB=6) if abs(y_lab - y) > 2 else None)
 # start values, small and muted, so the first column can be read without the table
 starts = sorted([(series[n][0], n) for n in LLMS])
 for (y, n), y_lab in zip(starts, spread([s_[0] for s_ in starts])):
-    ax.text(xs[0] - 0.09, y_lab, f"{y:.0f}", ha="right", va="center", fontsize=9.5, color=MUTED)
+    ax.text(xs[0] - 0.09, y_lab, rk(y), ha="right", va="center", fontsize=9.5, color=MUTED)
 
 ax.set_ylim(200, 1); ax.set_yticks([1, 50, 100, 150, 200])
 ax.set_xlim(-0.35, xs[-1] + 0.12); ax.set_xticks(xs, ticks)
