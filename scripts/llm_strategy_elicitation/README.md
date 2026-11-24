@@ -94,3 +94,23 @@ Treatment tables on Amazon Bedrock (`llama_si_bedrock_treatments`, 6,000 calls; 
 own move first): with the coding reversed those cells could not match. The differences are in the competitive
 framings (ours defect from round 1, the paper's Llama opens with cooperation and then plays GRIM) and in the
 stopping-probability prompts (paper GRIM, ours Forgiver).
+
+## New models: core runs and the strategies for the tournament (2026-11-24)
+
+Six models, memory-1 and memory-2, 50 trials per scenario in each of the two wordings (`clean` and `si`), default
+API settings (Claude: no sampling parameters, default effort and thinking; GPT-6: default reasoning). 15,600 calls,
+$14.24 in total (Opus 5.5 $8.56). `combine.py` adds the two wordings' counts (100 trials per scenario) and writes
+`../article2_llm_field/new_llm_memory1.csv` and `new_llm_memory2.csv` (same columns as `pal2026_memory2.csv`);
+`results/wording_comparison.csv` tests clean against si for every scenario.
+
+| Model | p0 | CC | CD | DC | DD | Label | Scenarios where the wordings differ (p < 0.05) |
+|---|---|---|---|---|---|---|---|
+| Claude Opus 5.5 | 1.00 | 1.00 | 0.00 | 1.00 | 1.00 | Forgiver | 0 of 26 |
+| Claude Sonnet 5.5 | 0.00 | 0.11 | 0.00 | 0.00 | 0.00 | ~ALLD | 3 of 26 |
+| Claude Haiku 5.5 | 1.00 | 1.00 | 0.00 | 0.00 | 0.00 | GRIM | 3 of 26 |
+| GPT-6.1 Sol | 1.00 | 1.00 | 0.00 | 0.51 | 0.00 | between TFT and GRIM | 2 of 26 |
+| GPT-6.1 Terra | 1.00 | 1.00 | 0.00 | 0.25 | 0.00 | ~GRIM | 1 of 26 |
+| GPT-6 Luna | 0.12 | 0.55 | 0.01 | 0.09 | 0.18 | ~ALLD | 3 of 26 |
+
+Unlike Llama 3.3 70B, the new models barely move between the two wordings: the memory-1 vectors differ by at most
+0.22 (Sonnet after CC), and Opus gives identical answers in all 26 scenarios.

@@ -117,7 +117,7 @@ async def main():
                 spent += c
                 stats["calls"] += 1
                 stats["valid" if choice else "invalid"] += 1
-                if spent >= args.max_usd:
+                if spent >= args.max_usd and not stop.is_set():
                     print(f"spend cap ${args.max_usd} reached; stopping", file=sys.stderr)
                     stop.set()
                 if stats["calls"] % 100 == 0:

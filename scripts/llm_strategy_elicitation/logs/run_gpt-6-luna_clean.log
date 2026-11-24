@@ -1,0 +1,15 @@
+gpt-6-luna_clean: 26 scenarios x 50 trials; 1300 calls to make; spent so far $0.0000; estimate for the rest $0.04 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $0.0066, 10 s
+  200 calls, 0 invalid, $0.0143, 20 s
+  300 calls, 0 invalid, $0.0222, 32 s
+  400 calls, 0 invalid, $0.0283, 41 s
+  500 calls, 0 invalid, $0.0370, 52 s
+  600 calls, 0 invalid, $0.0438, 61 s
+  700 calls, 0 invalid, $0.0521, 72 s
+  800 calls, 0 invalid, $0.0585, 80 s
+  900 calls, 0 invalid, $0.0671, 94 s
+  1000 calls, 0 invalid, $0.0752, 105 s
+  1100 calls, 0 invalid, $0.0835, 116 s
+  1200 calls, 0 invalid, $0.0903, 125 s
+  1300 calls, 0 invalid, $0.1001, 138 s
+done: {'calls': 1300, 'valid': 1300}; total spent $0.1001; 138 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/gpt-6-luna_clean.jsonl

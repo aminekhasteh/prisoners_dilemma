@@ -1,0 +1,16 @@
+claude-opus-5-5_si: 26 scenarios x 50 trials; 1300 calls to make; spent so far $0.0000; estimate for the rest $1.61 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $0.1737, 5 s
+  200 calls, 0 invalid, $0.5032, 15 s
+  300 calls, 0 invalid, $0.7730, 24 s
+  400 calls, 0 invalid, $0.9846, 32 s
+  500 calls, 0 invalid, $1.3804, 47 s
+  600 calls, 0 invalid, $1.6487, 57 s
+  700 calls, 0 invalid, $2.0516, 68 s
+  800 calls, 0 invalid, $2.3461, 77 s
+  900 calls, 0 invalid, $2.8375, 92 s
+  1000 calls, 0 invalid, $3.2712, 105 s
+  1100 calls, 0 invalid, $3.7583, 121 s
+  1200 calls, 0 invalid, $4.0245, 130 s
+  1300 calls, 0 invalid, $4.4275, 142 s
+done: {'calls': 1300, 'valid': 1300}; total spent $4.4275; 142 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/claude-opus-5-5_si.jsonl
+spend cap $4.0 reached; stopping
