@@ -22,12 +22,17 @@ COLS = ("p0", "CC", "CD", "DC", "DD")
 old = lambda n, sub=None: (LLMS[n][0], sub or LLMS[n][1], LLMS[n][2], {c: float(d.loc[n, c]) for c in COLS})
 if NEW:
     nw = pd.read_csv(NEW).set_index("model")
-    CLASSIC = {"claude-opus-5-5": "Forgiver", "claude-sonnet-5-5": "close to Always Defect", "claude-haiku-5-5": "GRIM",
+    CLASSIC = {"claude-opus-5-5": "Forgiver", "claude-sonnet-5-5": "close to Always Defect (default)", "claude-haiku-5-5": "GRIM",
                "gpt-6.1-sol": "between Tit for Tat and GRIM", "gpt-6.1-terra": "close to GRIM",
                "gpt-6-luna": "close to Always Defect"}
     new = lambda m: (nw.loc[m, "label"], CLASSIC[m], None, {c: float(nw.loc[m, c]) for c in COLS})
     ROWS = [("group", "Anthropic"), old("LLM: Claude Sonnet 4", "Forgiver (in Pal et al.)"),
-            new("claude-opus-5-5"), new("claude-sonnet-5-5"), new("claude-haiku-5-5"),
+            new("claude-opus-5-5"), new("claude-sonnet-5-5"),
+            # the same model pushed to think (effort xhigh: it thought in 80% of calls), one wording, 50 calls
+            # (claude/project-thread-xnwceg 92fb974); at default effort it almost never thinks
+            ("Sonnet 5.5, thinking", "GRIM (effort xhigh, 50 calls)", None,
+             dict(p0=1.00, CC=1.00, CD=0.00, DC=0.00, DD=0.08)),
+            new("claude-haiku-5-5"),
             ("group", "OpenAI"), old("LLM: GPT-4o", "GRIM (in Pal et al.)"),
             old("LLM: GPT-5", "WSLS / Forgiver (in Pal et al.)"),
             new("gpt-6.1-sol"), new("gpt-6.1-terra"), new("gpt-6-luna")]
