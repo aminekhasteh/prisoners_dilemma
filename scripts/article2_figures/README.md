@@ -19,6 +19,8 @@ bash make_all.sh OUT_DIR RESULTS_DIR [RESULTS_M2_DIR]   # refresh data/ from the
 | `llm_rank_lines.py ... length` | `llm_rank_by_length.png` (mean rank at 63, 77, 151, 156 and 308 turns, no noise) | `data/ranks_by_setting.csv` |
 | `llm_m1_vs_m2.py` | `llm_m1_vs_m2.png` (one dumbbell per model: rank out of 282 as memory-1 vs memory-2; one panel per setting in the data: 63 turns, mean over the five lengths, 1% and 5% noise) | `data/m2_ranks.csv` |
 | `llm_rank_lines.py data/ranks_by_setting_m2.csv noise\|length` | `llm_rank_noise_m2.png`, `llm_rank_by_length_m2.png` (282-player field: memory-2 players as bold lines with hollow diamonds, memory-1 faded behind) | `data/ranks_by_setting_m2.csv` |
+| `llm_new_rank.py` | `llm_new_rank.png` (297-player field with the new models: one row per model grouped by maker, memory-1 vs memory-2 dumbbells, one panel per noise level found) | `data/new_ranks.csv` |
+| `prep_new.py RESULTS_NEW_DIR data` | `data/new_ranks.csv` | `results_new/*_per_tournament.csv` (63-turn rows) |
 | `prep_m2.py RESULTS_M2_DIR data` | `data/m2_ranks.csv` | `results_m2/*_per_tournament.csv` (282-player field) |
 | `prep_data.py RESULTS_DIR data [_m2]` | `data/field_63.csv`, `data/ranks_by_setting.csv` | `results/{standard,noise1,noise5}_per_tournament.csv` |
 

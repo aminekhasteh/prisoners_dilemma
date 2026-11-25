@@ -19,3 +19,5 @@ if [ -f data/ranks_by_setting_m2.csv ]; then
   $PY llm_rank_lines.py data/ranks_by_setting_m2.csv noise "$OUT/llm_rank_noise_m2.png"
   $PY llm_rank_lines.py data/ranks_by_setting_m2.csv length "$OUT/llm_rank_by_length_m2.png"
 fi
+# New models (297-player field): needs data/new_ranks.csv (prep_new.py RESULTS_NEW_DIR data)
+if [ -f data/new_ranks.csv ]; then $PY llm_new_rank.py data/new_ranks.csv "$OUT/llm_new_rank.png"; fi
