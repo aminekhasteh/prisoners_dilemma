@@ -61,7 +61,11 @@ python run_llm_field.py standard --validate 40 --reps 250
 ```
 
 Raw new matches are appended to `results/pairs/*.jsonl` as each pair finishes (not in git), so a stopped run resumes
-where it left off. At the end the script writes `results/<condition>_per_tournament.csv` (one row per player per
+where it left off. Pairs are keyed by player index, so each pair file has a sidecar `<file>.players.json` with the
+ordered player names, kinds and strategy probabilities; resuming (or reading an older folder's pairs, as the
+memory-2/3 scripts do) stops if any index used by the saved pairs now means a different player. Pair files from before
+this check get a sidecar the first time their own script resumes them (with a warning: their past cannot be
+verified). At the end the script writes `results/<condition>_per_tournament.csv` (one row per player per
 tournament: median and mean score per turn, rank, normalized rank, cooperation rate), `results/<condition>_summary.csv`
 (means over tournaments, sorted by normalized rank) and `results/timing_<condition>.csv` (seconds per pair).
 Runs with fewer than 250 repetitions get a `_<n>reps` suffix; with fewer repetitions, Knight's repetition r is paired

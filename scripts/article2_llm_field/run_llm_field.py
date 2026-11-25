@@ -174,6 +174,58 @@ def play_pair(task):
     return dict(i=i, j=j, scores=scores.tolist(), coop=coop.tolist(), seconds=time.time() - t0)
 
 
+def _canon(x):
+    """JSON-safe, order-stable form of a player's parameters (dicts with tuple or Action keys included)."""
+    if isinstance(x, dict):
+        return sorted([_canon(k), _canon(v)] for k, v in x.items())
+    if isinstance(x, (list, tuple)):
+        return [_canon(v) for v in x]
+    if isinstance(x, float):
+        return round(x, 10)
+    if isinstance(x, (str, int, bool)) or x is None:
+        return x
+    return str(x)                                                          # axl.Action
+
+
+def spec_params(spec):
+    """What a player is: its name, kind and parameters. run_m2_field / run_m3_field extend this for their kinds."""
+    name, kind, arg, _ = spec
+    return [name, kind, _canon(arg)]
+
+
+def fingerprint(specs):
+    return [spec_params(s) for s in specs]
+
+
+def manifest_path(partial):
+    return partial.with_name(partial.name.replace(".jsonl", "") + ".players.json")
+
+
+def verify_manifest(partial, used, write=False):
+    """Pair files identify players only by index, so each one gets a sidecar <file>.players.json with the ordered
+    player names and strategy parameters it was played with. Stop if any index used by the saved pairs now means a
+    different player (renamed, reordered, or a changed strategy vector): reusing those pairs would be silently wrong.
+    A pair file from before this check has no sidecar; with write=True the current players are recorded (with a
+    warning, since its past cannot be verified)."""
+    man, cur = manifest_path(partial), fingerprint(SPECS)
+    if man.exists():
+        old = json.load(open(man))["players"]
+        bad = [k for k in sorted(used) if k >= len(old) or old[k] != cur[k]]
+        if bad:
+            k = bad[0]
+            raise SystemExit(f"{partial}: {len(bad)} player indices changed since these pairs were played, e.g. index "
+                             f"{k}: was {old[k] if k < len(old) else 'absent'}, now {cur[k]}. Use a new --out folder "
+                             "(or delete the stale pair file) instead of resuming.")
+        if write and len(cur) > len(old) and old == cur[:len(old)]:
+            json.dump({"players": cur}, open(man, "w"))                     # players appended at the end: extend
+    elif write and partial.exists() and partial.stat().st_size:
+        print(f"  warning: {partial.name} has no player manifest (made before the check); recording the current "
+              "players, which cannot verify the pairs already in it", flush=True)
+        json.dump({"players": cur}, open(man, "w"))
+    elif write:
+        json.dump({"players": cur}, open(man, "w"))
+
+
 def run_pairs(tasks, partial):
     """Play the tasks on a fork pool, appending each finished pair to a jsonl file so a stopped run can resume."""
     done = {}
@@ -184,6 +236,7 @@ def run_pairs(tasks, partial):
             except json.JSONDecodeError:                                   # a line cut short by a kill
                 continue
             done[(d["i"], d["j"])] = d
+    verify_manifest(partial, {k for ij in done for k in ij} | {k for t in tasks for k in t[:2]}, write=True)
     todo = [t for t in tasks if (t[0], t[1]) not in done]
     todo.sort(key=lambda t: not (SPECS[t[0]][3] or SPECS[t[1]][3]))           # slow Meta pairs first
     if todo:
