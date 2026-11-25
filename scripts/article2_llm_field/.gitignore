@@ -2,3 +2,5 @@ results/pairs/
 results/timing_runs/pairs/
 __pycache__/
 results_m2/pairs/
+results_clean/pairs/
+results_si/pairs/

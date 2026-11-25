@@ -131,3 +131,22 @@ memory-1 pairs already played are reused, which needs `combine` to read two pair
 and writing to `results_m2/`. `run_m2_all.sh` waits for `run_all.sh` to finish, then runs the three 63-turn conditions
 (about 17 h on 4 cores). A 2-repetition test at 5% noise ran end to end (1,395 new pairs merged with the memory-1 pairs
 into a 282-player ranking).
+
+## Pooled vs wording-specific players (memory-depth comparisons)
+
+The newly elicited players in `run_new_field.py` and `run_m3_field.py` ("LLM: <model>", "LLM-m2: <model>") pool the
+clean and SI wordings (100 trials per scenario). They are an explicitly labeled extension (`player_type` in
+`new_llm_memory1.csv`), not a single prompt, and the two wordings can disagree: Llama 3.3 70B cooperates after DC
+with probability 0.04 clean, 0.88 SI, 0.46 pooled. In memory-2 the clean prompt also corrects the SI's misprinted
+opponent payoff, so the two wordings give different game information. The memory-3 players are clean only, and the
+Sonnet 5.5 effort-xhigh variant has an SI memory-1 and clean memory-2/3, so neither the pooled field nor that
+variant supports a claim about memory depth.
+
+`../llm_strategy_elicitation/combine.py` also writes `new_llm_memory1_by_wording.csv` and
+`new_llm_memory2_by_wording.csv` (one strategy per model and wording, from the saved replies; no API calls).
+`run_wording_field.py --wording clean` puts clean memory-1, memory-2 and memory-3 players of the same seven models
+in one field (272 + 21 = 293 players, 5,922 new pairs per tournament, all played by the script), so depth is the only
+thing that changes between a model's three players. Output: `results_clean/`. A 2-repetition noise5 test ran end to
+end. Expected time on boo-server-big at 16 processes, scaled from the 297-player run: about 16 min per 63-turn
+tournament, so about 5.5 h for standard 63 turns, 2 h for noise5, 3.5 h for noise1, and about 2.5 days for all five
+standard lengths.
