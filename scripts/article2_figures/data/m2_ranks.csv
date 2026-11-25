@@ -1,0 +1,45 @@
+setting,model,memory,mean_rank,tournaments,lengths
+s63,LLM: Claude Sonnet 4,1,131.7000,20,
+s63,LLM: Claude Sonnet 4,2,27.0000,20,
+s63,LLM: GPT-4o,1,55.7000,20,
+s63,LLM: GPT-4o,2,54.9500,20,
+s63,LLM: GPT-5,1,153.0000,20,
+s63,LLM: GPT-5,2,18.6000,20,
+s63,LLM: Gemini 2.5 Pro,1,154.8500,20,
+s63,LLM: Gemini 2.5 Pro,2,124.2000,20,
+s63,LLM: Llama 3.3 70B,1,77.0000,20,
+s63,LLM: Llama 3.3 70B,2,154.1500,20,
+s63,k92r,1,67.3000,20,
+slen,LLM: Claude Sonnet 4,1,116.7500,100,5.0000
+slen,LLM: Claude Sonnet 4,2,23.1800,100,5.0000
+slen,LLM: GPT-4o,1,75.9900,100,5.0000
+slen,LLM: GPT-4o,2,75.8500,100,5.0000
+slen,LLM: GPT-5,1,150.2000,100,5.0000
+slen,LLM: GPT-5,2,16.5600,100,5.0000
+slen,LLM: Gemini 2.5 Pro,1,153.1600,100,5.0000
+slen,LLM: Gemini 2.5 Pro,2,140.2800,100,5.0000
+slen,LLM: Llama 3.3 70B,1,60.7100,100,5.0000
+slen,LLM: Llama 3.3 70B,2,151.1200,100,5.0000
+slen,k92r,1,61.9700,100,5.0000
+n1,LLM: Claude Sonnet 4,1,134.3846,13,
+n1,LLM: Claude Sonnet 4,2,48.3077,13,
+n1,LLM: GPT-4o,1,134.4615,13,
+n1,LLM: GPT-4o,2,134.3846,13,
+n1,LLM: GPT-5,1,159.0000,13,
+n1,LLM: GPT-5,2,35.3846,13,
+n1,LLM: Gemini 2.5 Pro,1,160.2308,13,
+n1,LLM: Gemini 2.5 Pro,2,152.0000,13,
+n1,LLM: Llama 3.3 70B,1,65.6923,13,
+n1,LLM: Llama 3.3 70B,2,137.4615,13,
+n1,k92r,1,75.7692,13,
+n5,LLM: Claude Sonnet 4,1,134.2857,7,
+n5,LLM: Claude Sonnet 4,2,102.7143,7,
+n5,LLM: GPT-4o,1,165.8571,7,
+n5,LLM: GPT-4o,2,166.1429,7,
+n5,LLM: GPT-5,1,187.5714,7,
+n5,LLM: GPT-5,2,89.5714,7,
+n5,LLM: Gemini 2.5 Pro,1,190.8571,7,
+n5,LLM: Gemini 2.5 Pro,2,176.8571,7,
+n5,LLM: Llama 3.3 70B,1,85.2857,7,
+n5,LLM: Llama 3.3 70B,2,155.2857,7,
+n5,k92r,1,68.4286,7,

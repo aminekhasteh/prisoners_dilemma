@@ -1,0 +1,79 @@
+setting,Name,model,memory,source,mean_rank,tournaments,players
+s63,LLM-m2: Claude Haiku 5.5,Claude Haiku 5.5,2,new elicitation,66.6000,20,297
+s63,LLM-m2: Claude Opus 5.5,Claude Opus 5.5,2,new elicitation,60.2000,20,297
+s63,LLM-m2: Claude Sonnet 4,Claude Sonnet 4,2,Pal et al. 2026,28.6500,20,297
+s63,LLM-m2: Claude Sonnet 5.5,Claude Sonnet 5.5,2,new elicitation,286.9000,20,297
+s63,LLM-m2: GPT-4o,GPT-4o,2,Pal et al. 2026,57.1500,20,297
+s63,LLM-m2: GPT-5,GPT-5,2,Pal et al. 2026,21.4500,20,297
+s63,LLM-m2: GPT-6 Luna,GPT-6 Luna,2,new elicitation,260.2500,20,297
+s63,LLM-m2: GPT-6.1 Sol,GPT-6.1 Sol,2,new elicitation,31.7500,20,297
+s63,LLM-m2: GPT-6.1 Terra,GPT-6.1 Terra,2,new elicitation,52.1500,20,297
+s63,LLM-m2: Gemini 2.5 Pro,Gemini 2.5 Pro,2,Pal et al. 2026,131.3000,20,297
+s63,LLM-m2: Llama 3.3 70B,Llama 3.3 70B,2,Pal et al. 2026,164.1500,20,297
+s63,LLM-m2: Llama 3.3 70B (2026 rerun),Llama 3.3 70B (2026 rerun),2,new elicitation,224.5500,20,297
+s63,LLM: Claude Haiku 5.5,Claude Haiku 5.5,1,new elicitation,57.1500,20,297
+s63,LLM: Claude Opus 5.5,Claude Opus 5.5,1,new elicitation,144.5500,20,297
+s63,LLM: Claude Sonnet 4,Claude Sonnet 4,1,Pal et al. 2026,144.4500,20,297
+s63,LLM: Claude Sonnet 5.5,Claude Sonnet 5.5,1,new elicitation,286.4000,20,297
+s63,LLM: GPT-4o,GPT-4o,1,Pal et al. 2026,57.9500,20,297
+s63,LLM: GPT-5,GPT-5,1,Pal et al. 2026,162.0000,20,297
+s63,LLM: GPT-6 Luna,GPT-6 Luna,1,new elicitation,272.0000,20,297
+s63,LLM: GPT-6.1 Sol,GPT-6.1 Sol,1,new elicitation,121.3000,20,297
+s63,LLM: GPT-6.1 Terra,GPT-6.1 Terra,1,new elicitation,117.0500,20,297
+s63,LLM: Gemini 2.5 Pro,Gemini 2.5 Pro,1,Pal et al. 2026,164.8500,20,297
+s63,LLM: Gemini 2.5 Pro (2026 rerun),Gemini 2.5 Pro (2026 rerun),1,new elicitation,123.2500,20,297
+s63,LLM: Llama 3.3 70B,Llama 3.3 70B,1,Pal et al. 2026,84.7000,20,297
+s63,LLM: Llama 3.3 70B (2026 rerun),Llama 3.3 70B (2026 rerun),1,new elicitation,163.0000,20,297
+s63,k92r,k92r,1,,72.5000,20,297
+n1,LLM-m2: Claude Haiku 5.5,Claude Haiku 5.5,2,new elicitation,128.4615,13,297
+n1,LLM-m2: Claude Opus 5.5,Claude Opus 5.5,2,new elicitation,43.0000,13,297
+n1,LLM-m2: Claude Sonnet 4,Claude Sonnet 4,2,Pal et al. 2026,52.0769,13,297
+n1,LLM-m2: Claude Sonnet 5.5,Claude Sonnet 5.5,2,new elicitation,282.1538,13,297
+n1,LLM-m2: GPT-4o,GPT-4o,2,Pal et al. 2026,138.3077,13,297
+n1,LLM-m2: GPT-5,GPT-5,2,Pal et al. 2026,36.6923,13,297
+n1,LLM-m2: GPT-6 Luna,GPT-6 Luna,2,new elicitation,259.0000,13,297
+n1,LLM-m2: GPT-6.1 Sol,GPT-6.1 Sol,2,new elicitation,58.3846,13,297
+n1,LLM-m2: GPT-6.1 Terra,GPT-6.1 Terra,2,new elicitation,113.4615,13,297
+n1,LLM-m2: Gemini 2.5 Pro,Gemini 2.5 Pro,2,Pal et al. 2026,161.0769,13,297
+n1,LLM-m2: Llama 3.3 70B,Llama 3.3 70B,2,Pal et al. 2026,144.8462,13,297
+n1,LLM-m2: Llama 3.3 70B (2026 rerun),Llama 3.3 70B (2026 rerun),2,new elicitation,231.6154,13,297
+n1,LLM: Claude Haiku 5.5,Claude Haiku 5.5,1,new elicitation,137.6154,13,297
+n1,LLM: Claude Opus 5.5,Claude Opus 5.5,1,new elicitation,141.6923,13,297
+n1,LLM: Claude Sonnet 4,Claude Sonnet 4,1,Pal et al. 2026,141.0769,13,297
+n1,LLM: Claude Sonnet 5.5,Claude Sonnet 5.5,1,new elicitation,282.0000,13,297
+n1,LLM: GPT-4o,GPT-4o,1,Pal et al. 2026,138.3846,13,297
+n1,LLM: GPT-5,GPT-5,1,Pal et al. 2026,167.6154,13,297
+n1,LLM: GPT-6 Luna,GPT-6 Luna,1,new elicitation,270.0769,13,297
+n1,LLM: GPT-6.1 Sol,GPT-6.1 Sol,1,new elicitation,150.6923,13,297
+n1,LLM: GPT-6.1 Terra,GPT-6.1 Terra,1,new elicitation,159.2308,13,297
+n1,LLM: Gemini 2.5 Pro,Gemini 2.5 Pro,1,Pal et al. 2026,170.1538,13,297
+n1,LLM: Gemini 2.5 Pro (2026 rerun),Gemini 2.5 Pro (2026 rerun),1,new elicitation,137.2308,13,297
+n1,LLM: Llama 3.3 70B,Llama 3.3 70B,1,Pal et al. 2026,70.0000,13,297
+n1,LLM: Llama 3.3 70B (2026 rerun),Llama 3.3 70B (2026 rerun),1,new elicitation,169.2308,13,297
+n1,k92r,k92r,1,,79.8462,13,297
+n5,LLM-m2: Claude Haiku 5.5,Claude Haiku 5.5,2,new elicitation,160.5714,7,297
+n5,LLM-m2: Claude Opus 5.5,Claude Opus 5.5,2,new elicitation,45.1429,7,297
+n5,LLM-m2: Claude Sonnet 4,Claude Sonnet 4,2,Pal et al. 2026,103.7143,7,297
+n5,LLM-m2: Claude Sonnet 5.5,Claude Sonnet 5.5,2,new elicitation,261.5714,7,297
+n5,LLM-m2: GPT-4o,GPT-4o,2,Pal et al. 2026,172.1429,7,297
+n5,LLM-m2: GPT-5,GPT-5,2,Pal et al. 2026,91.0000,7,297
+n5,LLM-m2: GPT-6 Luna,GPT-6 Luna,2,new elicitation,252.4286,7,297
+n5,LLM-m2: GPT-6.1 Sol,GPT-6.1 Sol,2,new elicitation,90.7143,7,297
+n5,LLM-m2: GPT-6.1 Terra,GPT-6.1 Terra,2,new elicitation,141.5714,7,297
+n5,LLM-m2: Gemini 2.5 Pro,Gemini 2.5 Pro,2,Pal et al. 2026,183.8571,7,297
+n5,LLM-m2: Llama 3.3 70B,Llama 3.3 70B,2,Pal et al. 2026,159.7143,7,297
+n5,LLM-m2: Llama 3.3 70B (2026 rerun),Llama 3.3 70B (2026 rerun),2,new elicitation,255.4286,7,297
+n5,LLM: Claude Haiku 5.5,Claude Haiku 5.5,1,new elicitation,169.2857,7,297
+n5,LLM: Claude Opus 5.5,Claude Opus 5.5,1,new elicitation,135.8571,7,297
+n5,LLM: Claude Sonnet 4,Claude Sonnet 4,1,Pal et al. 2026,135.4286,7,297
+n5,LLM: Claude Sonnet 5.5,Claude Sonnet 5.5,1,new elicitation,259.0000,7,297
+n5,LLM: GPT-4o,GPT-4o,1,Pal et al. 2026,171.7143,7,297
+n5,LLM: GPT-5,GPT-5,1,Pal et al. 2026,195.2857,7,297
+n5,LLM: GPT-6 Luna,GPT-6 Luna,1,new elicitation,265.0000,7,297
+n5,LLM: GPT-6.1 Sol,GPT-6.1 Sol,1,new elicitation,161.2857,7,297
+n5,LLM: GPT-6.1 Terra,GPT-6.1 Terra,1,new elicitation,187.8571,7,297
+n5,LLM: Gemini 2.5 Pro,Gemini 2.5 Pro,1,Pal et al. 2026,199.5714,7,297
+n5,LLM: Gemini 2.5 Pro (2026 rerun),Gemini 2.5 Pro (2026 rerun),1,new elicitation,150.0000,7,297
+n5,LLM: Llama 3.3 70B,Llama 3.3 70B,1,Pal et al. 2026,84.7143,7,297
+n5,LLM: Llama 3.3 70B (2026 rerun),Llama 3.3 70B (2026 rerun),1,new elicitation,200.0000,7,297
+n5,k92r,k92r,1,,72.7143,7,297
