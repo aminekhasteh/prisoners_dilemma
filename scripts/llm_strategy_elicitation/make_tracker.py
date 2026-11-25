@@ -46,8 +46,8 @@ def runs():
         for r in rs:
             if r["choice"] is not None:
                 trials[r["key"]].add(r["trial"])
-        exps = sorted(cost, key=["memory1", "memory2", "framing", "stopping", "gains"].index)
-        ids = {"memory1": f"{w}-M1-*", "memory2": f"{w}-M2-*", "framing": f"{w}-F1..F9-*",
+        exps = sorted(cost, key=["memory1", "memory2", "memory3", "framing", "stopping", "gains"].index)
+        ids = {"memory1": f"{w}-M1-*", "memory2": f"{w}-M2-*", "memory3": f"{w}-M3-*", "framing": f"{w}-F1..F9-*",
                "stopping": f"{w}-W*-*", "gains": f"{w}-X0..X10-*"}
         o = sorted(r["output_tokens"] for r in rs)
         think = sum(x > 5 for x in o) / len(o)
@@ -119,6 +119,20 @@ def main():
             approx = "≈" if any(R[t]["approx"] for t in tags) else ""
             L.append(f"| {n} | {lab} | {src} | {mem} | {ids} | {trials} | {approx}${cost:.2f} | "
                      + " | ".join(tcell("new", c) for c in conds) + " |")
+    M3 = [("claude-opus-5-5", "Claude Opus 5.5"), ("claude-sonnet-5-5", "Claude Sonnet 5.5"),
+          ("claude-sonnet-5-5_clean_effort-xhigh", "Claude Sonnet 5.5, effort xhigh"),
+          ("claude-haiku-5-5", "Claude Haiku 5.5"), ("gpt-6.1-sol", "GPT-6.1 Sol"), ("gpt-6.1-terra", "GPT-6.1 Terra"),
+          ("gpt-6-luna", "GPT-6 Luna"), ("llama-3.3-70b", "Llama 3.3 70B (2026 rerun)")]
+    for mid, lab in M3:
+        tag = f"{mid}_m3" if "effort" in mid else f"{mid}_clean_m3"
+        if tag not in R:
+            continue
+        r = R[tag]
+        n += 1
+        done = "" if r["min_trials"] >= 50 and r["calls"] >= 4250 else " (incomplete: stopped by the Anthropic workspace spend limit)"
+        L.append(f"| {n} | {lab} | {'2026 rerun of a paper model' if 'llama' in mid else 'new elicitation (2026)'} | "
+                 f"memory-3 | `CL-M3-*` | {r['min_trials']}{done} | ${r['cost']:.2f} | not scheduled | not scheduled | "
+                 "not scheduled | not scheduled |")
     L += ["", "Gemini 2.5 Pro (2026 rerun) has no memory-2 player: its memory-2 scenarios were not run (about $20).", ""]
 
     L += ["## 2. Tournament runs\n",
@@ -146,7 +160,9 @@ def main():
     for r in order:
         tot[r["provider"]] += r["cost"]
         used = USED.get(r["tag"], "Llama replication check" if "llama" in r["tag"]
-                        else ("effort check (memory-1 only)" if "effort" in r["tag"] else "check"))
+                        else ("memory-3 strategy" if r["tag"].endswith("_m3") else
+                              ("Sonnet xhigh memory-2" if r["tag"].endswith("xhigh_m2") else
+                               ("effort check (memory-1 only)" if "effort" in r["tag"] else "check"))))
         th = "n/a" if r["provider"] == "openrouter" and "gemini" not in r["model"] else f"{r['think']:.0%} (median {r['out_med']})"
         L.append(f"| `{r['tag']}` | {r['model']} | {settings_str(r['settings'])} | {th} | `{r['prompt_ids']}` | {r['calls']:,} | "
                  f"{r['invalid']} | {'≈' if r['approx'] else ''}${r['cost']:.2f} | {r['start']:%b %d %I:%M %p} | "
