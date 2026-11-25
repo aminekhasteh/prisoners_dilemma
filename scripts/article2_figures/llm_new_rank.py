@@ -83,9 +83,10 @@ key = [Line2D([], [], ls="", marker="D", ms=9, color=MUTED, mec="white", label="
        Line2D([], [], ls="", marker="D", ms=9, mfc="white", mec=MUTED, mew=2, label="memory-2: last two rounds (bold number)")]
 fig.legend(handles=key, loc="upper left", bbox_to_anchor=(0.012, 0.87), ncol=2, frameon=False, fontsize=10.5,
            handletextpad=0.3, columnspacing=1.6)
-titles(fig, 0.02, 0.955, "The newer chatbots: some climb, some fall to the bottom",
+TITLE = ("With noise, Opus 5.5's memory-2 strategy is the one that holds up" if (r.setting == "n5").any()
+         else "The newer chatbots: some climb, some fall to the bottom")
+titles(fig, 0.02, 0.955, TITLE,
        f"All memory-1 and memory-2 strategies in one {N}-player field: Knight et al.'s 272 plus {N - 272} chatbot strategies.\n"
-       "Bold = new models. Pal et al. = the paper's numbers; our rerun = the same model asked again in 2026.\n"
-       "Dashed line = Tit for Tat.")
+       "Bold = new models. Pal et al. = the paper's numbers; our rerun = the same model asked again in 2026. Dashed = Tit for Tat.")
 fig.savefig(out, dpi=DPI)
 print("ok", out, [k for k, _ in SETTINGS])
