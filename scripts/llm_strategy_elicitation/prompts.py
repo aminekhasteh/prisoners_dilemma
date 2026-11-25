@@ -33,7 +33,8 @@ class Scenario:
     treatment: str           # "baseline", a framing key, "w=0.1", "x=3"
     kind: str                # round1 | round2 | later
     prev1: str = ""          # last round's outcome (own move first), e.g. "CD"
-    prev2: str = ""          # outcome two rounds ago (memory-2 only)
+    prev2: str = ""          # outcome two rounds ago (memory-2 and memory-3)
+    prev3: str = ""          # outcome three rounds ago (memory-3 only)
     payoffs: tuple = STANDARD_PAYOFFS
     framing: str = ""
     stop_w: float | None = None
@@ -41,7 +42,8 @@ class Scenario:
 
     @property
     def key(self) -> str:
-        return f"{self.experiment}|{self.treatment}|{self.kind}|{self.prev2}|{self.prev1}"
+        k = f"{self.experiment}|{self.treatment}|{self.kind}|{self.prev2}|{self.prev1}"
+        return k + f"|{self.prev3}" if self.prev3 else k
 
 
 # "clean": "1 point"/"N points" and the other agent's real payoff in the memory-2 prompt (our default).
@@ -115,6 +117,22 @@ def build_prompt(s: Scenario) -> str:
             f"Therefore, in the previous round you got {_pts(a1)} and they got {_pts(a1 if VARIANT == 'si' else b1)}.",
             "This is a new round.",
         ]
+    elif s.memory == 3 and s.kind in ("round3", "later"):
+        # Our extension of the SI's memory-2 prompt to three rounds (the paper has no memory-3 prompt). It always
+        # gives the other agent's real payoff; the SI's memory-2 typo is not carried over.
+        if s.kind == "round3":
+            heads = [("In the first round", s.prev2), ("In the second round", s.prev1)]
+            tail = "This is the third round."
+        else:
+            heads = [("Three rounds ago", s.prev3), ("Two rounds ago", s.prev2), ("In the previous round", s.prev1)]
+            tail = "This is a new round."
+        for i, (head, o) in enumerate(heads):
+            x, y, a, b = said(o)
+            last = i == len(heads) - 1
+            lines += [f"{head}, you chose {x}, they chose {y}.",
+                      f"Therefore, {'in the previous round ' if last and s.kind == 'later' else ''}you got {_pts(a)} "
+                      f"and {'they' if last and s.kind == 'later' else 'the other agent'} got {_pts(b)}."]
+        lines.append(tail)
     else:
         raise ValueError(f"unknown scenario {s}")
     lines += ["Do you choose L or R? Give only the character as output.", "Give no explanation."]
@@ -136,6 +154,13 @@ def scenarios(experiment: str) -> list[Scenario]:
         out += [Scenario("memory2", "baseline", "later", prev2=o2, prev1=o1, memory=2)
                 for o2 in OUTCOMES for o1 in OUTCOMES]
         return out
+    if experiment == "memory3":
+        out = [Scenario("memory3", "baseline", "round1", memory=3)]
+        out += [Scenario("memory3", "baseline", "round2", prev1=o, memory=3) for o in OUTCOMES]
+        out += [Scenario("memory3", "baseline", "round3", prev2=a, prev1=b, memory=3) for a in OUTCOMES for b in OUTCOMES]
+        out += [Scenario("memory3", "baseline", "later", prev3=a, prev2=b, prev1=c, memory=3)
+                for a in OUTCOMES for b in OUTCOMES for c in OUTCOMES]
+        return out
     if experiment == "framing":
         return [s for k, txt in FRAMINGS.items() for s in _memory1_set("framing", k, framing=txt)]
     if experiment == "stopping":
@@ -145,7 +170,7 @@ def scenarios(experiment: str) -> list[Scenario]:
     raise ValueError(f"unknown experiment {experiment!r}")
 
 
-EXPERIMENTS = ("memory1", "memory2", "framing", "stopping", "gains")
+EXPERIMENTS = ("memory1", "memory2", "memory3", "framing", "stopping", "gains")
 
 
 def parse_answer(text: str) -> str | None:
@@ -172,7 +197,7 @@ def wording_id(variant=None, join=None):
 
 
 def prompt_uid(s: Scenario, wording: str | None = None) -> str:
-    block = {"memory1": "M1", "memory2": "M2"}.get(s.experiment)
+    block = {"memory1": "M1", "memory2": "M2", "memory3": "M3"}.get(s.experiment)
     if s.experiment == "framing":
         block = FRAMING_IDS[s.treatment]
     elif s.experiment == "stopping":
@@ -183,6 +208,10 @@ def prompt_uid(s: Scenario, wording: str | None = None) -> str:
         sc = "R1"
     elif s.kind == "round2":
         sc = f"R2-{s.prev1}"
+    elif s.kind == "round3":
+        sc = f"R3-{s.prev2}-{s.prev1}"
+    elif s.memory == 3:
+        sc = f"{s.prev3}-{s.prev2}-{s.prev1}"
     elif s.memory == 2:
         sc = f"{s.prev2}-{s.prev1}"
     else:

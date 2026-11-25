@@ -83,9 +83,9 @@ def main():
         r = meta[key]
         lo, hi = wilson(k, n)
         long.append({"model": name, "experiment": r["experiment"], "treatment": r["treatment"], "kind": r["kind"],
-                     "prev2": r["prev2"], "prev1": r["prev1"], "count_C": k, "n": n, "p_C": round(k / n, 4),
+                     "prev3": r.get("prev3", ""), "prev2": r["prev2"], "prev1": r["prev1"], "count_C": k, "n": n, "p_C": round(k / n, 4),
                      "wilson_lo": round(lo, 4), "wilson_hi": round(hi, 4)})
-        if r["experiment"] != "memory2":
+        if r["experiment"] not in ("memory2", "memory3"):
             groups[(r["experiment"], r["treatment"])]["p0" if r["kind"] == "round1" else r["prev1"]] = k / n
     exp_map = {"memory1": "framing", "framing": "framing", "stopping": "stopping_w", "gains": "equal_gains_x"}
     for (exp, treat), g in sorted(groups.items()):
@@ -100,7 +100,7 @@ def main():
                      **{k: f"{x:.2f}" for k, x in zip(["p0", "CC", "CD", "DC", "DD"], v)}, "note": label(v)})
 
     res = HERE / "results"
-    long.sort(key=lambda d: (d["experiment"], d["treatment"], d["kind"], d["prev2"], d["prev1"]))
+    long.sort(key=lambda d: (d["experiment"], d["treatment"], d["kind"], d["prev3"], d["prev2"], d["prev1"]))
     with open(res / f"{args.tag}_scenarios.csv", "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(long[0]))
         w.writeheader()
@@ -121,6 +121,15 @@ def main():
             for d in m2:
                 w.writerow({"model": name, "scenario": d["kind"], "prev2": d["prev2"], "prev1": d["prev1"],
                             "count_C": d["count_C"], "n": d["n"], "p_C": d["p_C"]})
+
+    m3 = [d for d in long if d["experiment"] == "memory3"]
+    if m3:
+        with open(res / f"{args.tag}_memory3.csv", "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=["model", "scenario", "prev3", "prev2", "prev1", "count_C", "n", "p_C"])
+            w.writeheader()
+            for d in m3:
+                w.writerow({"model": name, "scenario": d["kind"], "prev3": d["prev3"], "prev2": d["prev2"],
+                            "prev1": d["prev1"], "count_C": d["count_C"], "n": d["n"], "p_C": d["p_C"]})
 
     if args.compare:
         compare(args.compare, long)

@@ -108,7 +108,7 @@ async def main():
             c = prov.cost(r)
             rec = {"time": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), "tag": tag,
                    "key": s.key, "experiment": s.experiment, "treatment": s.treatment, "kind": s.kind,
-                   "prev2": s.prev2, "prev1": s.prev1, "trial": trial, "attempt": attempt,
+                   "prev3": s.prev3, "prev2": s.prev2, "prev1": s.prev1, "trial": trial, "attempt": attempt,
                    "text": r.text[:200], "choice": choice, "input_tokens": r.input_tokens,
                    "output_tokens": r.output_tokens, "thinking_tokens": r.thinking_tokens,
                    "stop_reason": r.stop_reason, "cost_usd": c, "settings": settings}
