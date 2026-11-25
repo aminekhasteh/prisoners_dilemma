@@ -49,7 +49,9 @@ def runs():
         exps = sorted(cost, key=["memory1", "memory2", "framing", "stopping", "gains"].index)
         ids = {"memory1": f"{w}-M1-*", "memory2": f"{w}-M2-*", "framing": f"{w}-F1..F9-*",
                "stopping": f"{w}-W*-*", "gains": f"{w}-X0..X10-*"}
-        out[f.stem] = dict(tag=f.stem, model=s["model"], provider=s["provider"], settings=s, wording=w,
+        o = sorted(r["output_tokens"] for r in rs)
+        think = sum(x > 5 for x in o) / len(o)
+        out[f.stem] = dict(think=think, out_med=o[len(o) // 2],tag=f.stem, model=s["model"], provider=s["provider"], settings=s, wording=w,
                            prompt_ids=", ".join(ids[e] for e in exps), exps=exps, calls=len(rs),
                            invalid=sum(r["choice"] is None for r in rs), cost=sum(cost.values()), cost_by=dict(cost),
                            start=min(t).astimezone(ET), secs=(max(t) - min(t)).total_seconds(),
@@ -71,8 +73,9 @@ def settings_str(s):
         parts.append(f"host={s['host']}" if s.get("host") else "host=any")
         return ", ".join(parts)
     if s["provider"] == "anthropic":
-        return "defaults (no sampling params, default effort/thinking)"
-    return "defaults (default reasoning)"
+        eff = s.get("effort") or {"claude-opus-5-5": "medium", "claude-haiku-5-5": "medium"}.get(s["model"], "high")
+        return f"effort {eff}{'' if s.get('effort') else ' (API default)'}, adaptive thinking, no sampling params"
+    return f"reasoning effort {s.get('reasoning_effort') or 'API default'}"
 
 
 def main():
@@ -132,14 +135,20 @@ def main():
     L += ["", "## 3. Elicitation runs (API calls)\n",
           "Every API run so far, including the checks that did not become tournament strategies. 50 trials per "
           "scenario; wall time is first to last reply.\n",
-          "| Run | Model | Settings | Prompt IDs | Calls | Invalid | Cost | Started (ET) | Wall time | Used for |",
-          "|---|---|---|---|---|---|---|---|---|---|"]
+          "Thinking column: share of calls where the model wrote more than 5 output tokens (hidden thinking or "
+          "reasoning; the visible answer is 1 to 3 tokens), and the median output tokens. Nothing was ever switched "
+          "off: every run used the API's defaults unless an effort is listed, and the adaptive models chose how much "
+          "to think.\n",
+          "| Run | Model | Settings | Thinking | Prompt IDs | Calls | Invalid | Cost | Started (ET) | Wall time | Used for |",
+          "|---|---|---|---|---|---|---|---|---|---|---|"]
     order = sorted(R.values(), key=lambda r: (r["start"], r["tag"]))
     tot = defaultdict(float)
     for r in order:
         tot[r["provider"]] += r["cost"]
-        used = USED.get(r["tag"], "Llama replication check" if "llama" in r["tag"] else "check")
-        L.append(f"| `{r['tag']}` | {r['model']} | {settings_str(r['settings'])} | `{r['prompt_ids']}` | {r['calls']:,} | "
+        used = USED.get(r["tag"], "Llama replication check" if "llama" in r["tag"]
+                        else ("thinking check (Nov 24 evening)" if "effort" in r["tag"] else "check"))
+        th = "n/a" if r["provider"] == "openrouter" and "gemini" not in r["model"] else f"{r['think']:.0%} (median {r['out_med']})"
+        L.append(f"| `{r['tag']}` | {r['model']} | {settings_str(r['settings'])} | {th} | `{r['prompt_ids']}` | {r['calls']:,} | "
                  f"{r['invalid']} | {'≈' if r['approx'] else ''}${r['cost']:.2f} | {r['start']:%b %d %I:%M %p} | "
                  f"{fmt_secs(r['secs'])}{' (two sittings, rate limited)' if r['tag'] == 'gemini-2.5-pro_si' else ''} | {used} |")
     L += ["", "Total API spend by provider: " + ", ".join(f"{k} ${v:.2f}" for k, v in sorted(tot.items()))
