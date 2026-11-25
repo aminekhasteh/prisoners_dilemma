@@ -1,0 +1,6 @@
+model,experiment,treatment,kind,prev2,prev1,count_C,n,p_C,wilson_lo,wilson_hi
+claude-haiku-5-5_si_effort-xhigh,memory1,baseline,later,,CC,44,50,0.88,0.7619,0.9438
+claude-haiku-5-5_si_effort-xhigh,memory1,baseline,later,,CD,0,50,0.0,0.0,0.0714
+claude-haiku-5-5_si_effort-xhigh,memory1,baseline,later,,DC,7,50,0.14,0.0695,0.2619
+claude-haiku-5-5_si_effort-xhigh,memory1,baseline,later,,DD,3,50,0.06,0.0206,0.1622
+claude-haiku-5-5_si_effort-xhigh,memory1,baseline,round1,,,46,50,0.92,0.8116,0.9685

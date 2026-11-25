@@ -1,0 +1,6 @@
+model,experiment,treatment,kind,prev2,prev1,count_C,n,p_C,wilson_lo,wilson_hi
+claude-opus-5-5_si_effort-xhigh,memory1,baseline,later,,CC,50,50,1.0,0.9286,1.0
+claude-opus-5-5_si_effort-xhigh,memory1,baseline,later,,CD,0,50,0.0,0.0,0.0714
+claude-opus-5-5_si_effort-xhigh,memory1,baseline,later,,DC,50,50,1.0,0.9286,1.0
+claude-opus-5-5_si_effort-xhigh,memory1,baseline,later,,DD,50,50,1.0,0.9286,1.0
+claude-opus-5-5_si_effort-xhigh,memory1,baseline,round1,,,50,50,1.0,0.9286,1.0

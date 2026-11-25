@@ -1,0 +1,7 @@
+model,label,p0,CC,CD,DC,DD,n,note,max_wording_gap
+claude-opus-5-5,Claude Opus 5.5,1.00,1.00,0.00,1.00,1.00,100,Forgiver,0.00
+claude-sonnet-5-5,Claude Sonnet 5.5,0.00,0.11,0.00,0.00,0.00,100,~ALLD,0.22
+claude-haiku-5-5,Claude Haiku 5.5,1.00,1.00,0.00,0.00,0.00,100,GRIM,0.00
+gpt-6.1-sol,GPT-6.1 Sol,1.00,1.00,0.00,0.51,0.00,100,~TFT,0.02
+gpt-6.1-terra,GPT-6.1 Terra,1.00,1.00,0.00,0.25,0.00,100,~GRIM,0.06
+gpt-6-luna,GPT-6 Luna,0.12,0.55,0.01,0.09,0.18,100,~ALLD,0.06

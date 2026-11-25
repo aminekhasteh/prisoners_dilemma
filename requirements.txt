@@ -7,3 +7,6 @@ pyarrow==25.0.1
 scikit-learn==1.9.1
 shap==0.52.0
 xgboost==3.4.1
+anthropic>=2.13
+google-genai>=3.6
+openai>=3.58

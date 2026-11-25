@@ -1,0 +1,15 @@
+gpt-6.1-terra_clean: 26 scenarios x 50 trials; 1300 calls to make; spent so far $0.0000; estimate for the rest $0.40 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $0.0478, 14 s
+  200 calls, 0 invalid, $0.1113, 30 s
+  300 calls, 0 invalid, $0.1646, 45 s
+  400 calls, 0 invalid, $0.2092, 58 s
+  500 calls, 0 invalid, $0.2804, 76 s
+  600 calls, 0 invalid, $0.3247, 89 s
+  700 calls, 0 invalid, $0.4156, 113 s
+  800 calls, 0 invalid, $0.4740, 127 s
+  900 calls, 0 invalid, $0.5370, 145 s
+  1000 calls, 0 invalid, $0.6195, 168 s
+  1100 calls, 0 invalid, $0.6940, 189 s
+  1200 calls, 0 invalid, $0.7440, 200 s
+  1300 calls, 0 invalid, $0.8092, 217 s
+done: {'calls': 1300, 'valid': 1300}; total spent $0.8092; 217 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/gpt-6.1-terra_clean.jsonl

@@ -1,0 +1,15 @@
+claude-sonnet-5-5_clean: 26 scenarios x 50 trials; 1300 calls to make; spent so far $0.0000; estimate for the rest $0.81 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $0.0626, 6 s
+  200 calls, 0 invalid, $0.1296, 11 s
+  300 calls, 0 invalid, $0.1922, 19 s
+  400 calls, 0 invalid, $0.2590, 26 s
+  500 calls, 0 invalid, $0.3260, 32 s
+  600 calls, 0 invalid, $0.4008, 36 s
+  700 calls, 0 invalid, $0.4758, 39 s
+  800 calls, 0 invalid, $0.5508, 42 s
+  900 calls, 0 invalid, $0.6258, 48 s
+  1000 calls, 0 invalid, $0.7008, 55 s
+  1100 calls, 0 invalid, $0.7758, 58 s
+  1200 calls, 0 invalid, $0.8508, 61 s
+  1300 calls, 0 invalid, $0.9258, 64 s
+done: {'calls': 1300, 'valid': 1300}; total spent $0.9258; 64 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/claude-sonnet-5-5_clean.jsonl

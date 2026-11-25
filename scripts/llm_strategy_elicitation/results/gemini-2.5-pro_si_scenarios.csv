@@ -1,0 +1,6 @@
+model,experiment,treatment,kind,prev2,prev1,count_C,n,p_C,wilson_lo,wilson_hi
+gemini-2.5-pro,memory1,baseline,later,,CC,50,50,1.0,0.9286,1.0
+gemini-2.5-pro,memory1,baseline,later,,CD,0,50,0.0,0.0,0.0714
+gemini-2.5-pro,memory1,baseline,later,,DC,36,50,0.72,0.5833,0.8253
+gemini-2.5-pro,memory1,baseline,later,,DD,35,50,0.7,0.5625,0.809
+gemini-2.5-pro,memory1,baseline,round1,,,50,50,1.0,0.9286,1.0

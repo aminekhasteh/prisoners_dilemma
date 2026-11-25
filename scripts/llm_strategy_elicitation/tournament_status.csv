@@ -1,0 +1,14 @@
+group,condition,field,machine,status,start_et,end_et,duration,results,commit
+pal_m1,noise5,277,smol,Done,Nov 19 1:33 PM,Nov 19 4:34 PM,3.0 h,article2_llm_field/results/,b4396eb
+pal_m1,noise1,277,smol,Done,Nov 19 4:34 PM,Nov 19 10:05 PM,5.5 h,article2_llm_field/results/,b4396eb
+pal_m1,standard 63,277,smol,Done,Nov 19 10:05 PM,Nov 20 6:30 AM,8.4 h,article2_llm_field/results/,b4396eb
+pal_m1,standard 77-308,277,smol,Done,Nov 20 6:30 AM,Nov 23 11:14 PM,88.7 h (all four lengths),article2_llm_field/results/,b4396eb
+pal_m2,standard 63,282,big,Done,Nov 24 12:05 AM,Nov 24 1:20 AM,1.25 h,article2_llm_field/results_m2/,b5e87dc
+pal_m2,standard 77-308,282,big,Done,Nov 24 1:20 AM,Nov 24 3:21 PM,14 h (77: 1.6 h; 151: 3.0 h; 156: 3.1 h; 308: 6.3 h),article2_llm_field/results_m2/,not committed yet (with the noise results at about 4:45 PM)
+pal_m2,noise5,282,big,Done,Nov 24 3:21 PM,Nov 24 about 3:50 PM,about 0.5 h,article2_llm_field/results_m2/,
+pal_m2,noise1,282,big,Done,about Nov 24 3:50 PM,about Nov 24 4:40 PM,about 0.8 h,article2_llm_field/results_m2/,
+new,standard 63,297,big,Done,Nov 24 4:41 PM,Nov 24 about 8:35 PM,about 3.9 h,article2_llm_field/results_new/,a201a55
+new,noise5,297,big,Running,Nov 24 about 8:35 PM,ETA about Nov 24 10:05 PM,about 1.4 h,article2_llm_field/results_new/,
+new,noise1,297,big,Planned,,ETA about Nov 25 12:45 AM,about 2.6 h,article2_llm_field/results_new/,
+new,standard 77-308,297,big,Planned,,ETA about Nov 26 8 PM,about 44 h (77: 5 h; 151: 9.3 h; 156: 9.7 h; 308: 19.6 h),article2_llm_field/results_new/,
+new_m3,all conditions,304,big,Planned,after about Nov 26 8 PM,ETA about Nov 27 8 PM (rough),about 24 h (rough),article2_llm_field/results_new/ (TBD),
