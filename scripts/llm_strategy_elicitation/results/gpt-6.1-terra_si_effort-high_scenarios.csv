@@ -1,0 +1,6 @@
+model,experiment,treatment,kind,prev2,prev1,count_C,n,p_C,wilson_lo,wilson_hi
+gpt-6.1-terra_si_effort-high,memory1,baseline,later,,CC,50,50,1.0,0.9286,1.0
+gpt-6.1-terra_si_effort-high,memory1,baseline,later,,CD,0,50,0.0,0.0,0.0714
+gpt-6.1-terra_si_effort-high,memory1,baseline,later,,DC,43,50,0.86,0.7381,0.9305
+gpt-6.1-terra_si_effort-high,memory1,baseline,later,,DD,0,50,0.0,0.0,0.0714
+gpt-6.1-terra_si_effort-high,memory1,baseline,round1,,,50,50,1.0,0.9286,1.0

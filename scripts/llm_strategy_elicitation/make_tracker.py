@@ -146,7 +146,7 @@ def main():
     for r in order:
         tot[r["provider"]] += r["cost"]
         used = USED.get(r["tag"], "Llama replication check" if "llama" in r["tag"]
-                        else ("thinking check (Nov 24 evening)" if "effort" in r["tag"] else "check"))
+                        else ("effort check (memory-1 only)" if "effort" in r["tag"] else "check"))
         th = "n/a" if r["provider"] == "openrouter" and "gemini" not in r["model"] else f"{r['think']:.0%} (median {r['out_med']})"
         L.append(f"| `{r['tag']}` | {r['model']} | {settings_str(r['settings'])} | {th} | `{r['prompt_ids']}` | {r['calls']:,} | "
                  f"{r['invalid']} | {'≈' if r['approx'] else ''}${r['cost']:.2f} | {r['start']:%b %d %I:%M %p} | "
