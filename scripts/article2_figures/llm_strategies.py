@@ -8,7 +8,11 @@ each group opening with its Pal et al. models as a reference (those keep their d
 they have no colour in the rank charts yet). new_llm_memory1.csv comes from branch claude/project-thread-xnwceg
 (scripts/article2_llm_field/): pooled over two prompt wordings, 50 calls each.
 
-Usage: python3 llm_strategies.py data/llm_strategies.csv out.png [--new=data/new_llm_memory1.csv] [--dpi=200]"""
+With --winners=data/winners.csv it adds a last group: the player that won each setting's tournaments (no noise, 1%,
+5% noise). They are not memory-one strategies, so their five numbers are measured from how they played (prep_winners.py).
+
+Usage: python3 llm_strategies.py data/llm_strategies.csv out.png [--new=data/new_llm_memory1.csv]
+       [--winners=data/winners.csv] [--dpi=200]"""
 import sys
 import pandas as pd
 from style import setup, plt, INK, MUTED, LINE, COOP, DEFECT, LLMS, diamond, move
@@ -43,10 +47,20 @@ else:
     ROWS = [old(n) for n in ["LLM: Claude Sonnet 4", "LLM: Gemini 2.5 Pro", "LLM: GPT-4o", "LLM: GPT-5", "LLM: Llama 3.3 70B"]]
     TITLE = "Five chatbots, five strategies"
     FOOT = "Bars show a chance: the blue share cooperates, the orange share defects.   Data: Pal et al. 2026, Table S12."
+WIN = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--winners=")), None)
+if WIN:
+    SHORT = {"EvolvedLookerUp2_2_2": "Evolved Lookup table", "Evolved FSM 16 Noise 05": "Evolved FSM 16 (noise)",
+             "DBS: 0.75, 3, 4, 3, 5": "DBS"}
+    wn = pd.read_csv(WIN)
+    ROWS = ROWS + [("group", "Tournament winners")] + [
+        (SHORT.get(w.Name, w.Name), "won every %s tournament" % w.setting_label.replace("no noise", "no-noise"), None, {c: float(getattr(w, c)) for c in COLS})
+        for w in wn.itertuples()]
+    FOOT = FOOT.replace("   Data:", "\nData:") + "\nWinners: measured from how they played in Knight et al.'s 63-turn tournaments, not asked."
 NROW = sum(1 for r in ROWS if r[0] != "group"); NGRP = len(ROWS) - NROW
+NFOOT = FOOT.count("\n")
 
 setup()
-W, H = 112.0, 98.0 + 10.3 * (NROW - 5) + 4.5 * NGRP + (3.0 if NEW else 0)   # data units; 1 unit = 0.1 inch
+W, H = 112.0, 98.0 + 10.3 * (NROW - 5) + 4.5 * NGRP + 3.0 * NFOOT   # data units; 1 unit = 0.1 inch
 fig = plt.figure(figsize=(W / 10, H / 10))
 ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, W); ax.set_ylim(0, H); ax.set_aspect("equal"); ax.axis("off")
 PT = 10 / 72.0
@@ -89,14 +103,14 @@ for i, o in enumerate(("CC", "CD", "DC", "DD")):
     ax.text(XC[o], Y1, "p" + "₁₂₃₄"[i], ha="center", va="center", fontsize=14.5, fontweight="bold", color=INK)
 ax.plot([XL, XR], [Y1 - 4.6, Y1 - 4.6], color=INK, lw=1.3, zorder=1)
 xm = (XC["p0"] + XC["CC"]) / 2
-ax.plot([xm, xm], [9.0 + (3.0 if NEW else 0), Y0 + 3.5], color=LINE, lw=1.0, zorder=1)
+ax.plot([xm, xm], [9.0 + 3.0 * NFOOT, Y0 + 3.5], color=LINE, lw=1.0, zorder=1)
 
 y = Y1 - 10.6
 for row in ROWS:
     if row[0] == "group":
         y += 2.0
         ax.text(XL, y, row[1].upper(), ha="left", va="center", fontsize=11, fontweight="bold", color=MUTED)
-        ax.plot([XL + 14, xm - 2], [y, y], color=LINE, lw=1.0)
+        ax.plot([XL + 4 + 1.25 * len(row[1]), xm - 2], [y, y], color=LINE, lw=1.0)
         y -= 6.5
         continue
     short, classic, col, vals = row
@@ -107,7 +121,7 @@ for row in ROWS:
         chance(XC[o], y + 0.6, vals[o])
     y -= 10.3
 
-ax.text(W / 2, 4.0 + (1.6 if NEW else 0), FOOT,
+ax.text(W / 2, 4.0 + 1.6 * NFOOT, FOOT,
         ha="center", va="center", fontsize=11.5, color=MUTED, linespacing=1.45)
 fig.savefig(out, dpi=DPI)
 print("ok", out)

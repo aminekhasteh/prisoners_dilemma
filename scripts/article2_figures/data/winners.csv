@@ -1,0 +1,4 @@
+setting,setting_label,Name,tournaments,p0,CC,CD,DC,DD
+s63,no noise,EvolvedLookerUp2_2_2,20,1.0000,0.8737,0.4277,0.5653,0.8540
+n1,1% noise,Evolved FSM 16 Noise 05,13,0.9900,0.9260,0.5854,0.5257,0.0546
+n5,5% noise,"DBS: 0.75, 3, 4, 3, 5",7,0.9497,0.8813,0.6215,0.3521,0.2969

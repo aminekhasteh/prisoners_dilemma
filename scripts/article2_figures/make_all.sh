@@ -8,8 +8,8 @@ mkdir -p "$OUT"
 if [ -n "${2:-}" ]; then $PY prep_data.py "$2" data; fi
 if [ -n "${3:-}" ]; then $PY prep_m2.py "$3" data; $PY prep_data.py "$3" data _m2; fi
 $PY cover.py data/llm_strategies.csv "$OUT/article2_cover.png" --dpi=180
-$PY llm_strategies.py data/llm_strategies.csv "$OUT/llm_strategies.png"
-$PY llm_strategies.py data/llm_strategies.csv "$OUT/new_llm_strategies.png" --new=data/new_llm_memory1.csv
+$PY llm_strategies.py data/llm_strategies.csv "$OUT/llm_strategies.png" --winners=data/winners.csv
+$PY llm_strategies.py data/llm_strategies.csv "$OUT/new_llm_strategies.png" --new=data/new_llm_memory1.csv --winners=data/winners.csv
 $PY llm_rank_63.py data/field_63.csv "$OUT/llm_rank_63.png"
 $PY llm_rank_lines.py data/ranks_by_setting.csv noise "$OUT/llm_rank_noise.png"
 $PY llm_rank_lines.py data/ranks_by_setting.csv length "$OUT/llm_rank_by_length.png"
