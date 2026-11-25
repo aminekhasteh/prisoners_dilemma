@@ -96,6 +96,11 @@ async def main():
             if stop.is_set():
                 return
             async with sem:
+                # Check again once a slot is free: every queued task passed the check above before the first reply
+                # came back, so without this one the tasks waiting here would each still make a paid call after the
+                # cap was reached. Calls already in flight when the cap is hit (at most --concurrency - 1) still land.
+                if stop.is_set():
+                    return
                 try:
                     r = await prov.ask(SYSTEM_PROMPT, prompt)
                 except Exception as e:  # SDKs already retry 429/5xx; anything left is logged and skipped
