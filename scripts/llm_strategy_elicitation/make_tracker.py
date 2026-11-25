@@ -131,8 +131,9 @@ def main():
         n += 1
         done = "" if r["min_trials"] >= 50 and r["calls"] >= 4250 else " (incomplete: stopped by the Anthropic workspace spend limit)"
         L.append(f"| {n} | {lab} | {'2026 rerun of a paper model' if 'llama' in mid else 'new elicitation (2026)'} | "
-                 f"memory-3 | `CL-M3-*` | {r['min_trials']}{done} | ${r['cost']:.2f} | not scheduled | not scheduled | "
-                 "not scheduled | not scheduled |")
+                 f"memory-3 | `CL-M3-*` | {r['min_trials']}{done} | ${r['cost']:.2f} | "
+                 + (" | ".join(["Planned (after the new-field run)"] * 4) if not done else " | ".join(["not scheduled"] * 4))
+                 + " |")
     L += ["", "Gemini 2.5 Pro (2026 rerun) has no memory-2 player: its memory-2 scenarios were not run (about $20).", ""]
 
     L += ["## 2. Tournament runs\n",
@@ -141,7 +142,7 @@ def main():
           "| Players | Condition | Field | Machine | Status | Start (ET) | End or ETA (ET) | Duration | Results | Commit |",
           "|---|---|---|---|---|---|---|---|---|---|"]
     names = {"pal_m1": "Pal et al. memory-1 (5)", "pal_m2": "Pal et al. memory-2 (5)",
-             "new": "New strategies (8 memory-1 + 7 memory-2)"}
+             "new": "New strategies (8 memory-1 + 7 memory-2)", "new_m3": "Memory-3 strategies (7)"}
     for r in st:
         L.append(f"| {names[r['group']]} | {r['condition']} | {r['field']} | {r['machine']} | {r['status']} | "
                  f"{r['start_et']} | {r['end_et']} | {r['duration']} | `{r['results']}` | {r['commit'] or '—'} |")
