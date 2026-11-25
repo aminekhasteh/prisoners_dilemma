@@ -13,12 +13,21 @@ if pgrep -f "run_all.sh" >/dev/null; then
     echo "=== $(ts) waiting for run_all.sh to finish"
     while pgrep -f "run_all.sh" >/dev/null; do sleep 600; done
 fi
+# $? must be saved before the echo: "$(ts)" in the same line resets it, so the old logs always said "exit 0".
+FAILED=()
 step() {
     echo "=== $(ts) start: $*"
     nice -n 10 "$PY" run_m2_field.py "$@" --processes "$P"
-    echo "=== $(ts) exit $?: $*"
+    local rc=$?
+    echo "=== $(ts) exit $rc: $*"
+    ((rc == 0)) || FAILED+=("[$*]")
+    return $rc
 }
 step noise5
 step noise1
 step standard --turns 63
-echo "=== all done"
+if ((${#FAILED[@]})); then
+    echo "=== $(ts) FAILED (rerun the same command to resume): ${FAILED[*]}"
+    exit 1
+fi
+echo "=== $(ts) all done"

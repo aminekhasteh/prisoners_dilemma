@@ -17,5 +17,7 @@ if busy; then
 fi
 echo "=== $(ts) start: standard (all lengths)"
 nice -n 10 "$PY" run_m2_field.py standard --processes "$P"
-echo "=== $(ts) exit $?: standard (all lengths)"
-echo "=== all done"
+rc=$?                                       # saved first: "$(ts)" below would reset $?
+echo "=== $(ts) exit $rc: standard (all lengths)"
+((rc == 0)) || { echo "=== $(ts) FAILED (rerun the same command to resume)"; exit 1; }
+echo "=== $(ts) all done"

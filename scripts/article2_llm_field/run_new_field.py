@@ -15,7 +15,7 @@ Usage (axelrod venv, OPENBLAS_NUM_THREADS=1):
   python run_new_field.py standard --turns 63
   python run_new_field.py noise5
 Outputs in results_new/: pairs/ (resumable jsonl), <condition>_per_tournament.csv, <condition>_summary.csv."""
-import argparse, csv, re, time
+import argparse, csv, re, sys, time
 from pathlib import Path
 
 import numpy as np
@@ -87,7 +87,7 @@ def main():
     tag = args.condition if args.reps == 250 else f"{args.condition}_{args.reps}reps"
     n_pal1_pairs = 5 * n_old + 10
     n_pal2_pairs = 5 * (n_old + 5) + 10
-    per_t = []
+    per_t, skipped = [], []
     for turns in turns_list:
         for seed in seeds:
             stem, knight_reps = base.knight_files(folder, turns, seed)
@@ -107,6 +107,7 @@ def main():
             if len(old1) != n_pal1_pairs or len(old2) != n_pal2_pairs:
                 print(f"  older pairs missing (memory-1 {len(old1)} of {n_pal1_pairs}, memory-2 {len(old2)} of "
                       f"{n_pal2_pairs}); run run_llm_field.py and run_m2_field.py first", flush=True)
+                skipped.append((turns, seed, "older pairs missing"))
                 continue
             pairs.update(old1); pairs.update(old2)
             for row in base.combine(pairs, n_old, turns, stem, knight_reps):
@@ -123,13 +124,16 @@ def main():
                     ["mean_score", "median_score", "rank", "normalized_rank", "cooperation_rate"]})
             for n, rs in by.items()]
     summ.sort(key=lambda r: r["normalized_rank"])
+    complete = base.coverage(per_t, turns_list, seeds, skipped)
     if summ:
-        base.write(args.out / f"{tag}_summary.csv", summ)
+        base.write(args.out / base.summary_name(tag, complete), summ)
     print(f"\n{args.condition}: LLM players among {len(specs)}")
     for r in summ:
         if r["llm"]:
             print(f"  {r['Name']:28} rank {r['rank']:6.1f}  norm rank {r['normalized_rank']:.3f}  "
                   f"score {r['mean_score']:.3f}  coop {r['cooperation_rate']:.3f}")
+    if not complete:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
