@@ -1,0 +1,6 @@
+model,experiment,treatment,kind,prev2,prev1,count_C,n,p_C,wilson_lo,wilson_hi
+gpt-6-luna_si_effort-high,memory1,baseline,later,,CC,33,50,0.66,0.5215,0.7756
+gpt-6-luna_si_effort-high,memory1,baseline,later,,CD,0,50,0.0,0.0,0.0714
+gpt-6-luna_si_effort-high,memory1,baseline,later,,DC,5,50,0.1,0.0435,0.2136
+gpt-6-luna_si_effort-high,memory1,baseline,later,,DD,8,50,0.16,0.0834,0.2851
+gpt-6-luna_si_effort-high,memory1,baseline,round1,,,9,50,0.18,0.0977,0.308

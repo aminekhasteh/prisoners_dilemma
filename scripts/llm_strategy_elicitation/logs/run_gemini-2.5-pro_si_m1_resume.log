@@ -1,0 +1,3 @@
+gemini-2.5-pro_si: 5 scenarios x 50 trials; 110 calls to make; spent so far $2.4454; estimate for the rest $0.04 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $4.0044, 478 s
+done: {'calls': 110, 'valid': 110}; total spent $4.2984; 561 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/gemini-2.5-pro_si.jsonl

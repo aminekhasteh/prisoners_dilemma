@@ -1,0 +1,2 @@
+table,treatment,value,model,p0,CC,CD,DC,DD,note
+new,framing,(no special instruction),gpt-6-luna_si_effort-high,0.18,0.66,0.00,0.10,0.16,~ALLD

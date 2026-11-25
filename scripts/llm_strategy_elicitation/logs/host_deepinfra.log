@@ -1,0 +1,15 @@
+llama_si_host_deepinfra: 26 scenarios x 50 trials; 1300 calls to make; spent so far $0.0000; estimate for the rest $0.28 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $0.0023, 14 s
+  200 calls, 0 invalid, $0.0049, 25 s
+  300 calls, 0 invalid, $0.0072, 35 s
+  400 calls, 0 invalid, $0.0097, 48 s
+  500 calls, 0 invalid, $0.0123, 56 s
+  600 calls, 0 invalid, $0.0151, 68 s
+  700 calls, 0 invalid, $0.0179, 85 s
+  800 calls, 0 invalid, $0.0207, 95 s
+  900 calls, 0 invalid, $0.0236, 108 s
+  1000 calls, 0 invalid, $0.0264, 118 s
+  1100 calls, 0 invalid, $0.0292, 133 s
+  1200 calls, 0 invalid, $0.0320, 141 s
+  1300 calls, 0 invalid, $0.0349, 155 s
+done: {'calls': 1300, 'valid': 1300}; total spent $0.0349; 155 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/llama_si_host_deepinfra.jsonl

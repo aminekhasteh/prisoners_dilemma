@@ -1,0 +1,17 @@
+llama_si_host_amazon-bedrock: 26 scenarios x 50 trials; 1300 calls to make; spent so far $0.0000; estimate for the rest $0.28 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $0.0180, 4 s
+  200 calls, 0 invalid, $0.0373, 8 s
+  300 calls, 0 invalid, $0.0554, 13 s
+  400 calls, 0 invalid, $0.0747, 19 s
+  500 calls, 0 invalid, $0.0940, 22 s
+  600 calls, 0 invalid, $0.1154, 37 s
+  700 calls, 0 invalid, $0.1369, 55 s
+  800 calls, 0 invalid, $0.1583, 71 s
+  900 calls, 0 invalid, $0.1798, 89 s
+error on memory2|baseline|later|CD|CD trial 39: RateLimitError: Error code: 429 - Provider returned error
+error on memory2|baseline|later|CD|DC trial 17: RateLimitError: Error code: 429 - Provider returned error
+  1000 calls, 0 invalid, $0.2012, 106 s
+  1100 calls, 0 invalid, $0.2227, 121 s
+error on memory2|baseline|later|DC|CD trial 41: RateLimitError: Error code: 429 - Provider returned error
+  1200 calls, 0 invalid, $0.2442, 136 s
+done: {'calls': 1297, 'valid': 1297, 'errors': 3}; total spent $0.2650; 158 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/llama_si_host_amazon-bedrock.jsonl

@@ -6,3 +6,8 @@ __pycache__/
 Data/combined_dataset.parquet
 Data/10246247/*.part
 Models/v2/
+
+# secrets and fake test runs
+.env
+*.env
+scripts/llm_strategy_elicitation/results/raw/fake*

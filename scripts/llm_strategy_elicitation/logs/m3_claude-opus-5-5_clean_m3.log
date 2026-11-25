@@ -1,0 +1,45 @@
+claude-opus-5-5_clean_m3: 85 scenarios x 50 trials; 4200 calls to make; spent so far $0.1029; estimate for the rest $5.21 (at 300 in / 2 out tokens per call)
+  100 calls, 0 invalid, $0.2795, 5 s
+  200 calls, 0 invalid, $0.6731, 16 s
+  300 calls, 0 invalid, $0.8900, 22 s
+  400 calls, 0 invalid, $1.3626, 35 s
+  500 calls, 0 invalid, $1.5862, 41 s
+  600 calls, 0 invalid, $1.9783, 53 s
+  700 calls, 0 invalid, $2.3815, 65 s
+  800 calls, 0 invalid, $2.7693, 77 s
+  900 calls, 0 invalid, $3.0200, 84 s
+  1000 calls, 0 invalid, $3.4566, 98 s
+  1100 calls, 0 invalid, $3.7265, 106 s
+  1200 calls, 0 invalid, $4.0973, 116 s
+  1300 calls, 0 invalid, $4.3770, 122 s
+  1400 calls, 0 invalid, $4.9858, 141 s
+  1500 calls, 0 invalid, $5.5524, 159 s
+  1600 calls, 0 invalid, $6.0038, 177 s
+  1700 calls, 0 invalid, $6.3342, 185 s
+  1800 calls, 0 invalid, $6.7867, 196 s
+  1900 calls, 0 invalid, $7.0465, 202 s
+  2000 calls, 0 invalid, $7.6273, 218 s
+  2100 calls, 0 invalid, $7.8796, 223 s
+  2200 calls, 0 invalid, $8.2894, 234 s
+  2300 calls, 0 invalid, $8.7701, 250 s
+  2400 calls, 0 invalid, $9.4532, 269 s
+  2500 calls, 0 invalid, $9.7072, 274 s
+  2600 calls, 0 invalid, $10.1889, 287 s
+  2700 calls, 0 invalid, $10.6773, 302 s
+  2800 calls, 0 invalid, $11.2044, 316 s
+  2900 calls, 0 invalid, $11.6009, 326 s
+  3000 calls, 0 invalid, $12.2865, 345 s
+  3100 calls, 0 invalid, $12.8868, 364 s
+spend cap $13.0 reached; stopping
+  3200 calls, 0 invalid, $13.3107, 380 s
+  3300 calls, 0 invalid, $13.7334, 393 s
+  3400 calls, 0 invalid, $14.3128, 409 s
+  3500 calls, 0 invalid, $14.5815, 418 s
+  3600 calls, 0 invalid, $15.0843, 433 s
+  3700 calls, 0 invalid, $15.3700, 438 s
+  3800 calls, 0 invalid, $15.8100, 449 s
+  3900 calls, 0 invalid, $16.2374, 460 s
+  4000 calls, 0 invalid, $16.7493, 474 s
+  4100 calls, 0 invalid, $17.0255, 481 s
+  4200 calls, 0 invalid, $17.4315, 492 s
+done: {'calls': 4200, 'valid': 4200}; total spent $17.4315; 492 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/claude-opus-5-5_clean_m3.jsonl

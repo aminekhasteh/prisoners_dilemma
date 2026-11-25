@@ -1,0 +1,6 @@
+model,experiment,treatment,kind,prev2,prev1,count_C,n,p_C,wilson_lo,wilson_hi
+claude-sonnet-5-5_si_effort-low,memory1,baseline,later,,CC,30,50,0.6,0.4618,0.7239
+claude-sonnet-5-5_si_effort-low,memory1,baseline,later,,CD,0,50,0.0,0.0,0.0714
+claude-sonnet-5-5_si_effort-low,memory1,baseline,later,,DC,0,50,0.0,0.0,0.0714
+claude-sonnet-5-5_si_effort-low,memory1,baseline,later,,DD,0,50,0.0,0.0,0.0714
+claude-sonnet-5-5_si_effort-low,memory1,baseline,round1,,,0,50,0.0,0.0,0.0714

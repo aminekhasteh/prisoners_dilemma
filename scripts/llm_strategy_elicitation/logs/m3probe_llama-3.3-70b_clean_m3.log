@@ -1,0 +1,2 @@
+llama-3.3-70b_clean_m3: 85 scenarios x 50 trials; 50 calls to make; spent so far $0.0000; estimate for the rest $0.01 (at 300 in / 2 out tokens per call)
+done: {'calls': 50, 'valid': 50}; total spent $0.0066; 5 s; results in /tmp/claude-1000/-home-aminekhasteh-projects-boo-server--claude-worktrees-bridge-cse-01XrY25M9zw927WAf4TgwHkr/f6f40d94-0ec6-53bb-94a8-796ba12b0ead/scratchpad/pd/scripts/llm_strategy_elicitation/results/raw/llama-3.3-70b_clean_m3.jsonl
