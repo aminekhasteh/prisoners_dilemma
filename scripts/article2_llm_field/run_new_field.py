@@ -23,6 +23,11 @@ import run_llm_field as base
 import run_m2_field as m2f
 
 HERE = Path(__file__).resolve().parent
+# The models in the 297-player field (files as of c000af9). Rows for later models (appended to the same CSVs) are left
+# out here, so the player indices, and with them the pair seeds, stay fixed; run_m3_field.py adds the later ones.
+FIELD_M1 = ["claude-opus-5-5", "claude-sonnet-5-5", "claude-haiku-5-5", "gpt-6.1-sol", "gpt-6.1-terra", "gpt-6-luna",
+            "llama-3.3-70b-rerun", "gemini-2.5-pro-rerun"]
+FIELD_M2 = FIELD_M1[:7]
 
 
 def load_memory1(path=HERE / "new_llm_memory1.csv"):
@@ -50,8 +55,9 @@ def main():
     seeds = args.seeds or sorted({int(m.group(1)) for f in (args.knight / folder).glob(f"full_{turns_list[0]}_turns_*_seed_summary.csv")
                                   if (m := re.search(r"_(\d+)_seed_summary", f.name))})
 
-    new_m1 = load_memory1(args.new_m1)
-    new_m2 = m2f.load_memory2(args.new_m2)
+    new_m1 = [r for r in load_memory1(args.new_m1) if r[0] in FIELD_M1]
+    new_m2 = {m: v for m, v in m2f.load_memory2(args.new_m2).items() if m in FIELD_M2}
+    assert [r[0] for r in new_m1] == FIELD_M1 and list(new_m2) == FIELD_M2
     label = {m: lab for m, lab, *_ in new_m1}
     assert set(new_m2) <= set(label), "memory-2 models missing from the memory-1 file (labels come from it)"
     assert not set(new_m2) & set(m2f.M2)
