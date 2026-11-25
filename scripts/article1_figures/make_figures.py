@@ -40,50 +40,62 @@ lv["lab"] = lv.subset.str.replace("noise_level ", "").map(labels)
 lv = lv.dropna(subset=["lab"])
 rows = [("none", std.raw_rank_gap_above_minus_below, std.gap_ci_low, std.gap_ci_high)] + \
        list(zip(lv.lab, lv.raw_rank_gap_above_minus_below, lv.gap_ci_low, lv.gap_ci_high))
-fig, ax = plt.subplots(figsize=(9, 5))
+fig, ax = plt.subplots(figsize=(9, 5.6))
+fig.subplots_adjust(left=0.1, right=0.98, top=0.78, bottom=0.12)
 ax.axhspan(-0.2, 0, color=BLUE, alpha=0.06, lw=0); ax.axhspan(0, 0.6, color=ORANGE, alpha=0.06, lw=0)
 ax.axhline(0, color=INK2, lw=1)
 xs = list(range(len(rows)))
 for x, (lab, g, lo, hi) in zip(xs, rows):
     c = BLUE if g < 0 else ORANGE
     ax.plot([x, x], [lo, hi], color=c, lw=2, solid_capstyle="round")
-    ax.scatter([x], [g], s=70, color=c, edgecolor="white", linewidth=2, zorder=3)
-    ax.annotate(f"{g:+.2f}", (x, g), xytext=(0, 12 if g >= 0 else -18), textcoords="offset points",
+    # diamonds, not circles: in this series circles and squares mean cooperate and defect
+    ax.scatter([x], [g], s=85, marker="D", color=c, edgecolor="white", linewidth=1.8, zorder=3)
+    ax.annotate(f"{g:+.2f}".replace("-", "\u2212"), (x, g), xytext=(0, 12 if g >= 0 else -18), textcoords="offset points",
                 ha="center", fontsize=10.5, color="#0b0b0b")
 ax.plot(xs, [r[1] for r in rows], color=MUTED, lw=1, zorder=1)
 ax.set_xticks(xs, [r[0] for r in rows]); ax.set_xlim(-0.5, len(rows) - 0.5); ax.set_ylim(-0.2, 0.6)
 ax.set_xlabel("Noise: chance that any single move gets flipped")
-ax.set_ylabel("Rank gap (above − below median)")
+ax.set_ylabel("Rank gap (above \u2212 below median)")
 ax.text(len(rows) - 0.6, -0.17, "cooperating more than the median\ngoes with a better rank", color=BLUE, ha="right", va="bottom", fontsize=10.5)
-ax.text(-0.35, 0.52, "cooperating more than the median goes with a worse rank", color=ORANGE, ha="left", va="center", fontsize=10.5)
+ax.text(-0.35, 0.55, "cooperating more than the median goes with a worse rank", color=ORANGE, ha="left", va="center", fontsize=10.5)
 ax.grid(axis="x", visible=False)
-title(fig, "A little noise turns cooperation from an asset into a liability",
-      "Average normalized rank of above-median cooperators minus below-median ones, per tournament. Lines are 95% intervals.")
+# title block sits above the plot, left-aligned with the y-axis label, and stays inside the plot's width
+fig.text(0.02, 0.965, "A little noise turns cooperation from an asset into a liability", fontsize=16, fontweight="bold", ha="left", va="top")
+fig.text(0.02, 0.905, "How much worse the above-median cooperators rank than the below-median ones, per tournament.\n"
+         "Below zero, cooperating more pays. Lines are 95% intervals.", fontsize=11.5, color=INK2, ha="left", va="top", linespacing=1.4)
 fig.savefig(OUT / "noise_flip_by_level.png"); plt.close(fig)
 
-# 2. How much of winning the model explains
+# 2. How much of winning the model explains (horizontal: one row per setting, explained in its label)
 h = pd.read_csv(RES / "holdout_r2.csv")
-sets = [("no_noise_no_probend", "Standard", 0.54), ("has_noise_no_probend", "Noisy", 0.37),
-        ("no_noise_has_probend", "Probabilistic ending", 0.46), ("has_noise_has_probend", "Noisy + prob. ending", 0.54)]
+sets = [("no_noise_no_probend", "Standard", "Every move lands as chosen; games have a fixed length", 0.54),
+        ("has_noise_no_probend", "Noisy", "Each move has up to a 10% chance of being flipped by mistake", 0.37),
+        ("no_noise_has_probend", "Random ending", "After each round, up to a 10% chance the game ends,\nso nobody knows which round is last", 0.46),
+        ("has_noise_has_probend", "Noisy + random ending", "Both of the above at once", 0.54)]
 def get(sub, chk): return float(h[(h.subset == sub) & (h.check == chk)].R2.iloc[0])
-fig, ax = plt.subplots(figsize=(9, 4.8))
-w = 0.26
-series = [("Paper's linear model", BLUE, [p for _, _, p in sets]),
-          ("XGBoost, new tournaments", ORANGE, [get(k, "paper range only") for k, _, _ in sets]),
-          ("XGBoost, new tournaments and unseen strategies", AQUA, [get(k, "paper range, unseen strategies") for k, _, _ in sets])]
+series = [("Linear model (paper): tested on the data it learned from", BLUE, [s[3] for s in sets]),
+          ("XGBoost: tested on new tournaments, familiar strategies", ORANGE, [get(s[0], "paper range only") for s in sets]),
+          ("XGBoost: tested on new tournaments and new strategies", AQUA, [get(s[0], "paper range, unseen strategies") for s in sets])]
+fig, ax = plt.subplots(figsize=(9, 6.6))
+fig.subplots_adjust(left=0.36, right=0.97, top=0.74, bottom=0.1)
+bh, gap = 0.24, 1.0
 for i, (name, c, vals) in enumerate(series):
-    bx = [j + (i - 1) * w for j in range(len(sets))]
-    ax.bar(bx, vals, width=w - 0.03, color=c, label=name, zorder=2)
-    for x, v in zip(bx, vals):
-        ax.text(x, v + 0.015, f"{v:.2f}", ha="center", fontsize=9.5)
-ax.set_xticks(range(len(sets)), [n for _, n, _ in sets]); ax.set_ylim(0, 1.08); ax.set_ylabel("R² (share of rank explained)")
-ax.grid(axis="x", visible=False)
-ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=3, fontsize=10)
-title(fig, "A non-linear model explains much more of who wins",
-      "Tournaments with noise and ending chance of 10% or less, the paper's range. Paper values are adjusted R².")
+    ys = [j * gap + (i - 1) * bh for j in range(len(sets))]
+    ax.barh(ys, vals, height=bh - 0.04, color=c, label=name, zorder=2)
+    for y, v in zip(ys, vals):
+        ax.text(v + 0.012, y, f"{v:.2f}", va="center", fontsize=9.5)
+ax.set_yticks([j * gap for j in range(len(sets))], [""] * len(sets)); ax.tick_params(axis="y", length=0)
+for j, (_, nm, expl, _) in enumerate(sets):
+    ax.text(-0.03, j * gap - 0.1, nm, transform=ax.get_yaxis_transform(), ha="right", va="bottom", fontsize=11.5, fontweight="bold")
+    ax.text(-0.03, j * gap - 0.06, expl, transform=ax.get_yaxis_transform(), ha="right", va="top", fontsize=9, color=INK2, linespacing=1.3)
+ax.invert_yaxis(); ax.set_xlim(0, 1.05); ax.set_xlabel("R² (share of rank explained; 1 = perfect)")
+ax.grid(axis="y", visible=False)
+ax.legend(frameon=False, loc="lower left", bbox_to_anchor=(-0.55, 1.0), ncol=1, fontsize=10)
+fig.text(0.02, 0.975, "A non-linear model explains much more of who wins", fontsize=16, fontweight="bold", ha="left", va="top")
+fig.text(0.02, 0.93, "Tournaments in the paper's range (noise and ending chance of 10% or less). Paper values are adjusted R².",
+         fontsize=10.5, color=INK2, ha="left", va="top")
 fig.savefig(OUT / "r2_by_setting.png"); plt.close(fig)
 
-# 3. Feature importance, all settings pooled
+# 3. Feature importance, all settings pooled, each bar labelled with the lesson it points to
 imp = pd.read_csv(RES / "shap_importance_ci.csv")
 imp = imp[imp.model == "all"].head(12).iloc[::-1]
 names = {"Cooperation_rating_comp_to_median": "Cᵣ / C_median", "Cooperation_rating_comp_to_max": "Cᵣ / C_max",
@@ -92,17 +104,35 @@ names = {"Cooperation_rating_comp_to_median": "Cᵣ / C_median", "Cooperation_ra
          "CD_to_C_rate": "CD to C rate", "SSE": "SSE", "Cooperation_rating_mean": "C_mean",
          "Cooperation_rating_comp_to_min": "Cᵣ / C_min", "DC_to_C_rate": "DC to C rate"}
 ratio = {"Cooperation_rating_comp_to_median", "Cooperation_rating_comp_to_max", "Cooperation_rating_comp_to_mean", "Cooperation_rating_comp_to_min"}
-fig, ax = plt.subplots(figsize=(9, 5.4))
-cols = [ORANGE if f in ratio else BLUE for f in imp.feature]
+setting = {"noise", "probend", "Cooperation_rating_mean"}
+lesson = {"CC_to_C_rate": "Be nice", "memory_usage": "Be clever", "CD_to_C_rate": "Don't be a pushover",
+          "SSE": "Be a little envious", "DC_to_C_rate": "Don't apologise too fast"}
+GREY = "#b9b8b3"
+fig, ax = plt.subplots(figsize=(9, 6.2))
+fig.subplots_adjust(left=0.2, right=0.97, top=0.8, bottom=0.1)
+cols = [ORANGE if f in ratio else GREY if f in setting else BLUE for f in imp.feature]
 ys = list(range(len(imp)))
 ax.barh(ys, imp.mean_abs_shap, color=cols, height=0.62, zorder=2)
 ax.errorbar(imp.mean_abs_shap, ys, xerr=[imp.mean_abs_shap - imp.ci_low, imp.ci_high - imp.mean_abs_shap],
             fmt="none", ecolor="#0b0b0b", elinewidth=1, capsize=2, zorder=3)
+xmax = imp.ci_high.max()
+for y, (f, hi) in enumerate(zip(imp.feature, imp.ci_high)):
+    if f in lesson:
+        ax.text(hi + xmax * 0.015, y, lesson[f], va="center", fontsize=10.5, color="#0b0b0b", fontweight="bold")
+# the "compare with the crowd" bars share one lesson: spell it inside the top bar, mark the rest as the same idea
+top = imp.feature.iloc[-1]
+for y, (f, v, hi) in enumerate(zip(imp.feature, imp.mean_abs_shap, imp.ci_high)):
+    if f not in ratio: continue
+    if f == top:
+        ax.text(v - xmax * 0.02, y, "Cooperate about as much as the crowd", va="center", ha="right", fontsize=11,
+                color="white", fontweight="bold")
+ax.set_xlim(0, xmax * 1.05)
 ax.set_yticks(ys, [names[f] for f in imp.feature]); ax.set_xlabel("Mean |SHAP| (average shift in predicted rank)")
 ax.grid(axis="y", visible=False)
-ax.legend(handles=[Patch(color=ORANGE, label="Your cooperation compared with the field"), Patch(color=BLUE, label="Other features")],
-          frameon=False, loc="lower right", fontsize=10)
-title(fig, "How you compare with the crowd matters most",
-      "Top 12 features, all four settings pooled. Black lines are 95% bootstrap intervals over tournaments.")
+ax.legend(handles=[Patch(color=ORANGE, label="Your cooperation compared with the field"), Patch(color=BLUE, label="Your own habits"),
+                   Patch(color=GREY, label="The tournament itself")], frameon=False, loc="lower right", fontsize=10)
+fig.text(0.02, 0.965, "How you compare with the crowd matters most", fontsize=16, fontweight="bold", ha="left", va="top")
+fig.text(0.02, 0.915, "Top 12 features, all four settings pooled, with the lesson each habit points to.\n"
+         "Black lines are 95% bootstrap intervals over tournaments.", fontsize=11.5, color=INK2, ha="left", va="top", linespacing=1.4)
 fig.savefig(OUT / "importance_all.png"); plt.close(fig)
 print("done")
