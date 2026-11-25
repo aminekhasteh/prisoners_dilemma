@@ -7,4 +7,4 @@ gpt-6.1-terra,GPT-6.1 Terra,1.00,1.00,0.00,0.25,0.00,100,~GRIM,0.06,clean+si,poo
 gpt-6-luna,GPT-6 Luna,0.12,0.55,0.01,0.09,0.18,100,~ALLD,0.06,clean+si,pooled clean+si (extension)
 llama-3.3-70b-rerun,Llama 3.3 70B (2026 rerun),1.00,1.00,0.00,0.46,1.00,100,~WSLS,0.84,clean+si,pooled clean+si (extension)
 gemini-2.5-pro-rerun,Gemini 2.5 Pro (2026 rerun),1.00,1.00,0.00,0.72,0.70,50,~Forgiver,nan,si,single wording (si)
-claude-sonnet-5-5-xhigh,Claude Sonnet 5.5 (effort xhigh),1.00,1.00,0.00,0.00,0.08,50,GRIM,nan,si,single wording (si)
+claude-sonnet-5-5-xhigh,Claude Sonnet 5.5 (effort xhigh),1.00,1.00,0.00,0.00,0.08,50,~GRIM,nan,si,single wording (si)

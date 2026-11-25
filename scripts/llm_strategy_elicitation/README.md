@@ -55,24 +55,25 @@ Memory-1 P(C), own move first; paper = Table S12.
 | Run | p0 | CC | CD | DC | DD | Label |
 |---|---|---|---|---|---|---|
 | Paper (temperature 0, top_p 1e-8) | 1.00 | 1.00 | 0.26 | 0.98 | 0.56 | ~GTFT |
-| `llama-3.3-70b`: our clean wording, temperature 0 | 1.00 | 1.00 | 0.00 | 0.04 | 1.00 | WSLS |
+| `llama-3.3-70b`: our clean wording, temperature 0 | 1.00 | 1.00 | 0.00 | 0.04 | 1.00 | ~WSLS |
 | `_si`: SI wording verbatim ("point(s)"), temperature 0 | 1.00 | 1.00 | 0.00 | 0.88 | 1.00 | ~Forgiver |
 | `_si_space`: SI wording as one paragraph, temperature 0 | 1.00 | 1.00 | 0.00 | 0.18 | 1.00 | ~WSLS |
 | `_si_t07`: SI wording, temperature 0.7 | 1.00 | 1.00 | 0.00 | 0.72 | 1.00 | ~Forgiver |
-| `_t1`: clean wording, default temperature | 1.00 | 1.00 | 0.00 | 0.04 | 1.00 | WSLS |
+| `_t1`: clean wording, default temperature | 1.00 | 1.00 | 0.00 | 0.04 | 1.00 | ~WSLS |
 
 All runs agree with the paper on the first move and after mutual cooperation, and all disagree after being exploited
 (never forgives, paper 26%) and after mutual defection (always cooperates, paper 56%). Whether Llama cooperates after
 exploiting the other agent swings from 4% to 88% with the wording ("1 point" vs "point(s)", line breaks). OpenRouter
 spread the calls over six hosts, and hosts sometimes answered the same prompt differently (`stop_reason` records the
-host). 16 to 18 of the 26 scenarios differ from the paper at p < 0.05 in every run.
+host). 16 to 18 of the 26 scenarios differ from the paper at p < 0.05 in every run (per-scenario Fisher tests, unadjusted;
+`estimate.py --compare` also prints the count after Holm adjustment within each experiment).
 
 ## Llama follow-up: one host at a time, and the treatment tables (2026-11-24)
 
 Paper wording verbatim (`PD_PROMPT_VARIANT=si`), temperature 0, top_p 1e-8, each run pinned to one OpenRouter host
 (`--host`, no fallback). Cloudflare rejects these settings (HTTP 400). Memory-1 P(C), own move first:
 
-| Host (weights) | p0 | CC | CD | DC | DD | Label | memory-2 scenarios that differ from the paper (p < 0.05) |
+| Host (weights) | p0 | CC | CD | DC | DD | Label | memory-2 scenarios that differ from the paper (p < 0.05, unadjusted) |
 |---|---|---|---|---|---|---|---|
 | Paper | 1.00 | 1.00 | 0.26 | 0.98 | 0.56 | ~GTFT | |
 | DeepInfra (fp8) | 1.00 | 1.00 | 0.00 | 0.00 | 1.00 | WSLS | 14 of 21 |
@@ -103,14 +104,14 @@ $14.24 in total (Opus 5.5 $8.56). `combine.py` adds the two wordings' counts (10
 `../article2_llm_field/new_llm_memory1.csv` and `new_llm_memory2.csv` (same columns as `pal2026_memory2.csv`);
 `results/wording_comparison.csv` tests clean against si for every scenario.
 
-| Model | p0 | CC | CD | DC | DD | Label | Scenarios where the wordings differ (p < 0.05) |
+| Model | p0 | CC | CD | DC | DD | Label | Scenarios where the wordings differ (p < 0.05, unadjusted; Holm within the model) |
 |---|---|---|---|---|---|---|---|
-| Claude Opus 5.5 | 1.00 | 1.00 | 0.00 | 1.00 | 1.00 | Forgiver | 0 of 26 |
-| Claude Sonnet 5.5 | 0.00 | 0.11 | 0.00 | 0.00 | 0.00 | ~ALLD | 3 of 26 |
-| Claude Haiku 5.5 | 1.00 | 1.00 | 0.00 | 0.00 | 0.00 | GRIM | 3 of 26 |
-| GPT-6.1 Sol | 1.00 | 1.00 | 0.00 | 0.51 | 0.00 | between TFT and GRIM | 2 of 26 |
-| GPT-6.1 Terra | 1.00 | 1.00 | 0.00 | 0.25 | 0.00 | ~GRIM | 1 of 26 |
-| GPT-6 Luna | 0.12 | 0.55 | 0.01 | 0.09 | 0.18 | ~ALLD | 3 of 26 |
+| Claude Opus 5.5 | 1.00 | 1.00 | 0.00 | 1.00 | 1.00 | Forgiver | 0 of 26 (Holm: 0) |
+| Claude Sonnet 5.5 | 0.00 | 0.11 | 0.00 | 0.00 | 0.00 | ~ALLD | 3 of 26 (Holm: 2) |
+| Claude Haiku 5.5 | 1.00 | 1.00 | 0.00 | 0.00 | 0.00 | GRIM | 3 of 26 (Holm: 2) |
+| GPT-6.1 Sol | 1.00 | 1.00 | 0.00 | 0.51 | 0.00 | between TFT and GRIM | 2 of 26 (Holm: 2) |
+| GPT-6.1 Terra | 1.00 | 1.00 | 0.00 | 0.25 | 0.00 | ~GRIM | 1 of 26 (Holm: 0) |
+| GPT-6 Luna | 0.12 | 0.55 | 0.01 | 0.09 | 0.18 | ~ALLD | 3 of 26 (Holm: 0) |
 
 Added at Amin's request: our reruns of two of the paper's models, with ids and labels kept apart from the Pal et al.
 players so both versions can be in the same field.
@@ -119,6 +120,9 @@ players so both versions can be in the same field.
 |---|---|---|---|---|---|---|---|
 | Llama 3.3 70B (2026 rerun), id `llama-3.3-70b-rerun` | 1.00 | 1.00 | 0.00 | 0.46 | 1.00 | ~WSLS | runs `llama-3.3-70b` + `llama-3.3-70b_si` (paper settings, default hosts), memory-1 and memory-2 |
 | Gemini 2.5 Pro (2026 rerun), id `gemini-2.5-pro-rerun` | 1.00 | 1.00 | 0.00 | 0.72 | 0.70 | ~Forgiver | run `gemini-2.5-pro_si`, memory-1 only (n = 50) |
+
+Labels: a strategy name without `~` means the vector is exactly that strategy; `~` marks the nearest named
+strategy for anything else (so Sonnet 5.5 effort xhigh, DD = 0.08, is ~GRIM). The tournaments use the numbers.
 
 Unlike Llama 3.3 70B, the new models barely move between the two wordings: the memory-1 vectors differ by at most
 0.22 (Sonnet after CC), and Opus gives identical answers in all 26 scenarios.

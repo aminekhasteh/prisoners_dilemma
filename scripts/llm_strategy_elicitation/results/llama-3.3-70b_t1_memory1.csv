@@ -1,2 +1,2 @@
 table,treatment,value,model,p0,CC,CD,DC,DD,note
-new,framing,(no special instruction),llama-3.3-70b,1.00,1.00,0.00,0.04,1.00,WSLS
+new,framing,(no special instruction),llama-3.3-70b,1.00,1.00,0.00,0.04,1.00,~WSLS
