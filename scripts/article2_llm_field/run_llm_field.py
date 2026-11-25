@@ -198,6 +198,25 @@ def run_pairs(tasks, partial):
     return done
 
 
+def coverage(per_t, turns_list, seeds, skipped=()):
+    """Check that every expected seed x length tournament was combined. Prints what is missing and returns True only
+    when the run is complete. A runner that gets False writes <tag>_summary_partial.csv instead of <tag>_summary.csv
+    and exits with status 1, so a wrapper never reports a partial run as done."""
+    expected = {(t, s) for t in turns_list for s in seeds}
+    got = {(int(r["turns"]), int(r["seed"])) for r in per_t}
+    missing = sorted(expected - got)
+    if missing:
+        print(f"INCOMPLETE: {len(got & expected)} of {len(expected)} tournaments combined; missing (turns, seed): "
+              f"{missing}", flush=True)
+        for turns, seed, why in skipped:
+            print(f"  skipped {turns} turns seed {seed}: {why}", flush=True)
+    return not missing
+
+
+def summary_name(tag, complete):
+    return f"{tag}_summary.csv" if complete else f"{tag}_summary_partial.csv"
+
+
 def knight_files(folder, turns, seed):
     base = ARGS.knight / folder
     f = sorted(base.glob(f"full_{turns}_turns_*_repetitions_{seed}_seed_summary.csv"))
@@ -265,25 +284,6 @@ def validate(n, folder, noise, turns, seed):
     exact = sum(abs(r[4]) < 1e-9 for r in rows)
     print(f"{len(rows)} pairs: {exact} exact, max |diff| {max(abs(r[4]) for r in rows):.3f}, "
           f"{sum(abs(r[4]) > 3 * max(r[5], 1e-9) for r in rows)} beyond 3 SE")
-
-
-def coverage(per_t, turns_list, seeds, skipped=()):
-    """Check that every expected seed x length tournament was combined. Prints what is missing and returns True only
-    when the run is complete. A runner that gets False writes <tag>_summary_partial.csv instead of <tag>_summary.csv
-    and exits with status 1, so a wrapper never reports a partial run as done."""
-    expected = {(t, s) for t in turns_list for s in seeds}
-    got = {(int(r["turns"]), int(r["seed"])) for r in per_t}
-    missing = sorted(expected - got)
-    if missing:
-        print(f"INCOMPLETE: {len(got & expected)} of {len(expected)} tournaments combined; missing (turns, seed): "
-              f"{missing}", flush=True)
-        for turns, seed, why in skipped:
-            print(f"  skipped {turns} turns seed {seed}: {why}", flush=True)
-    return not missing
-
-
-def summary_name(tag, complete):
-    return f"{tag}_summary.csv" if complete else f"{tag}_summary_partial.csv"
 
 
 def main():
