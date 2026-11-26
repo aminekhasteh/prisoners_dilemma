@@ -1,8 +1,9 @@
 """The newer models' rank among all players, next to the Pal et al. models and Tit for Tat (dashed line).
 One row per model, grouped by maker; a dumbbell joins its memory-1 rank (filled diamond) and memory-2 rank (hollow
-diamond). Pal et al.'s models keep their colours from the other charts, our 2026 reruns of Gemini and Llama use the
-same colour as the original, and the six new models are dark grey (they get no identity colour, to keep the palette
-at five). One panel per setting found in data/new_ranks.csv, in this order: 63 turns; mean over the five lengths;
+diamond). Where the two ranks are less than five places apart, the filled diamond is drawn small inside the hollow
+one. Pal et al.'s models keep their colours from the other charts, our 2026 reruns of Gemini and Llama use the same
+colour as the original, and the six new models are dark grey (they get no identity colour, to keep the palette at
+five). One panel per setting found in data/new_ranks.csv, in this order: 63 turns; mean over the five lengths;
 1% noise; 5% noise. Three or four panels are laid out two by two, so the text stays readable at article width.
 Usage: python3 llm_new_rank.py data/new_ranks.csv out.png [--dpi=200]"""
 import sys
@@ -35,6 +36,7 @@ ROWS = [("ANTHROPIC", "Claude Sonnet 4", "Claude Sonnet 4", "Pal et al.", COL["C
         ("GOOGLE AND META", "Llama 3.3 70B (2026 rerun)", "Llama 3.3 70B", "our rerun", COL["Llama 3.3 70B"])]
 rk = lambda v: "%d" % int(v + 0.5)
 HALO = [withStroke(linewidth=2.6, foreground="white")]   # keeps a number readable where the dashed line runs behind it
+TIE = 5   # ranks: closer than this, the hollow diamond covers the filled one, so a small filled one is drawn inside it
 
 # y positions with a gap before each group
 ys, groups, y = [], [], 0.0
@@ -72,6 +74,8 @@ for i, (ax, (key, head)) in enumerate(zip(axes.ravel(), SETTINGS)):
             ax.scatter([a], [yy], s=95, marker="D", color=col, edgecolor="white", lw=1.3, zorder=4)
         if b is not None and b == b:
             ax.scatter([b], [yy], s=85, marker="D", facecolor="white", edgecolor=col, lw=2.0, zorder=5)
+        if len(pts) == 2 and abs(a - b) < TIE:
+            ax.scatter([a], [yy], s=20, marker="D", color=col, lw=0, zorder=6)
         # numbers on the outside of the dumbbell, a fixed distance from the diamonds' tips
         lo, hi = min(pts), max(pts)
         for v, dx, ha in ((lo, -11, "right"), (hi, 11, "left")):

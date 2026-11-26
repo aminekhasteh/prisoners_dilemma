@@ -23,16 +23,18 @@ fig.subplots_adjust(left=0.09, right=0.97, bottom=0.1, top=0.83)
 field = f[f.llm == 0]
 ax.scatter(field.mean_rank, field.mean_score, s=16, color=FIELD, lw=0, zorder=2)
 # label positions in data units (rank, score), placed by hand in the empty space around the curve: Llama, Claude and
-# Tit for Tat above it, so that no label or leader line touches the zoom box and its two connector lines
-POS = {"LLM: GPT-4o": (40, 2.50), "LLM: Llama 3.3 70B": (110, 2.735), "LLM: Claude Sonnet 4": (158, 2.675)}
+# Tit for Tat above it, so that no label or leader line touches the zoom box and its two connector lines. The third
+# value is where the leader line meets the label (0.5, 0.5 = its centre; 0, 0.5 = the middle of its left edge).
+POS = {"LLM: GPT-4o": (40, 2.50, (0.5, 0.5)), "LLM: Llama 3.3 70B": (110, 2.735, (0, 0.5)),
+       "LLM: Claude Sonnet 4": (164, 2.682, (0, 0.5))}
 PAIR = ("LLM: GPT-5", "LLM: Gemini 2.5 Pro")   # 149th and 150th: drawn apart in the zoom
 for name, (short, classic, col) in LLMS.items():
     r = f[f.Name == name].iloc[0]
     ax.scatter([r.mean_rank], [r.mean_score], s=150, marker="D", color=col, edgecolor="white", lw=1.6, zorder=4)
     if name in PAIR: continue
-    ax.annotate(f"{short}\n{nth(r.mean_rank)}", (r.mean_rank, r.mean_score), xytext=POS[name], textcoords="data",
+    ax.annotate(f"{short}\n{nth(r.mean_rank)}", (r.mean_rank, r.mean_score), xytext=POS[name][:2], textcoords="data",
                 ha="center", va="center", fontsize=10.5, color=INK, fontweight="bold", linespacing=1.15,
-                arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=4, shrinkB=9))
+                arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=4, shrinkB=9, relpos=POS[name][2]))
 t = f[f.Name == TFT].iloc[0]
 ax.scatter([t.mean_rank], [t.mean_score], s=130, facecolor="none", edgecolor=INK, lw=1.3, zorder=3)
 ax.annotate(f"Tit for Tat\n{nth(t.mean_rank)}", (t.mean_rank, t.mean_score), xytext=(74, 2.805), textcoords="data",

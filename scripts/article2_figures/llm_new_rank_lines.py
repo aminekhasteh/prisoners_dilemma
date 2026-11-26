@@ -60,8 +60,9 @@ TEXT = {"hero": dict(fontsize=11.5, color=INK, fontweight="bold"), "new": dict(f
         "pal": dict(fontsize=11, color=INK2), "m1": dict(fontsize=10, color=MUTED), "tft": dict(fontsize=11, color=INK2)}
 
 setup()
-fig, ax = plt.subplots(figsize=(10.8, 6.6))
-fig.subplots_adjust(left=0.09, right=0.76, bottom=0.12, top=0.83)
+FIGW, LEFT, RIGHT = 10.8, 0.09, 0.76
+fig, ax = plt.subplots(figsize=(FIGW, 6.6))
+fig.subplots_adjust(left=LEFT, right=RIGHT, bottom=0.12, top=0.83)
 xs = list(range(len(keys)))
 counts = [int(r[r.setting == k].tournaments.max()) for k in keys]
 ticks = [t if c >= p else f"{t}\n({c} of {p} tournaments)" for t, c, p in zip(ticks, counts, planned)]
@@ -93,18 +94,29 @@ GAP = 11   # rank units between label centres, so no two labels overlap
 
 
 def spread(vals):
-    """Label positions for values sorted top to bottom, pushed down until GAP apart."""
+    """Label positions for values sorted top to bottom: as close to the values as they can be while staying GAP
+    apart. A run of crowded labels ends up centred on its values, so no label sits further from its line than it
+    has to (least squares, by pooling neighbours that would overlap)."""
+    blocks = []   # [sum of (value - index * GAP), count] for each run of labels that moves together
+    for i, y in enumerate(vals):
+        blocks.append([y - i * GAP, 1])
+        while len(blocks) > 1 and blocks[-2][0] / blocks[-2][1] > blocks[-1][0] / blocks[-1][1]:
+            total, count = blocks.pop()
+            blocks[-1][0] += total; blocks[-1][1] += count
     placed = []
-    for y in vals:
-        placed.append(max(y, placed[-1] + GAP) if placed else y)
+    for total, count in blocks:
+        first = len(placed)
+        placed += [max(total / count, 6.0) + (first + j) * GAP for j in range(count)]   # 6: stay inside the axis
     return placed
 
 
 ends.sort()
+# the labels start 0.3 inch right of the last point in both charts, whatever the number of columns
+DX = 0.3 * (xs[-1] + 0.47) / (FIGW * (RIGHT - LEFT))   # 0.47 = the two x margins set below
 for (y, lab, kind), y_lab in zip(ends, spread([e[0] for e in ends])):
-    ax.annotate(f"{lab}, {rk(y)}", (xs[-1], y), xytext=(xs[-1] + 0.18, y_lab), textcoords="data", ha="left",
+    ax.annotate(f"{lab}, {rk(y)}", (xs[-1], y), xytext=(xs[-1] + DX, y_lab), textcoords="data", ha="left",
                 va="center", annotation_clip=False, **TEXT[kind],
-                arrowprops=dict(arrowstyle="-", color=LINE, lw=0.8, shrinkA=0, shrinkB=6) if abs(y_lab - y) > 2 else None)
+                arrowprops=dict(arrowstyle="-", color=LINE, lw=0.8, shrinkA=0, shrinkB=6) if abs(y_lab - y) > 2.5 else None)
 
 lo = max(200, top + 8)
 ax.set_ylim(lo, 1); ax.set_yticks([1, 50, 100, 150, 200] + ([250] if lo > 250 else []))
@@ -114,6 +126,6 @@ ax.text(0.012, 0.025, "Not shown: %s and %s, which stay below 250th." % HIDDEN, 
 ax.set_xlabel(xlabel, fontsize=12, color=INK2)
 ax.set_ylabel(f"Mean rank out of {N} (1 = best)", fontsize=12, color=INK2)
 axes_style(ax); ax.grid(axis="x", visible=False)
-titles(fig, 0.09, 0.925, title, sub)
+titles(fig, LEFT, 0.925, title, sub)
 fig.savefig(out, dpi=DPI)
 print("ok", out, counts)
