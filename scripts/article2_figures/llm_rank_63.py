@@ -9,24 +9,33 @@ from style import setup, plt, INK, INK2, MUTED, FIELD, LLMS, TFT, axes_style, ti
 
 f = pd.read_csv(sys.argv[1]); out = sys.argv[2]
 DPI = int(next((a.split("=")[1] for a in sys.argv if a.startswith("--dpi=")), 200))
+
+
+def nth(v):
+    """Rank as an ordinal (53rd, 64th), halves rounded up as in the article's tables."""
+    n = int(v + 0.5)
+    return "%d%s" % (n, "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th"))
+
+
 setup()
 fig, ax = plt.subplots(figsize=(10, 6.6))
 fig.subplots_adjust(left=0.09, right=0.97, bottom=0.1, top=0.83)
 field = f[f.llm == 0]
 ax.scatter(field.mean_rank, field.mean_score, s=16, color=FIELD, lw=0, zorder=2)
-# label positions in data units (rank, score), placed by hand in the empty space around the curve
-POS = {"LLM: GPT-4o": (40, 2.50), "LLM: Llama 3.3 70B": (88, 2.47), "LLM: Claude Sonnet 4": (122, 2.37)}
+# label positions in data units (rank, score), placed by hand in the empty space around the curve: Llama, Claude and
+# Tit for Tat above it, so that no label or leader line touches the zoom box and its two connector lines
+POS = {"LLM: GPT-4o": (40, 2.50), "LLM: Llama 3.3 70B": (110, 2.735), "LLM: Claude Sonnet 4": (158, 2.675)}
 PAIR = ("LLM: GPT-5", "LLM: Gemini 2.5 Pro")   # 149th and 150th: drawn apart in the zoom
 for name, (short, classic, col) in LLMS.items():
     r = f[f.Name == name].iloc[0]
     ax.scatter([r.mean_rank], [r.mean_score], s=150, marker="D", color=col, edgecolor="white", lw=1.6, zorder=4)
     if name in PAIR: continue
-    ax.annotate(f"{short}\n{r.mean_rank:.0f}th", (r.mean_rank, r.mean_score), xytext=POS[name], textcoords="data",
+    ax.annotate(f"{short}\n{nth(r.mean_rank)}", (r.mean_rank, r.mean_score), xytext=POS[name], textcoords="data",
                 ha="center", va="center", fontsize=10.5, color=INK, fontweight="bold", linespacing=1.15,
                 arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=14, shrinkB=7))
 t = f[f.Name == TFT].iloc[0]
 ax.scatter([t.mean_rank], [t.mean_score], s=130, facecolor="none", edgecolor=INK, lw=1.3, zorder=3)
-ax.annotate(f"Tit for Tat\n{t.mean_rank:.0f}th", (t.mean_rank, t.mean_score), xytext=(88, 2.77), textcoords="data",
+ax.annotate(f"Tit for Tat\n{nth(t.mean_rank)}", (t.mean_rank, t.mean_score), xytext=(74, 2.805), textcoords="data",
             ha="center", va="center", fontsize=10.5, color=INK2, linespacing=1.15,
             arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=14, shrinkB=7))
 top = f.iloc[0]
@@ -42,11 +51,11 @@ ins.scatter(z[z.llm == 0].mean_rank, z[z.llm == 0].mean_score, s=40, color=FIELD
 for name, xy, ha in ((PAIR[0], (147.6, 2.566), "right"), (PAIR[1], (148.8, 2.541), "right")):
     short, _, col = LLMS[name]; r = f[f.Name == name].iloc[0]
     ins.scatter([r.mean_rank], [r.mean_score], s=150, marker="D", color=col, edgecolor="white", lw=1.6, zorder=4)
-    ins.annotate(f"{short}\n{r.mean_rank:.0f}th", (r.mean_rank, r.mean_score), xytext=xy, textcoords="data", ha=ha,
+    ins.annotate(f"{short}\n{nth(r.mean_rank)}", (r.mean_rank, r.mean_score), xytext=xy, textcoords="data", ha=ha,
                  va="center", fontsize=10.5, color=INK, fontweight="bold", linespacing=1.15,
                  arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=3, shrinkB=7))
 w = f[f.Name == "Win-Stay Lose-Shift"].iloc[0]
-ins.annotate(f"Win-Stay Lose-Shift, {w.mean_rank:.0f}th", (w.mean_rank, w.mean_score), xytext=(147.0, 2.587), textcoords="data",
+ins.annotate(f"Win-Stay Lose-Shift, {nth(w.mean_rank)}", (w.mean_rank, w.mean_score), xytext=(147.0, 2.587), textcoords="data",
              ha="left", va="center", fontsize=10, color=INK2,
              arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=3, shrinkB=5))
 ins.set_xlim(X0, X1); ins.set_ylim(Y0, Y1)

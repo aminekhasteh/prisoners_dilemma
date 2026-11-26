@@ -8,8 +8,9 @@ each group opening with its Pal et al. models as a reference (those keep their d
 they have no colour in the rank charts yet). new_llm_memory1.csv comes from branch claude/project-thread-xnwceg
 (scripts/article2_llm_field/): pooled over two prompt wordings, 50 calls each.
 
-With --winners=data/winners.csv it adds a last group: the player that won each setting's tournaments (no noise, 1%,
-5% noise). They are not memory-one strategies, so their five numbers are measured from how they played (prep_winners.py).
+With --winners=data/winners.csv it adds a last group: the tournament winner of each setting (no noise, 1% and 5%
+noise). They are not memory-one strategies, so their five numbers are measured from how they played, and the line
+under each name says what it won (both come from prep_winners.py, which checks the wording against the results).
 
 Usage: python3 llm_strategies.py data/llm_strategies.csv out.png [--new=data/new_llm_memory1.csv]
        [--winners=data/winners.csv] [--dpi=200]"""
@@ -34,7 +35,8 @@ if NEW:
             new("claude-opus-5-5"), new("claude-sonnet-5-5"),
             # the same model pushed to think (effort xhigh: it thought in 80% of calls), one wording, 50 calls
             # (claude/project-thread-xnwceg 92fb974); at default effort it almost never thinks
-            ("Sonnet 5.5, thinking", "GRIM (effort xhigh, 50 calls)", None,
+            # DD is 0.08, so "close to GRIM": a bare name is kept for exact matches (Haiku 5.5 above)
+            ("Sonnet 5.5, thinking", "close to GRIM (effort xhigh, 50 calls)", None,
              dict(p0=1.00, CC=1.00, CD=0.00, DC=0.00, DD=0.08)),
             new("claude-haiku-5-5"),
             ("group", "OpenAI"), old("LLM: GPT-4o", "GRIM (in Pal et al.)"),
@@ -52,15 +54,18 @@ if WIN:
     SHORT = {"EvolvedLookerUp2_2_2": "Evolved Lookup table", "Evolved FSM 16 Noise 05": "Evolved FSM 16 (noise)",
              "DBS: 0.75, 3, 4, 3, 5": "DBS"}
     wn = pd.read_csv(WIN)
+    wn = wn.fillna({"label2": ""})
     ROWS = ROWS + [("group", "Tournament winners")] + [
-        (SHORT.get(w.Name, w.Name), "won every %s tournament" % w.setting_label.replace("no noise", "no-noise"), None, {c: float(getattr(w, c)) for c in COLS})
+        (SHORT.get(w.Name, w.Name), (w.label + "\n" + w.label2).strip(), None, {c: float(getattr(w, c)) for c in COLS})
         for w in wn.itertuples()]
     FOOT = FOOT.replace("   Data:", "\nData:") + "\nWinners: measured from how they played in Knight et al.'s 63-turn tournaments, not asked."
 NROW = sum(1 for r in ROWS if r[0] != "group"); NGRP = len(ROWS) - NROW
 NFOOT = FOOT.count("\n")
+TWO = 1.6                                    # extra room under a row whose description takes two lines
+NTWO = sum(1 for r in ROWS if r[0] != "group" and "\n" in r[1])
 
 setup()
-W, H = 112.0, 98.0 + 10.3 * (NROW - 5) + 4.5 * NGRP + 3.0 * NFOOT   # data units; 1 unit = 0.1 inch
+W, H = 112.0, 98.0 + 10.3 * (NROW - 5) + 4.5 * NGRP + 3.0 * NFOOT + TWO * NTWO   # data units; 1 unit = 0.1 inch
 fig = plt.figure(figsize=(W / 10, H / 10))
 ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, W); ax.set_ylim(0, H); ax.set_aspect("equal"); ax.axis("off")
 PT = 10 / 72.0
@@ -79,7 +84,8 @@ def chance(cx, y, p, size=19):
 
 def label(y, head, sub, x=XL):
     ax.text(x, y + 1.4, head, ha="left", va="center", fontsize=13, fontweight="bold", color=INK)
-    ax.text(x, y - 1.7, sub, ha="left", va="center", fontsize=11.5, color=MUTED)
+    for i, line in enumerate(sub.split("\n")):   # a second line goes under the first
+        ax.text(x, y - 1.7 - 2.3 * i, line, ha="left", va="center", fontsize=11.5, color=MUTED)
 
 
 ax.text(W / 2, H - 2.8, TITLE, ha="center", va="top", fontsize=21, fontweight="bold", color=INK)
@@ -119,7 +125,7 @@ for row in ROWS:
     label(y - 0.9, short, classic, x=XL + 4.0)
     for o in COLS:
         chance(XC[o], y + 0.6, vals[o])
-    y -= 10.3
+    y -= 10.3 + (TWO if "\n" in classic else 0)
 
 ax.text(W / 2, 4.0 + 1.6 * NFOOT, FOOT,
         ha="center", va="center", fontsize=11.5, color=MUTED, linespacing=1.45)
