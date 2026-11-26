@@ -11,11 +11,7 @@ metadata:
 
 # Research Summarizer
 
-> Read less. Understand more. Cite correctly.
-
-Structured research summarization workflow that turns dense source material into actionable briefs. Built for product managers, analysts, founders, and anyone who reads more than they should have to.
-
-Not a generic "summarize this" — a repeatable framework that extracts what matters, compares across sources, and formats citations properly.
+Turns supplied source material into structured briefs: what each source claims, how well it supports it, how sources compare, and correctly formatted citations.
 
 ---
 
@@ -29,22 +25,6 @@ This skill summarizes **documents the user already has** (papers, articles, repo
 - `research/research` — the router for open-ended "research [topic]" requests that require searching
 
 If the user asks you to *find* sources rather than digest supplied ones, route to the research/ domain instead.
-
----
-
-## When This Skill Activates
-
-Recognize these patterns from the user:
-
-- "Summarize this paper / article / report"
-- "What are the key findings in this document?"
-- "Compare these sources"
-- "Extract citations from this PDF"
-- "Give me a research brief on [topic]"
-- "Break down this whitepaper"
-- Any request involving: summarize, research brief, literature review, citation, source comparison
-
-If the user has a document and wants structured understanding → this skill applies.
 
 ---
 
@@ -245,26 +225,6 @@ Flag these without being asked:
 - **User provides only one source for a compare** → Ask for at least one more. Comparison needs 2+.
 - **Citations are incomplete** → Flag missing fields (year, author, title). Don't invent metadata.
 - **Source is 5+ years old in a fast-moving field** → Warn about potential obsolescence.
-
----
-
-## Installation
-
-### One-liner (any tool)
-```bash
-git clone https://github.com/alirezarezvani/claude-skills.git
-cp -r claude-skills/product-team/research-summarizer ~/.claude/skills/
-```
-
-### Multi-tool install (run from the claude-skills repo root)
-```bash
-./scripts/convert.sh --skill research-summarizer --tool codex|gemini|cursor|windsurf|openclaw
-```
-
-### OpenClaw
-```bash
-clawhub install cs-research-summarizer
-```
 
 ---
 

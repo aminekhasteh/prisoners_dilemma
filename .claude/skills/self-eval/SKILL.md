@@ -8,39 +8,7 @@ license: "MIT"
 
 ultrathink
 
-**Tier:** STANDARD
-**Category:** Engineering / Quality
-**Dependencies:** None (prompt-only, no external tools required)
-
-## Description
-
-Self-eval is a Claude Code skill that produces honest, calibrated work evaluations. It replaces the default AI tendency to rate everything 4/5 with a structured two-axis scoring system, mandatory devil's advocate reasoning, and cross-session anti-inflation detection.
-
-The core insight: AI self-assessment converges to "everything is a 4" because a single-axis score conflates task difficulty with execution quality. Self-eval separates these axes, then combines them via a fixed matrix that the model cannot override.
-
-## Features
-
-- **Two-axis scoring** — Independently rates task ambition (Low/Medium/High) and execution quality (Poor/Adequate/Strong), then combines via a lookup matrix
-- **Mandatory devil's advocate** — Before finalizing, must argue for both higher AND lower scores, then resolve the tension
-- **Score persistence** — Appends scores to `.self-eval-scores.jsonl` in the working directory, building history across sessions
-- **Anti-inflation detection** — Reads past scores and flags clustering (4+ of last 5 identical)
-- **Matrix-locked scoring** — The composite score comes from the matrix, not from direct selection. Low ambition caps at 2/5 regardless of execution quality
-
-## Usage
-
-After completing work in a Claude Code session:
-
-```
-/self-eval
-```
-
-With context about what to evaluate:
-
-```
-/self-eval the authentication refactor we just completed
-```
-
-The skill reviews the conversation history, identifies what was accomplished, scores it on both axes, runs the devil's advocate check, and appends the result to the score history file.
+AI self-assessment converges to "everything is a 4" because a single-axis score conflates task difficulty with execution quality. This skill separates the two axes, combines them through a fixed matrix, runs a devil's-advocate pass, and checks the score history for clustering.
 
 ## Examples
 
@@ -134,15 +102,15 @@ Key properties:
 - High ambition + poor execution = 2. Bold failure hurts.
 - The most common honest score for solid work is 3 (medium ambition, adequate execution).
 
-## Devil's Advocate (MANDATORY)
+## Devil's Advocate
 
-Before writing your final score, you MUST write all three of these:
+Before writing your final score, write all three of these:
 
 1. **Case for LOWER:** Why might this work deserve a lower score? What was easy, what was avoided, what was less ambitious than it appears? Would a skeptical reviewer agree with your axis ratings?
 2. **Case for HIGHER:** Why might this work deserve a higher score? What was genuinely challenging, surprising, or exceeded the original plan?
 3. **Resolution:** If either case reveals you mis-rated an axis, re-rate it and recompute the matrix result. Then state your final score with a 1-2 sentence justification that addresses at least one point from each case.
 
-If your devil's advocate is less than 3 sentences total, you're not engaging with it — try harder.
+Each case names concrete points from the work itself; a case that could apply to any task isn't doing its job.
 
 ## Anti-Inflation Check
 
