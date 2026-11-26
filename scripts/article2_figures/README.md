@@ -12,6 +12,7 @@ bash make_all.sh OUT_DIR RESULTS_DIR [RESULTS_M2_DIR] [RESULTS_NEW_DIR]   # refr
 | Script | Output | Inputs |
 |---|---|---|
 | `cover.py` | `article2_cover.png` (wide cover, same format as Article 1's: key on the left, the five strategies as chance bars on the right) | `data/llm_strategies.csv` |
+| `cover.py ... --new=data/new_llm_memory1.csv` | `article2_cover_eleven.png` (the same cover with all eleven chatbots of the post, grouped by maker) | `data/llm_strategies.csv`, `data/new_llm_memory1.csv` |
 | `llm_strategies.py` | `llm_strategies.png` (the five strategies as numbers with chance bars, laid out like Article 1's `sse_math_p.png`) | `data/llm_strategies.csv` |
 | `llm_strategies.py ... --new=data/new_llm_memory1.csv` | `new_llm_strategies.png` (the six newer models, grouped by maker under their Pal et al. predecessors) | `data/llm_strategies.csv`, `data/new_llm_memory1.csv` (copied from branch `claude/project-thread-xnwceg`, `scripts/article2_llm_field/new_llm_memory1.csv`) |
 | `llm_strategies.py ... --winners=data/winners.csv` | adds a "Tournament winners" group to either strategy figure: the winner of each setting (no noise, 1% and 5% noise), with its chances measured from play and a line saying what it won | `data/winners.csv` |

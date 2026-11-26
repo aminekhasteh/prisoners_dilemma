@@ -32,12 +32,12 @@ for name, (short, classic, col) in LLMS.items():
     if name in PAIR: continue
     ax.annotate(f"{short}\n{nth(r.mean_rank)}", (r.mean_rank, r.mean_score), xytext=POS[name], textcoords="data",
                 ha="center", va="center", fontsize=10.5, color=INK, fontweight="bold", linespacing=1.15,
-                arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=14, shrinkB=7))
+                arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=4, shrinkB=9))
 t = f[f.Name == TFT].iloc[0]
 ax.scatter([t.mean_rank], [t.mean_score], s=130, facecolor="none", edgecolor=INK, lw=1.3, zorder=3)
 ax.annotate(f"Tit for Tat\n{nth(t.mean_rank)}", (t.mean_rank, t.mean_score), xytext=(74, 2.805), textcoords="data",
             ha="center", va="center", fontsize=10.5, color=INK2, linespacing=1.15,
-            arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=14, shrinkB=7))
+            arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8, shrinkA=4, shrinkB=9))
 top = f.iloc[0]
 ax.annotate(f"{top.Name}, 1st", (top.mean_rank, top.mean_score), xytext=(10, 4), textcoords="offset points",
             ha="left", va="center", fontsize=10.5, color=INK2)

@@ -55,7 +55,7 @@ GREY, GREY1 = MUTED, "#8d8c87"
 PAL = {short: col for short, _, col in LLMS.values()}
 STYLE = {"hero": (dict(color=INK, lw=3.0, zorder=6), dict(s=90, facecolor="white", edgecolor=INK, lw=2.4, zorder=7)),
          "new": (dict(color=GREY, lw=2.0, zorder=4), dict(s=55, facecolor="white", edgecolor=GREY, lw=1.8, zorder=5)),
-         "m1": (dict(color=GREY1, lw=1.2, zorder=3), dict(s=26, facecolor=GREY1, edgecolor=GREY1, lw=0.5, zorder=3))}
+         "m1": (dict(color=GREY1, lw=1.2, zorder=3), dict(s=26, facecolor=GREY1, edgecolor=GREY1, lw=0.5, zorder=8))}
 TEXT = {"hero": dict(fontsize=11.5, color=INK, fontweight="bold"), "new": dict(fontsize=11, color=INK),
         "pal": dict(fontsize=11, color=INK2), "m1": dict(fontsize=10, color=MUTED), "tft": dict(fontsize=11, color=INK2)}
 

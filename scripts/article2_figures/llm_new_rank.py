@@ -8,6 +8,7 @@ Usage: python3 llm_new_rank.py data/new_ranks.csv out.png [--dpi=200]"""
 import sys
 import pandas as pd
 from matplotlib.lines import Line2D
+from matplotlib.patheffects import withStroke
 from style import setup, plt, INK, INK2, MUTED, LINE, LLMS, TFT, axes_style, titles
 
 r = pd.read_csv(sys.argv[1]); out = sys.argv[2]
@@ -33,6 +34,7 @@ ROWS = [("ANTHROPIC", "Claude Sonnet 4", "Claude Sonnet 4", "Pal et al.", COL["C
         ("GOOGLE AND META", "Llama 3.3 70B", "Llama 3.3 70B", "Pal et al.", COL["Llama 3.3 70B"]),
         ("GOOGLE AND META", "Llama 3.3 70B (2026 rerun)", "Llama 3.3 70B", "our rerun", COL["Llama 3.3 70B"])]
 rk = lambda v: "%d" % int(v + 0.5)
+HALO = [withStroke(linewidth=2.6, foreground="white")]   # keeps a number readable where the dashed line runs behind it
 
 # y positions with a gap before each group
 ys, groups, y = [], [], 0.0
@@ -76,11 +78,11 @@ for i, (ax, (key, head)) in enumerate(zip(axes.ravel(), SETTINGS)):
             if len(pts) == 1 and ha == "right": continue
             m2 = b is not None and v == b and (a is None or a != b)
             ax.annotate(rk(v), (v, yy), xytext=(dx, 0), textcoords="offset points", ha=ha, va="center", fontsize=9,
-                        color=INK if m2 else INK2, fontweight="bold" if m2 else "normal")
-    ax.set_xlim(-38, N + 30); ax.set_xticks([1, 100, 200, N])
+                        color=INK if m2 else INK2, fontweight="bold" if m2 else "normal", path_effects=HALO, zorder=6)
+    ax.set_xlim(-38, N + 36); ax.set_xticks([1, 100, 200, N])
     ax.set_ylim(y - 0.4, -1.5)
-    ax.set_title(head + " (%d tournaments)" % r[r.setting == key].tournaments.max(), fontsize=12, color=INK,
-                 fontweight="bold", loc="left", pad=8)
+    ax.set_title(head, fontsize=12, color=INK, fontweight="bold", loc="left", pad=8)
+    ax.set_title("%d tournaments" % r[r.setting == key].tournaments.max(), fontsize=10, color=MUTED, loc="right", pad=8)
     axes_style(ax); ax.grid(axis="y", visible=False); ax.tick_params(axis="y", length=0)
     ax.spines["left"].set_visible(False)
     if i + nc >= n: ax.tick_params(axis="x", labelbottom=True)      # no panel below this one
