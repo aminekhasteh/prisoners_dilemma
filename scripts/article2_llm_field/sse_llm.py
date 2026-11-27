@@ -15,6 +15,11 @@ SSE needs a memory-one vector p = P(C | CC, CD, DC, DD), own move first. Two ver
               Played at 63 turns, no noise, --reps repetitions, against the 272 minus the long_run_time players
               (Meta*, NMWE*, ...), which are too slow for this box; --with-slow puts them back.
 
+Niceness (Article 1): nice = never the first to defect. nice_rule reads it off the probabilities (every P(C) while
+both sides have only cooperated is exactly 1); p_never_first_63 is the chance of getting through 63 rounds against a
+nice opponent without defecting first. With --play, nice_played = never defected first in any replayed match, and
+share_defected_first = share of those matches in which it did.
+
 Mean rank comes from results_m3/standard63_summary.csv (307 players, 63 turns, 20 seeds, no noise).
 
 Usage (axelrod venv, OPENBLAS_NUM_THREADS=1):
@@ -70,21 +75,47 @@ def vector(spec):
     return np.array([np.mean(by[s]) for s in STATES]), np.array([np.ptp(by[s]) for s in STATES])
 
 
+def cooperative_path(spec):
+    """P(C) at each step while both players have only ever cooperated: first move, then after one, two and three
+    rounds of CC (memory-1 players use P(C | CC) from round 2 on)."""
+    name, kind, arg, _ = spec
+    cc = (C, C)
+    if kind == "llm":
+        return [arg[0], arg[1][0]]
+    if kind == "m2":
+        p0, r2, later = m2f.M2[arg]
+        return [p0, r2[cc], later[(cc, cc)]]
+    p0, r2, r3, later = m3f.M3[arg]
+    return [p0, r2[cc], r3[(cc, cc)], later[(cc, cc, cc)]]
+
+
+def niceness(spec, turns=63):
+    """Article 1's rule, nice = never the first to defect, read off the probabilities: every P(C) on the all-
+    cooperative path is 1. Also the chance of never defecting first over `turns` rounds against a player that only
+    defects after being defected on (the last path entry repeats until the end)."""
+    path = cooperative_path(spec)
+    never = float(np.prod(path[:-1]) * path[-1] ** (turns - len(path) + 1))
+    return ("nice" if all(p == 1 for p in path) else "nasty"), never, min(path)
+
+
 def play_one(task):
     """Per-opponent state -> C rates for one LLM player against one opponent (all reps pooled)."""
     i, j, turns, reps = task
     a, b = base.make_player(base.SPECS[i]), base.make_player(base.SPECS[j])
     cnt = Counter()
+    first = 0                                                   # matches where the LLM player defected first
     for r in range(reps):
         s = int(np.random.SeedSequence([7, turns, i, j, r]).generate_state(1)[0])
         moves = axl.Match((a, b), turns=turns, seed=s, match_attributes={"length": float("inf")}).play()
         for (x0, y0), (x1, _) in zip(moves, moves[1:]):
             cnt[((x0, y0), x1)] += 1
+        k = next((t for t, (x, y) in enumerate(moves) if x == D or y == D), None)
+        first += k is not None and moves[k][0] == D and moves[k][1] == C
     rates = []
     for st in STATES:
         tot = cnt[(st, C)] + cnt[(st, D)]
         rates.append(cnt[(st, C)] / tot if tot else None)
-    return i, j, rates
+    return i, j, rates, first / reps
 
 
 def main():
@@ -116,6 +147,8 @@ def main():
                          source="Pal et al. 2026" if k < 10 else "new elicitation",
                          **{f"v_{st}": round(x, 4) for st, x in zip(("CC", "CD", "DC", "DD"), p)},
                          sse_vector=round(float(sse(p[None])[0]), 4),
+                         **dict(zip(("nice_rule", "p_never_first_63", "min_coop_path"),
+                                    (lambda t: (t[0], round(t[1], 4), round(t[2], 4)))(niceness(s, args.turns)))),
                          max_spread=round(float(spread.max()), 3),
                          mean_rank=r.get("rank", ""), normalized_rank=r.get("normalized_rank", "")))
 
@@ -126,10 +159,11 @@ def main():
         print(f"{len(tasks)} pairs ({len(llm)} LLM x {len(opp)} opponents) x {args.reps} reps, {args.turns} turns",
               flush=True)
         t0 = time.time()
-        per = {}
+        per, firsts = {}, {}
         with mp.get_context("fork").Pool(args.processes) as pool:      # as run_llm_field.run_pairs
-            for n, (i, j, rates) in enumerate(pool.imap_unordered(play_one, tasks, chunksize=8), 1):
+            for n, (i, j, rates, f1) in enumerate(pool.imap_unordered(play_one, tasks, chunksize=8), 1):
                 per.setdefault(i - n0, []).append(rates)
+                firsts.setdefault(i - n0, []).append(f1)
                 if n % 1000 == 0:
                     print(f"  {n}/{len(tasks)} in {time.time() - t0:.0f} s", flush=True)
         print(f"played in {time.time() - t0:.0f} s", flush=True)
@@ -142,6 +176,8 @@ def main():
             row.update({f"p_{st}": round(x, 4) for st, x in zip(("CC", "CD", "DC", "DD"), q)})
             row["sse_played"] = round(float(sse(q[None])[0]), 4)
             row["opponents"] = len(opp)
+            row["share_defected_first"] = round(float(np.mean(firsts[k])), 4)   # over all matches played
+            row["nice_played"] = "nice" if max(firsts[k]) == 0 else "nasty"
 
     rows.sort(key=lambda r: float(r["mean_rank"] or 1e9))
     args.out.parent.mkdir(parents=True, exist_ok=True)
