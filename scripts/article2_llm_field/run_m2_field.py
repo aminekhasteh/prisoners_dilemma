@@ -131,7 +131,7 @@ def main():
 
     args.out.mkdir(parents=True, exist_ok=True); (args.out / "pairs").mkdir(exist_ok=True)
     tag = args.condition if args.reps == 250 else f"{args.condition}_{args.reps}reps"
-    per_t = []
+    per_t, skipped = [], []
     for turns in turns_list:
         for seed in seeds:
             stem, knight_reps = base.knight_files(folder, turns, seed)
@@ -145,6 +145,7 @@ def main():
             old = {k: v for k, v in old.items() if k[0] in m1 and k[1] < m2.start}
             if len(old) != 5 * n_old + 10:
                 print(f"  memory-1 pairs missing ({len(old)} of {5 * n_old + 10}); run run_llm_field.py first", flush=True)
+                skipped.append((turns, seed, "older pairs missing"))
                 continue
             pairs.update(old)
             print(f"  done in {time.time() - t0:.0f} s wall", flush=True)
@@ -161,13 +162,16 @@ def main():
                     ["mean_score", "median_score", "rank", "normalized_rank", "cooperation_rate"]})
             for n, rs in by.items()]
     summ.sort(key=lambda r: r["normalized_rank"])
+    complete = base.coverage(per_t, turns_list, seeds, skipped)
     if summ:
-        base.write(args.out / f"{tag}_summary.csv", summ)
+        base.write(args.out / base.summary_name(tag, complete), summ)
     print(f"\n{args.condition}: LLM players among {len(specs)}")
     for r in summ:
         if r["llm"]:
             print(f"  {r['Name']:26} rank {r['rank']:6.1f}  norm rank {r['normalized_rank']:.3f}  "
                   f"score {r['mean_score']:.3f}  coop {r['cooperation_rate']:.3f}")
+    if not complete:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

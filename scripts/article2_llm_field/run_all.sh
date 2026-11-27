@@ -8,13 +8,23 @@ PY=~/.local/share/axelrod-probe-venv/bin/python
 P=${1:-4}
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
 mkdir -p results
+ts() { TZ=America/New_York date '+%F %I:%M %p %Z'; }
+# $? must be saved before the echo: "$(ts)" in the same line resets it, so the old logs always said "exit 0".
+FAILED=()
 step() {
-    echo "=== $(TZ=America/New_York date '+%F %I:%M %p %Z') start: $*"
+    echo "=== $(ts) start: $*"
     nice -n 10 "$PY" run_llm_field.py "$@" --processes "$P"
-    echo "=== $(TZ=America/New_York date '+%F %I:%M %p %Z') exit $?: $*"
+    local rc=$?
+    echo "=== $(ts) exit $rc: $*"
+    ((rc == 0)) || FAILED+=("[$*]")
+    return $rc
 }
 step noise5
 step noise1
 step standard --turns 63
 step standard
-echo "=== all done"
+if ((${#FAILED[@]})); then
+    echo "=== $(ts) FAILED (rerun the same command to resume): ${FAILED[*]}"
+    exit 1
+fi
+echo "=== $(ts) all done"

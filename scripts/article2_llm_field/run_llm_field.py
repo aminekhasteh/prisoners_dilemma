@@ -199,6 +199,25 @@ def run_pairs(tasks, partial):
     return done
 
 
+def coverage(per_t, turns_list, seeds, skipped=()):
+    """Check that every expected seed x length tournament was combined. Prints what is missing and returns True only
+    when the run is complete. A runner that gets False writes <tag>_summary_partial.csv instead of <tag>_summary.csv
+    and exits with status 1, so a wrapper never reports a partial run as done."""
+    expected = {(t, s) for t in turns_list for s in seeds}
+    got = {(int(r["turns"]), int(r["seed"])) for r in per_t}
+    missing = sorted(expected - got)
+    if missing:
+        print(f"INCOMPLETE: {len(got & expected)} of {len(expected)} tournaments combined; missing (turns, seed): "
+              f"{missing}", flush=True)
+        for turns, seed, why in skipped:
+            print(f"  skipped {turns} turns seed {seed}: {why}", flush=True)
+    return not missing
+
+
+def summary_name(tag, complete):
+    return f"{tag}_summary.csv" if complete else f"{tag}_summary_partial.csv"
+
+
 def knight_files(folder, turns, seed):
     base = ARGS.knight / folder
     f = sorted(base.glob(f"full_{turns}_turns_*_repetitions_{seed}_seed_summary.csv"))
@@ -450,12 +469,15 @@ def main():
                     ["mean_score", "median_score", "rank", "normalized_rank", "cooperation_rate"]})
             for n, rs in by.items()]
     summ.sort(key=lambda r: r["normalized_rank"])
-    write(ARGS.out / f"{tag}_summary.csv", summ)
+    complete = coverage(per_t, turns_list, seeds)
+    write(ARGS.out / summary_name(tag, complete), summ)
     print(f"\n{ARGS.condition}: LLM players among {len(SPECS)} (mean over {len(per_t) // len(SPECS)} tournaments)")
     for r in summ:
         if r["llm"]:
             print(f"  {r['Name']:22} rank {r['rank']:6.1f}  norm rank {r['normalized_rank']:.3f}  "
                   f"score {r['mean_score']:.3f}  coop {r['cooperation_rate']:.3f}")
+    if not complete:
+        sys.exit(1)
 
 
 def write(path, rows):
