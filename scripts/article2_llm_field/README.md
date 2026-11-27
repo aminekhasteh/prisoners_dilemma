@@ -182,7 +182,7 @@ Article 1's SSE (distance from the zero-determinant plane, `knight272/build_data
 - Niceness (Article 1's rule, nice = never the first to defect): `nice_rule` is nice when every P(C) on the all-
   cooperative path (first move, then after one, two, three rounds of CC) is exactly 1; `p_never_first_63` is the chance
   of 63 rounds without defecting first against a nice opponent. `nice_played` / `share_defected_first` check the same
-  thing in the replayed matches; the two labels agree for all 35 players (22 nice, 13 nasty). Borderline nasty:
+  thing in the replayed matches; the two labels agree for all 35 players (23 nice, 12 nasty). Borderline nasty:
   Terra m3 and Haiku m2 (P(C | CC) 0.98, one defection in 50 trials), Gemini m2 (0.90).
 
 `nice -n 19 python sse_llm.py --play --reps 20 --processes 2` took 3 min on boo-server-smol next to a 4-process run.
