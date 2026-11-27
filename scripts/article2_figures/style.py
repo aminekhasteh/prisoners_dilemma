@@ -38,9 +38,10 @@ def axes_style(ax):
     ax.tick_params(colors=MUTED, labelsize=11)
 
 
-def titles(fig, x, y, title, sub):
+def titles(fig, x, y, title, sub, gap=0.012):
+    """Title with its subtitle underneath; gap is the space between them, as a fraction of the figure height."""
     fig.text(x, y, title, fontsize=16, fontweight="bold", color=INK, va="bottom")
-    fig.text(x, y - 0.012, sub, fontsize=11, color=MUTED, linespacing=1.4, va="top")
+    fig.text(x, y - gap, sub, fontsize=11, color=MUTED, linespacing=1.4, va="top")
 
 
 def diamond(ax, x, y, r, color, **kw):

@@ -1,10 +1,12 @@
 """Memory-1 vs memory-2: one dumbbell per model, its rank out of 282 when it remembers only the last round (filled
-diamond) and the last two rounds (hollow diamond). One panel per setting found in data/m2_ranks.csv, in this order:
+diamond) and the last two rounds (hollow diamond); where the two ranks are less than five places apart, the filled
+diamond is drawn small inside the hollow one. One panel per setting found in data/m2_ranks.csv, in this order:
 63 turns; mean over the five lengths; 1% noise; 5% noise. The dashed line is Tit for Tat in the same field.
 Usage: python3 llm_m1_vs_m2.py data/m2_ranks.csv out.png [--dpi=200]"""
 import sys
 import pandas as pd
 from matplotlib.lines import Line2D
+from matplotlib.patheffects import withStroke
 from style import setup, plt, INK, INK2, MUTED, LINE, LLMS, TFT, axes_style, titles
 
 r = pd.read_csv(sys.argv[1]); out = sys.argv[2]
@@ -14,6 +16,8 @@ SETTINGS = [("s63", "63 turns, no noise"), ("slen", "All lengths, no noise"),
 SETTINGS = [(k, t) for k, t in SETTINGS if (r.setting == k).any()]
 MODELS = list(LLMS)                    # same order as the other charts
 rk = lambda v: "%d" % int(v + 0.5)     # halves rounded up, as in the article's tables
+HALO = [withStroke(linewidth=2.6, foreground="white")]   # keeps a number readable where the dashed line runs behind it
+TIE = 5   # ranks: closer than this, the hollow diamond covers the filled one, so a small filled one is drawn inside it
 
 setup()
 n = len(SETTINGS)
@@ -35,12 +39,14 @@ for ax, (key, head) in zip(axes, SETTINGS):
         ax.plot([a, b], [i, i], color=LINE, lw=3, zorder=2, solid_capstyle="round")
         ax.scatter([a], [i], s=110, marker="D", color=col, edgecolor="white", lw=1.4, zorder=4)
         ax.scatter([b], [i], s=100, marker="D", facecolor="white", edgecolor=col, lw=2.2, zorder=5)
+        if abs(a - b) < TIE:
+            ax.scatter([a], [i], s=22, marker="D", color=col, lw=0, zorder=6)
         # numbers beside each end, on the outside of the dumbbell so they never sit on the bar
         lo, hi = (a, b) if a <= b else (b, a)
         ax.text(lo - 9, i, rk(lo), ha="right", va="center", fontsize=9.5, color=INK2 if lo == a else INK,
-                fontweight="normal" if lo == a else "bold")
+                fontweight="normal" if lo == a else "bold", path_effects=HALO)
         ax.text(hi + 9, i, rk(hi), ha="left", va="center", fontsize=9.5, color=INK2 if hi == a else INK,
-                fontweight="normal" if hi == a else "bold")
+                fontweight="normal" if hi == a else "bold", path_effects=HALO)
     ax.set_xlim(-30, 300); ax.set_xticks([1, 100, 200, 282])
     ax.set_ylim(len(MODELS) - 0.5, -1.0)
     head += " (%d tournaments)" % r[r.setting == key].tournaments.max()
