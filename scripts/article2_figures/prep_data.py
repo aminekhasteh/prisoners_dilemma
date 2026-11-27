@@ -1,11 +1,11 @@
 """Turn the tournament results into the small CSVs the figure scripts read (kept in data/ so figures redraw fast).
 Usage: python3 prep_data.py RESULTS_DIR data [SUFFIX]
-With RESULTS_DIR = results_m2 and SUFFIX = _m2 it writes the 282-player versions (ranks_by_setting_m2.csv, field_63_m2.csv).
-RESULTS_DIR = scripts/article2_llm_field/results on branch article2-llm-field (the *_per_tournament.csv files).
+RESULTS_DIR = the final results, scripts/article2_llm_field/results_m3 (307 players: Knight's 272 and all 35 chatbot
+strategies); older folders (results, results_m2, results_new) work too. SUFFIX is added to the output names.
 Writes:
-  data/ranks_by_setting.csv: the five LLM players and Tit for Tat (k92r), mean / min / max rank out of 277 and the
-      number of tournaments, for every (condition, noise, turns).
-  data/field_63.csv: all 277 players at 63 turns, no noise: mean rank and mean of the median score per turn over the
+  data/ranks_by_setting.csv: the five LLM players and Tit for Tat (k92r), mean / min / max rank, the
+      number of tournaments and the field size (players), for every (condition, noise, turns).
+  data/field_63.csv: all players at 63 turns, no noise: mean rank and mean of the median score per turn over the
       20 tournaments."""
 import sys
 from pathlib import Path
@@ -18,6 +18,8 @@ keep = d[(d.llm == 1) | (d.Name == "k92r")]
 r = (keep.groupby(["condition", "noise", "turns", "Name"])
      .agg(mean_rank=("rank", "mean"), min_rank=("rank", "min"), max_rank=("rank", "max"),
           tournaments=("seed", "nunique"), cooperation_rate=("cooperation_rate", "mean")).reset_index())
+size = d.groupby(["condition", "noise", "turns", "seed"]).Name.count().groupby(["condition", "noise", "turns"]).max()
+r = r.merge(size.rename("players").reset_index(), on=["condition", "noise", "turns"])
 r.to_csv(OUT / f"ranks_by_setting{SUF}.csv", index=False, float_format="%.4f")
 f = d[(d.condition == "standard") & (d.turns == 63)]
 f = (f.groupby(["Name", "llm"]).agg(mean_rank=("rank", "mean"), mean_score=("median_score", "mean"),
