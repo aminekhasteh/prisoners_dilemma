@@ -37,11 +37,23 @@ def wilson(k, n, z=1.96):
 
 
 def label(v):
-    """Nearest named memory-1 strategy; '~' marks an approximate match (largest gap > 0.1)."""
+    """A named memory-1 strategy only when the vector is exactly that strategy's; otherwise '~' and the nearest name
+    (e.g. Sonnet 5.5 effort xhigh, DD = 0.08, is ~GRIM, not GRIM). The simulator always uses the numbers, so this
+    only affects reporting."""
     name, gap = min(((k, max(abs(a - b) for a, b in zip(v, s))) for k, s in NAMED.items()), key=lambda t: t[1])
     if name == "TFT" and v[2] > 0.1 and v[4] > 0.1 and gap > 0.1:
         return "~GTFT"
-    return name if gap <= 0.1 else f"~{name}"
+    return name if gap < 1e-9 else f"~{name}"
+
+
+def holm(ps):
+    """Holm-adjusted p-values for one family of tests (same order as ps)."""
+    order = sorted(range(len(ps)), key=lambda i: ps[i])
+    adj, run = [0.0] * len(ps), 0.0
+    for rank, i in enumerate(order):
+        run = max(run, min(1.0, (len(ps) - rank) * ps[i]))
+        adj[i] = run
+    return adj
 
 
 def load(tag):
@@ -161,9 +173,10 @@ def compare(pal_model, long):
     for r in csv.DictReader(open(PAL / "pal2026_memory2.csv")):
         if r["model"] == pal_model:
             pal2[(r["scenario"], r["prev2"], r["prev1"])] = (int(r["count_C"]), int(r["n"]))
-    print(f"\nComparison with Pal et al. ({pal_model}); p = Fisher's exact test, * = p < 0.05")
+    print(f"\nComparison with Pal et al. ({pal_model}); p = Fisher's exact test per scenario, unadjusted; * = p < 0.05")
     print(f"  {'scenario':58s} {'ours':>7s} {'paper':>7s}   diff      p")
     by_exp = defaultdict(lambda: [0, 0, 0.0])
+    ps = defaultdict(list)
     for d in long:
         if d["experiment"] == "memory2":
             ref = pal2.get((d["kind"], d["prev2"], d["prev1"]))
@@ -177,12 +190,15 @@ def compare(pal_model, long):
         e = by_exp[d["experiment"]]
         e[0] += 1
         e[1] += p < 0.05
+        ps[d["experiment"]].append(p)
         e[2] += abs(diff)
         hist = f"{d['prev2']}>{d['prev1']}" if d["prev2"] else d["prev1"]
         sc = f"{d['experiment']} {d['treatment'][:24]} {d['kind']} {hist}"
         print(f"  {sc:58s} {d['count_C']:>3d}/{d['n']:<3d} {k2:>3d}/{n2:<3d} {diff:+6.2f} {p:7.3f}{' *' if p < 0.05 else ''}")
     for exp, (n, bad, tot) in by_exp.items():
-        print(f"  {exp}: {bad} of {n} scenarios differ at p < 0.05; mean |diff| {tot / n:.2f}")
+        n_holm = sum(q < 0.05 for q in holm(ps[exp]))
+        print(f"  {exp}: {bad} of {n} scenarios differ at p < 0.05 unadjusted, {n_holm} after Holm adjustment within "
+              f"the {n} {exp} scenarios; mean |diff| {tot / n:.2f}")
 
 
 if __name__ == "__main__":

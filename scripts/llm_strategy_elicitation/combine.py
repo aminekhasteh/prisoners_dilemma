@@ -20,8 +20,8 @@ Writes, in ../article2_llm_field/:
   new_llm_memory2_by_wording.csv  one row per model, wording and scenario: model, wording, tag, scenario, prev2,
                                   prev1, count_C, n, p_C
 
-and a per-wording table results/wording_comparison.csv with Fisher tests of clean vs si for every scenario (the
-p-values are per scenario and unadjusted). Run add_effort_variants.py afterwards: it appends the effort variants to
+and a per-wording table results/wording_comparison.csv with Fisher tests of clean vs si for every scenario (fisher_p
+is per scenario and unadjusted; fisher_p_holm is Holm-adjusted within each model's scenarios). Run add_effort_variants.py afterwards: it appends the effort variants to
 the pooled files and to the by-wording files.
 
   python combine.py
@@ -35,7 +35,7 @@ from pathlib import Path
 
 from scipy.stats import fisher_exact
 
-from estimate import label, wilson
+from estimate import holm, label, wilson
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "article2_llm_field"
@@ -122,7 +122,7 @@ def main():
             gaps.append(abs(a / na - b / nb))
             cmp_rows.append({"model": model, "experiment": k[0], "kind": k[1], "prev2": k[2], "prev1": k[3],
                              "clean": f"{a}/{na}", "si": f"{b}/{nb}", "diff": round(a / na - b / nb, 3),
-                             "fisher_p": round(p, 4)})
+                             "fisher_p": round(p, 4), "fisher_p_raw": p})
         m1 = [("memory1", "round1", "", "")] + [("memory1", "later", "", o) for o in ("CC", "CD", "DC", "DD")]
         v = tuple(pooled[k][0] / pooled[k][1] for k in m1)
         m1_gap = max(abs(per["clean"][k][0] / per["clean"][k][1] - per["si"][k][0] / per["si"][k][1])
@@ -137,15 +137,21 @@ def main():
             c, n = pooled[k]
             m2_rows.append({"model": model, "scenario": k[1], "prev2": k[2], "prev1": k[3], "count_C": c, "n": n,
                             "p_C": round(c / n, 4)})
-        n_sig = sum(r["fisher_p"] < 0.05 for r in cmp_rows if r["model"] == model)
+        mine = [r for r in cmp_rows if r["model"] == model]
+        for r, q in zip(mine, holm([r["fisher_p_raw"] for r in mine])):
+            r["fisher_p_holm"] = round(q, 4)                # family = this model's clean-vs-si scenarios
+        n_sig = sum(r["fisher_p_raw"] < 0.05 for r in mine)
+        n_holm = sum(r["fisher_p_holm"] < 0.05 for r in mine)
         print(f"{lab:28s} p0 {v[0]:.2f} CC {v[1]:.2f} CD {v[2]:.2f} DC {v[3]:.2f} DD {v[4]:.2f}  {label(v):10s} "
-              + (f"pooled; wordings differ in {n_sig} of {len(keys)} scenarios (p<0.05, unadjusted), largest gap "
-                 f"{max(gaps):.2f}" if gaps else "one wording only"))
+              + (f"pooled; wordings differ in {n_sig} of {len(keys)} scenarios (p<0.05 unadjusted; {n_holm} after "
+                 f"Holm within the model), largest gap {max(gaps):.2f}" if gaps else "one wording only"))
         for w in per:
             r = next((x for x in w1_rows if x["model"] == model and x["wording"] == w), None)
             if r and len(per) > 1:
                 print(f"  {w:5s} {'':20s} p0 {r['p0']} CC {r['CC']} CD {r['CD']} DC {r['DC']} DD {r['DD']}  {r['note']}")
 
+    for r in cmp_rows:
+        del r["fisher_p_raw"]
     models = list(MODELS)
     sort_m2(m2_rows, models)
     sort_m2(w2_rows, models)

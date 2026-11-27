@@ -11,7 +11,7 @@ new,framing,Play like a pro.,llama-3.3-70b,1.00,1.00,0.00,0.00,1.00,WSLS
 new,equal_gains_x,0,llama-3.3-70b,1.00,1.00,0.00,0.52,1.00,~Forgiver
 new,equal_gains_x,1,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
 new,equal_gains_x,10,llama-3.3-70b,1.00,1.00,0.00,0.18,0.94,~WSLS
-new,equal_gains_x,2,llama-3.3-70b,1.00,1.00,0.00,0.98,1.00,Forgiver
+new,equal_gains_x,2,llama-3.3-70b,1.00,1.00,0.00,0.98,1.00,~Forgiver
 new,equal_gains_x,3,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
 new,equal_gains_x,4,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
 new,equal_gains_x,5,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
@@ -21,5 +21,5 @@ new,equal_gains_x,8,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
 new,equal_gains_x,9,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
 new,stopping_w,0.01,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
 new,stopping_w,0.1,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
-new,stopping_w,0.2,llama-3.3-70b,1.00,1.00,0.00,0.96,1.00,Forgiver
+new,stopping_w,0.2,llama-3.3-70b,1.00,1.00,0.00,0.96,1.00,~Forgiver
 new,stopping_w,0.5,llama-3.3-70b,1.00,1.00,0.00,1.00,1.00,Forgiver
