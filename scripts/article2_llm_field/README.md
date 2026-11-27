@@ -164,3 +164,19 @@ thing that changes between a model's three players. Output: `results_clean/`. A 
 end. Expected time on boo-server-big at 16 processes, scaled from the 297-player run: about 16 min per 63-turn
 tournament, so about 5.5 h for standard 63 turns, 2 h for noise5, 3.5 h for noise1, and about 2.5 days for all five
 standard lengths.
+
+## SSE of the LLM players (`sse_llm.py`)
+
+Article 1's SSE (distance from the zero-determinant plane, `knight272/build_dataset.sse`) for all 35 LLM players of the
+307-player field, next to their mean rank in `results_m3/standard63_summary.csv`. Output: `results_m3/llm_sse.csv`.
+
+- `sse_vector`: from the elicited probabilities. Memory-1 uses its four numbers. Memory-2 and memory-3 are mapped to a
+  memory-one vector by averaging P(C | earlier rounds, last round = s) over the 4 or 16 earlier histories with equal
+  weight (opening-round tables left out). `max_spread` is the largest range of those probabilities within one state,
+  i.e. how much the mapping throws away.
+- `sse_played` (`--play`): Article 1's definition, the CC/CD/DC/DD -> C rates axelrod's `ResultSet.summarise` would
+  give (per-opponent rates, then the mean of the non-zero ones; a state never reached counts as 0), from 63-turn,
+  no-noise matches (20 repetitions) against Knight's 272 minus the 18 `long_run_time` players. Earlier histories are
+  then weighted by how often real opponents lead into them. For memory-1 players the two agree up to sampling noise.
+
+`nice -n 19 python sse_llm.py --play --reps 20 --processes 2` took 3 min on boo-server-smol next to a 4-process run.
