@@ -1,45 +1,145 @@
-setting,model,memory,mean_rank,tournaments,lengths
-s63,LLM: Claude Sonnet 4,1,131.7000,20,
-s63,LLM: Claude Sonnet 4,2,27.0000,20,
-s63,LLM: GPT-4o,1,55.7000,20,
-s63,LLM: GPT-4o,2,54.9500,20,
-s63,LLM: GPT-5,1,153.0000,20,
-s63,LLM: GPT-5,2,18.6000,20,
-s63,LLM: Gemini 2.5 Pro,1,154.8500,20,
-s63,LLM: Gemini 2.5 Pro,2,124.2000,20,
-s63,LLM: Llama 3.3 70B,1,77.0000,20,
-s63,LLM: Llama 3.3 70B,2,154.1500,20,
-s63,k92r,1,67.3000,20,
-slen,LLM: Claude Sonnet 4,1,116.7500,100,5.0000
-slen,LLM: Claude Sonnet 4,2,23.1800,100,5.0000
-slen,LLM: GPT-4o,1,75.9900,100,5.0000
-slen,LLM: GPT-4o,2,75.8500,100,5.0000
-slen,LLM: GPT-5,1,150.2000,100,5.0000
-slen,LLM: GPT-5,2,16.5600,100,5.0000
-slen,LLM: Gemini 2.5 Pro,1,153.1600,100,5.0000
-slen,LLM: Gemini 2.5 Pro,2,140.2800,100,5.0000
-slen,LLM: Llama 3.3 70B,1,60.7100,100,5.0000
-slen,LLM: Llama 3.3 70B,2,151.1200,100,5.0000
-slen,k92r,1,61.9700,100,5.0000
-n1,LLM: Claude Sonnet 4,1,134.3846,13,
-n1,LLM: Claude Sonnet 4,2,48.3077,13,
-n1,LLM: GPT-4o,1,134.4615,13,
-n1,LLM: GPT-4o,2,134.3846,13,
-n1,LLM: GPT-5,1,159.0000,13,
-n1,LLM: GPT-5,2,35.3846,13,
-n1,LLM: Gemini 2.5 Pro,1,160.2308,13,
-n1,LLM: Gemini 2.5 Pro,2,152.0000,13,
-n1,LLM: Llama 3.3 70B,1,65.6923,13,
-n1,LLM: Llama 3.3 70B,2,137.4615,13,
-n1,k92r,1,75.7692,13,
-n5,LLM: Claude Sonnet 4,1,134.2857,7,
-n5,LLM: Claude Sonnet 4,2,102.7143,7,
-n5,LLM: GPT-4o,1,165.8571,7,
-n5,LLM: GPT-4o,2,166.1429,7,
-n5,LLM: GPT-5,1,187.5714,7,
-n5,LLM: GPT-5,2,89.5714,7,
-n5,LLM: Gemini 2.5 Pro,1,190.8571,7,
-n5,LLM: Gemini 2.5 Pro,2,176.8571,7,
-n5,LLM: Llama 3.3 70B,1,85.2857,7,
-n5,LLM: Llama 3.3 70B,2,155.2857,7,
-n5,k92r,1,68.4286,7,
+setting,model,memory,mean_rank,tournaments,lengths,players
+s63,LLM: Claude Haiku 5.5,1,62.7000,20,,307
+s63,LLM: Claude Haiku 5.5,2,72.3500,20,,307
+s63,LLM: Claude Haiku 5.5,3,48.5500,20,,307
+s63,LLM: Claude Opus 5.5,1,149.0000,20,,307
+s63,LLM: Claude Opus 5.5,2,67.6000,20,,307
+s63,LLM: Claude Opus 5.5,3,68.5500,20,,307
+s63,LLM: Claude Sonnet 4,1,148.9000,20,,307
+s63,LLM: Claude Sonnet 4,2,29.9500,20,,307
+s63,LLM: Claude Sonnet 5.5,1,294.1000,20,,307
+s63,LLM: Claude Sonnet 5.5,2,294.8500,20,,307
+s63,LLM: Claude Sonnet 5.5,3,294.4000,20,,307
+s63,LLM: Claude Sonnet 5.5 (effort xhigh),1,44.6500,20,,307
+s63,LLM: Claude Sonnet 5.5 (effort xhigh),2,34.9000,20,,307
+s63,LLM: Claude Sonnet 5.5 (effort xhigh),3,41.9500,20,,307
+s63,LLM: GPT-4o,1,63.5500,20,,307
+s63,LLM: GPT-4o,2,62.8000,20,,307
+s63,LLM: GPT-5,1,168.9500,20,,307
+s63,LLM: GPT-5,2,22.8000,20,,307
+s63,LLM: GPT-6 Luna,1,278.6500,20,,307
+s63,LLM: GPT-6 Luna,2,267.1000,20,,307
+s63,LLM: GPT-6 Luna,3,256.0000,20,,307
+s63,LLM: GPT-6.1 Sol,1,124.5000,20,,307
+s63,LLM: GPT-6.1 Sol,2,31.8500,20,,307
+s63,LLM: GPT-6.1 Sol,3,33.0500,20,,307
+s63,LLM: GPT-6.1 Terra,1,121.1000,20,,307
+s63,LLM: GPT-6.1 Terra,2,58.3500,20,,307
+s63,LLM: GPT-6.1 Terra,3,54.4500,20,,307
+s63,LLM: Gemini 2.5 Pro,1,171.9500,20,,307
+s63,LLM: Gemini 2.5 Pro,2,136.7500,20,,307
+s63,LLM: Gemini 2.5 Pro (2026 rerun),1,127.1500,20,,307
+s63,LLM: Llama 3.3 70B,1,92.3000,20,,307
+s63,LLM: Llama 3.3 70B,2,171.0500,20,,307
+s63,LLM: Llama 3.3 70B (2026 rerun),1,170.0000,20,,307
+s63,LLM: Llama 3.3 70B (2026 rerun),2,230.9000,20,,307
+s63,LLM: Llama 3.3 70B (2026 rerun),3,262.0500,20,,307
+s63,k92r,1,80.2000,20,,307
+slen,LLM: Claude Haiku 5.5,1,82.7100,100,5.0000,307
+slen,LLM: Claude Haiku 5.5,2,90.5400,100,5.0000,307
+slen,LLM: Claude Haiku 5.5,3,66.1800,100,5.0000,307
+slen,LLM: Claude Opus 5.5,1,134.0200,100,5.0000,307
+slen,LLM: Claude Opus 5.5,2,51.8400,100,5.0000,307
+slen,LLM: Claude Opus 5.5,3,50.7800,100,5.0000,307
+slen,LLM: Claude Sonnet 4,1,133.9100,100,5.0000,307
+slen,LLM: Claude Sonnet 4,2,24.5700,100,5.0000,307
+slen,LLM: Claude Sonnet 5.5,1,294.4400,100,5.0000,307
+slen,LLM: Claude Sonnet 5.5,2,294.5000,100,5.0000,307
+slen,LLM: Claude Sonnet 5.5,3,294.4900,100,5.0000,307
+slen,LLM: Claude Sonnet 5.5 (effort xhigh),1,50.3400,100,5.0000,307
+slen,LLM: Claude Sonnet 5.5 (effort xhigh),2,39.6600,100,5.0000,307
+slen,LLM: Claude Sonnet 5.5 (effort xhigh),3,58.3000,100,5.0000,307
+slen,LLM: GPT-4o,1,82.8300,100,5.0000,307
+slen,LLM: GPT-4o,2,82.4100,100,5.0000,307
+slen,LLM: GPT-5,1,164.6800,100,5.0000,307
+slen,LLM: GPT-5,2,19.2700,100,5.0000,307
+slen,LLM: GPT-6 Luna,1,275.6900,100,5.0000,307
+slen,LLM: GPT-6 Luna,2,263.5000,100,5.0000,307
+slen,LLM: GPT-6 Luna,3,248.4900,100,5.0000,307
+slen,LLM: GPT-6.1 Sol,1,125.9200,100,5.0000,307
+slen,LLM: GPT-6.1 Sol,2,35.9700,100,5.0000,307
+slen,LLM: GPT-6.1 Sol,3,37.6200,100,5.0000,307
+slen,LLM: GPT-6.1 Terra,1,126.4800,100,5.0000,307
+slen,LLM: GPT-6.1 Terra,2,64.4000,100,5.0000,307
+slen,LLM: GPT-6.1 Terra,3,65.5200,100,5.0000,307
+slen,LLM: Gemini 2.5 Pro,1,169.3900,100,5.0000,307
+slen,LLM: Gemini 2.5 Pro,2,154.0100,100,5.0000,307
+slen,LLM: Gemini 2.5 Pro (2026 rerun),1,113.3000,100,5.0000,307
+slen,LLM: Llama 3.3 70B,1,74.0000,100,5.0000,307
+slen,LLM: Llama 3.3 70B,2,167.2700,100,5.0000,307
+slen,LLM: Llama 3.3 70B (2026 rerun),1,166.3900,100,5.0000,307
+slen,LLM: Llama 3.3 70B (2026 rerun),2,248.8500,100,5.0000,307
+slen,LLM: Llama 3.3 70B (2026 rerun),3,259.7600,100,5.0000,307
+slen,k92r,1,72.0100,100,5.0000,307
+n1,LLM: Claude Haiku 5.5,1,144.6923,13,,307
+n1,LLM: Claude Haiku 5.5,2,133.6923,13,,307
+n1,LLM: Claude Haiku 5.5,3,91.2308,13,,307
+n1,LLM: Claude Opus 5.5,1,147.4615,13,,307
+n1,LLM: Claude Opus 5.5,2,42.3846,13,,307
+n1,LLM: Claude Opus 5.5,3,40.6923,13,,307
+n1,LLM: Claude Sonnet 4,1,146.8462,13,,307
+n1,LLM: Claude Sonnet 4,2,50.0000,13,,307
+n1,LLM: Claude Sonnet 5.5,1,291.8462,13,,307
+n1,LLM: Claude Sonnet 5.5,2,291.6923,13,,307
+n1,LLM: Claude Sonnet 5.5,3,291.1538,13,,307
+n1,LLM: Claude Sonnet 5.5 (effort xhigh),1,129.0769,13,,307
+n1,LLM: Claude Sonnet 5.5 (effort xhigh),2,115.6923,13,,307
+n1,LLM: Claude Sonnet 5.5 (effort xhigh),3,101.8462,13,,307
+n1,LLM: GPT-4o,1,145.4615,13,,307
+n1,LLM: GPT-4o,2,144.6154,13,,307
+n1,LLM: GPT-5,1,172.0000,13,,307
+n1,LLM: GPT-5,2,35.9231,13,,307
+n1,LLM: GPT-6 Luna,1,279.0769,13,,307
+n1,LLM: GPT-6 Luna,2,265.0000,13,,307
+n1,LLM: GPT-6 Luna,3,253.8462,13,,307
+n1,LLM: GPT-6.1 Sol,1,156.4615,13,,307
+n1,LLM: GPT-6.1 Sol,2,59.0769,13,,307
+n1,LLM: GPT-6.1 Sol,3,52.8462,13,,307
+n1,LLM: GPT-6.1 Terra,1,165.5385,13,,307
+n1,LLM: GPT-6.1 Terra,2,117.6154,13,,307
+n1,LLM: GPT-6.1 Terra,3,89.0000,13,,307
+n1,LLM: Gemini 2.5 Pro,1,176.3077,13,,307
+n1,LLM: Gemini 2.5 Pro,2,167.6154,13,,307
+n1,LLM: Gemini 2.5 Pro (2026 rerun),1,141.0000,13,,307
+n1,LLM: Llama 3.3 70B,1,70.4615,13,,307
+n1,LLM: Llama 3.3 70B,2,152.0000,13,,307
+n1,LLM: Llama 3.3 70B (2026 rerun),1,174.1538,13,,307
+n1,LLM: Llama 3.3 70B (2026 rerun),2,238.0769,13,,307
+n1,LLM: Llama 3.3 70B (2026 rerun),3,266.5385,13,,307
+n1,k92r,1,77.2308,13,,307
+n5,LLM: Claude Haiku 5.5,1,174.2857,7,,307
+n5,LLM: Claude Haiku 5.5,2,164.0000,7,,307
+n5,LLM: Claude Haiku 5.5,3,138.4286,7,,307
+n5,LLM: Claude Opus 5.5,1,135.1429,7,,307
+n5,LLM: Claude Opus 5.5,2,42.8571,7,,307
+n5,LLM: Claude Opus 5.5,3,37.8571,7,,307
+n5,LLM: Claude Sonnet 4,1,134.5714,7,,307
+n5,LLM: Claude Sonnet 4,2,103.2857,7,,307
+n5,LLM: Claude Sonnet 5.5,1,267.4286,7,,307
+n5,LLM: Claude Sonnet 5.5,2,269.1429,7,,307
+n5,LLM: Claude Sonnet 5.5,3,266.1429,7,,307
+n5,LLM: Claude Sonnet 5.5 (effort xhigh),1,170.4286,7,,307
+n5,LLM: Claude Sonnet 5.5 (effort xhigh),2,161.4286,7,,307
+n5,LLM: Claude Sonnet 5.5 (effort xhigh),3,115.7143,7,,307
+n5,LLM: GPT-4o,1,177.0000,7,,307
+n5,LLM: GPT-4o,2,177.2857,7,,307
+n5,LLM: GPT-5,1,201.2857,7,,307
+n5,LLM: GPT-5,2,91.4286,7,,307
+n5,LLM: GPT-6 Luna,1,272.5714,7,,307
+n5,LLM: GPT-6 Luna,2,257.2857,7,,307
+n5,LLM: GPT-6 Luna,3,245.7143,7,,307
+n5,LLM: GPT-6.1 Sol,1,163.0000,7,,307
+n5,LLM: GPT-6.1 Sol,2,91.5714,7,,307
+n5,LLM: GPT-6.1 Sol,3,85.7143,7,,307
+n5,LLM: GPT-6.1 Terra,1,192.4286,7,,307
+n5,LLM: GPT-6.1 Terra,2,145.1429,7,,307
+n5,LLM: GPT-6.1 Terra,3,106.8571,7,,307
+n5,LLM: Gemini 2.5 Pro,1,205.4286,7,,307
+n5,LLM: Gemini 2.5 Pro,2,189.7143,7,,307
+n5,LLM: Gemini 2.5 Pro (2026 rerun),1,149.4286,7,,307
+n5,LLM: Llama 3.3 70B,1,83.8571,7,,307
+n5,LLM: Llama 3.3 70B,2,166.7143,7,,307
+n5,LLM: Llama 3.3 70B (2026 rerun),1,206.2857,7,,307
+n5,LLM: Llama 3.3 70B (2026 rerun),2,263.4286,7,,307
+n5,LLM: Llama 3.3 70B (2026 rerun),3,276.2857,7,,307
+n5,k92r,1,69.2857,7,,307

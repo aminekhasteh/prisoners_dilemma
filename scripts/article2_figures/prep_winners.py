@@ -3,10 +3,10 @@ The winners are not memory-one strategies, so these are measured averages: Knigh
 columns Initial_C_rate and CC/CD/DC/DD_to_C_rate (chance of cooperating after each outcome, own move first), averaged
 over that setting's 63-turn tournaments in their 272-player field.
 
-One winner per setting, the same in all three of our fields (277, 282 and 297 players):
-  no noise  EvolvedLookerUp2_2_2 has the best mean rank over the 100 no-noise tournaments. It finishes first in 62
-            (277 players), 63 (282) and 100 (297) of them, and in every one with games of 151 turns or more.
-            Evolved FSM 16 takes the others, all at 63 and 77 turns.
+One winner per setting, the same in every field we ran (277, 282, 297 and the final 307 players):
+  no noise  EvolvedLookerUp2_2_2 has the best mean rank over the 100 no-noise tournaments. In the final 307-player
+            field it finishes first in all 100 (in the smaller fields: 62, 63 and 100, and in every one with games of
+            151 turns or more; Evolved FSM 16 took the others, all at 63 and 77 turns).
   1% noise  Evolved FSM 16 Noise 05 finishes first in all 13 tournaments.
   5% noise  DBS finishes first in all 7 tournaments.
 The figure's labels (label, label2 in data/winners.csv) say exactly this. Pass the results folders to re-check the
@@ -21,7 +21,7 @@ import pandas as pd
 K, OUT = Path(sys.argv[1]), Path(sys.argv[2])
 # (setting, Knight folder, player, setting label, label line 1, label line 2)
 WIN = [("s63", "full_tournament", "EvolvedLookerUp2_2_2", "no noise",
-        "won most no-noise tournaments", "(all at 151 turns or more)"),
+        "won every tournament without noise", ""),
        ("n1", "full_tournament_1_percent_noise", "Evolved FSM 16 Noise 05", "1% noise",
         "won every tournament at 1% noise", ""),
        ("n5", "full_tournament_5_percent_noise", "DBS: 0.75, 3, 4, 3, 5", "5% noise",
@@ -43,8 +43,7 @@ def check(res):
         else:
             continue
         won, n = first(d, name).reindex(played(d).index, fill_value=0), played(d)
-        long = n.index >= 151
-        ok = (won.sum() * 2 > n.sum() and (won[long] == n[long]).all()) if key == "s63" else (won == n).all()
+        ok = (won == n).all()                                      # every label says "won every tournament"
         out.append("%s: %d of %d" % (label, won.sum(), n.sum()))
         if not ok:
             sys.exit("%s: the label for %s (%s) does not hold: first in %s of %s tournaments by game length"

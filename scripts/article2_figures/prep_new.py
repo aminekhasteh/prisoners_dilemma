@@ -2,8 +2,8 @@
 the new elicitation = 297 players). Usage: python3 prep_new.py RESULTS_NEW_DIR data
 RESULTS_NEW_DIR = scripts/article2_llm_field/results_new. Reads standard_per_tournament.csv (all five lengths; if it
 is missing, standard63_per_tournament.csv, 63 turns only), noise1_per_tournament.csv and noise5_per_tournament.csv,
-whichever exist. Writes data/new_ranks.csv: one row per (setting, player) for the 25 LLM players and Tit for Tat
-(k92r), with model (name without the memory prefix), memory (1 or 2), source, mean_rank, tournaments and players
+whichever exist. Writes data/new_ranks.csv: one row per (setting, player) for every LLM player and Tit for Tat
+(k92r), with model (name without the memory prefix), memory (1, 2 or 3), source, mean_rank, tournaments and players
 (field size).
 setting: s63, s77, s151, s156, s308 = no noise at that game length; slen = no noise, mean over the lengths (each
 length weighted equally, as in prep_m2.py); n1 / n5 = 63 turns at 1% / 5% noise."""
@@ -23,8 +23,8 @@ rows = []
 for key, d in parts:
     n = int(d.groupby("seed").Name.count().max())
     d = d[(d.llm == 1) | (d.Name == "k92r")].copy()
-    d["model"] = d.Name.str.replace(r"^LLM(-m2)?: ", "", regex=True)
-    d["memory"] = d.Name.str.startswith("LLM-m2").map({True: 2, False: 1})
+    d["model"] = d.Name.str.replace(r"^LLM(-m\d)?: ", "", regex=True)
+    d["memory"] = d.Name.str.extract(r"^LLM-m(\d):", expand=False).fillna(1).astype(int)
     g = (d.groupby(["Name", "model", "memory"], dropna=False)
          .agg(source=("source", "first"), mean_rank=("rank", "mean"), tournaments=("seed", "nunique")).reset_index())
     rows.append(g.assign(setting=key, players=n))

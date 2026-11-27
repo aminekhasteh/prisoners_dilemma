@@ -1,20 +1,20 @@
-"""Mean rank of the five LLM strategies (out of 277, 1 = best) across settings, one line per model, with Tit for Tat
+"""Mean rank of the five LLM strategies (out of the field size, 1 = best) across settings, one line per model, with Tit for Tat
 (k92r) as a dashed grey reference.
   noise:  63-turn games at 0, 1 and 5% noise (20, 13 and 7 tournaments)  -> llm_rank_noise.png
   length: no noise, games of 63, 77, 151, 156 and 308 turns (20 each)     -> llm_rank_by_length.png
 Lengths are spaced evenly (they are the five fixed lengths of Axelrod's second tournament, not a scale).
 If a setting has fewer tournaments than planned, the x label says so.
-With data/ranks_by_setting_m2.csv (the 282-player field) it draws the memory-2 players ("LLM-m2: ...") as the main lines,
+With --m2 it draws the memory-2 players ("LLM-m2: ...") as the main lines,
 with hollow diamonds, and the memory-1 players as thin faded lines behind them for reference.
-Usage: python3 llm_rank_lines.py data/ranks_by_setting.csv noise|length out.png [--dpi=200]"""
+Usage: python3 llm_rank_lines.py data/ranks_by_setting.csv noise|length out.png [--m2] [--dpi=200]"""
 import sys
 import pandas as pd
 from style import setup, plt, INK, INK2, MUTED, LINE, LLMS, TFT, axes_style, titles
 
 r = pd.read_csv(sys.argv[1]); mode = sys.argv[2]; out = sys.argv[3]
 DPI = int(next((a.split("=")[1] for a in sys.argv if a.startswith("--dpi=")), 200))
-M2 = r.Name.str.startswith("LLM-m2").any()
-N = 282 if M2 else 277
+M2 = "--m2" in sys.argv or sys.argv[1].endswith("_m2.csv")
+N = int(r.players.max()) if "players" in r else (282 if M2 else 277)
 if mode == "noise":
     r = r[r.turns == 63]
     keys = [("standard", 0.0), ("noise1", 0.01), ("noise5", 0.05)]

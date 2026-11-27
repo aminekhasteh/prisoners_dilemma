@@ -1,4 +1,4 @@
-"""The newer models' mean rank (out of 297, 1 = best) across settings, one line per strategy, in the same layout as
+"""The newer models' mean rank (out of the field size, 1 = best) across settings, one line per strategy, in the same layout as
 llm_rank_lines.py.
   noise:  63-turn games at 0, 1 and 5% noise (20, 13 and 7 tournaments)  -> new_llm_rank_noise.png
   length: no noise, games of 63, 77, 151, 156 and 308 turns (20 each)     -> new_llm_rank_by_length.png
@@ -6,7 +6,7 @@ Lines: the memory-2 strategies of the four new models that mostly cooperate (hol
 ink, the others grey, because new models get no identity colour), the memory-1 strategies of Opus 5.5 and Haiku 5.5
 (thin, small filled diamonds), the two best strategies of Pal et al. in their own colours (GPT-5 and Claude Sonnet 4,
 memory-2), and Tit for Tat (k92r) as a dashed grey reference. Claude Sonnet 5.5 and GPT-6 Luna mostly defect and rank
-below 250th in every setting, so they are left off the 1-to-200 axis and named in a note (llm_new_rank.py shows them).
+below 240th in every setting, so they are left off the 1-to-200 axis and named in a note (llm_new_rank.py shows them).
 What the titles claim is checked against the data first.
 Usage: python3 llm_new_rank_lines.py data/new_ranks.csv noise|length out.png [--dpi=200]"""
 import sys
@@ -19,7 +19,8 @@ N = int(r.players.max())
 s = r.set_index(["setting", "model", "memory"]).mean_rank
 HERO = "Claude Opus 5.5"
 # (model as in the data, memory, label, style)
-SERIES = [(HERO, 2, "Opus 5.5", "hero"),
+SERIES = [(HERO, 2, "Opus 5.5, memory-2", "hero"),
+          (HERO, 3, "Opus 5.5, memory-3", "hero3"),
           ("GPT-6.1 Sol", 2, "GPT-6.1 Sol", "new"),
           ("GPT-6.1 Terra", 2, "GPT-6.1 Terra", "new"),
           ("Claude Haiku 5.5", 2, "Haiku 5.5", "new"),
@@ -28,16 +29,17 @@ SERIES = [(HERO, 2, "Opus 5.5", "hero"),
           ("GPT-5", 2, "GPT-5", "pal"),
           ("Claude Sonnet 4", 2, "Claude Sonnet 4", "pal")]
 HIDDEN = ("Claude Sonnet 5.5", "GPT-6 Luna")
+FLOOR = 240   # the hidden models stay below this rank in every setting (the note under the lines says so)
 if mode == "noise":
     keys = ["s63", "n1", "n5"]
     ticks = ["No noise", "1% noise", "5% noise"]
     planned = [20, 13, 7]
     xlabel = "Chance that any single move gets flipped (63-turn games)"
-    title = "At 5% noise, only Opus 5.5's memory-2 strategy still beats Tit for Tat"
+    title = "At 5% noise, only Opus 5.5 with memory-2 or -3 still beats Tit for Tat"
     sub = f"Mean rank out of {N} (1 = best) in 63-turn games: 20 tournaments without noise, 13 at 1% and 7 at 5%.\n"
     last = r[(r.setting == "n5") & (r.Name != TFT)]
     ahead = last[last.mean_rank < s[("n5", TFT, 1)]].Name.tolist()
-    assert ahead == ["LLM-m2: " + HERO], f"title no longer true, ahead of Tit for Tat at 5% noise: {ahead}"
+    assert sorted(ahead) == ["LLM-m2: " + HERO, "LLM-m3: " + HERO], f"title no longer true, ahead of Tit for Tat at 5% noise: {ahead}"
 else:
     keys = ["s63", "s77", "s151", "s156", "s308"]
     ticks = ["63", "77", "151", "156", "308"]
@@ -47,16 +49,17 @@ else:
     sub = f"Mean rank out of {N} (1 = best) over 20 tournaments at each of the five game lengths, no noise.\n"
     move = lambda m: s[(keys[-1], m, 2)] - s[(keys[0], m, 2)]
     assert move(HERO) < 0 < min(move("GPT-6.1 Sol"), move("GPT-6.1 Terra")), "title no longer true"
-sub += "Hollow diamonds: memory-2 strategies. Small filled diamonds: memory-1. Dashed grey: Tit for Tat."
+sub += "Hollow diamonds: memory-2 (with a dot: memory-3). Small filled diamonds: memory-1. Dashed grey: Tit for Tat."
 for m in HIDDEN:   # the note under the lines says so
-    assert min(s[(k, m, mem)] for k in keys for mem in (1, 2)) > 250, f"{m} is no longer below 250th"
+    assert min(s[(k, m, mem)] for k in keys for mem in (1, 2, 3) if (k, m, mem) in s) > FLOOR, f"{m} is no longer below {FLOOR}th"
 
 GREY, GREY1 = MUTED, "#8d8c87"
 PAL = {short: col for short, _, col in LLMS.values()}
 STYLE = {"hero": (dict(color=INK, lw=3.0, zorder=6), dict(s=90, facecolor="white", edgecolor=INK, lw=2.4, zorder=7)),
          "new": (dict(color=GREY, lw=2.0, zorder=4), dict(s=55, facecolor="white", edgecolor=GREY, lw=1.8, zorder=5)),
+         "hero3": (dict(color=INK, lw=1.6, ls=(0, (5, 2)), zorder=6), dict(s=70, facecolor="white", edgecolor=INK, lw=2.0, zorder=7)),
          "m1": (dict(color=GREY1, lw=1.2, zorder=3), dict(s=26, facecolor=GREY1, edgecolor=GREY1, lw=0.5, zorder=8))}
-TEXT = {"hero": dict(fontsize=11.5, color=INK, fontweight="bold"), "new": dict(fontsize=11, color=INK),
+TEXT = {"hero": dict(fontsize=11.5, color=INK, fontweight="bold"), "hero3": dict(fontsize=11, color=INK, fontweight="bold"), "new": dict(fontsize=11, color=INK),
         "pal": dict(fontsize=11, color=INK2), "m1": dict(fontsize=10, color=MUTED), "tft": dict(fontsize=11, color=INK2)}
 
 setup()
@@ -79,6 +82,8 @@ for model, mem, lab, kind in SERIES:
         line, mark = STYLE[kind]
     ax.plot(xs, v, solid_capstyle="round", **line)
     ax.scatter(xs, v, marker="D", **mark)
+    if kind == "hero3":
+        ax.scatter(xs, v, s=10, color=INK, lw=0, zorder=8)
     ends.append((v[-1], lab, kind)); top = max(top, max(v))
     if kind == "hero":   # where the highlighted line starts, so it can be read without the table
         ax.annotate("%d" % int(v[0] + 0.5), (xs[0], v[0]), xytext=(-13, 0), textcoords="offset points", ha="right",
@@ -121,7 +126,7 @@ for (y, lab, kind), y_lab in zip(ends, spread([e[0] for e in ends])):
 lo = max(200, top + 8)
 ax.set_ylim(lo, 1); ax.set_yticks([1, 50, 100, 150, 200] + ([250] if lo > 250 else []))
 ax.set_xlim(-0.35, xs[-1] + 0.12); ax.set_xticks(xs, ticks)
-ax.text(0.012, 0.025, "Not shown: %s and %s, which stay below 250th." % HIDDEN, transform=ax.transAxes, ha="left",
+ax.text(0.012, 0.025, "Not shown: %s and %s, which stay below %dth." % (*HIDDEN, FLOOR), transform=ax.transAxes, ha="left",
         va="bottom", fontsize=10, color=MUTED)
 ax.set_xlabel(xlabel, fontsize=12, color=INK2)
 ax.set_ylabel(f"Mean rank out of {N} (1 = best)", fontsize=12, color=INK2)

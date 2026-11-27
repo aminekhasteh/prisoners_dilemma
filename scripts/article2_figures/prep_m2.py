@@ -1,4 +1,5 @@
-"""Ranks of the memory-1 and memory-2 LLM players in the 282-player field (Knight's 272 + 5 memory-1 + 5 memory-2).
+"""Ranks of the memory-1 and memory-2 (and memory-3) LLM players, from any results folder; the final one is results_m3
+(307 players). Field size goes in the players column.
 Usage: python3 prep_m2.py RESULTS_M2_DIR data
 RESULTS_M2_DIR = scripts/article2_llm_field/results_m2 on branch article2-llm-field. Reads whichever of
 standard_per_tournament.csv (all five lengths), standard63_per_tournament.csv (63 turns only, used if the full file
@@ -18,8 +19,9 @@ parts = [pd.read_csv(std)] + [pd.read_csv(RES / f) for f in ("noise1_per_tournam
                               if (RES / f).exists()]
 d = pd.concat(parts)
 d = d[(d.llm == 1) | (d.Name == "k92r")].copy()
-d["model"] = d.Name.str.replace(r"^LLM(-m2)?: ", "LLM: ", regex=True)
-d["memory"] = d.Name.str.startswith("LLM-m2").map({True: 2, False: 1})
+d["model"] = d.Name.str.replace(r"^LLM(-m\d)?: ", "LLM: ", regex=True)
+d["memory"] = d.Name.str.extract(r"^LLM-m(\d):", expand=False).fillna(1).astype(int)
+N = int(pd.concat(parts).groupby(["condition", "turns", "seed"]).Name.count().max())
 by = (d.groupby(["condition", "turns", "model", "memory"])
       .agg(mean_rank=("rank", "mean"), tournaments=("seed", "nunique")).reset_index())
 rows = []
@@ -32,5 +34,6 @@ for c, k in (("noise1", "n1"), ("noise5", "n5")):
     if (by.condition == c).any():
         rows.append(by[by.condition == c].assign(setting=k))
 r = pd.concat(rows)[["setting", "model", "memory", "mean_rank", "tournaments"] + (["lengths"] if "lengths" in pd.concat(rows) else [])]
+r["players"] = N
 r.to_csv(OUT / "m2_ranks.csv", index=False, float_format="%.4f")
 print(r.pivot_table(index="model", columns=["setting", "memory"], values="mean_rank").round(1).to_string())
