@@ -32,3 +32,5 @@ if [ -f data/new_ranks.csv ]; then
     $PY llm_new_rank_lines.py data/new_ranks.csv length "$OUT/new_llm_rank_by_length.png"
   fi
 fi
+# SSE of every chatbot strategy next to classic ones (needs data/sse_llm.csv and data/sse_field.csv from prep_sse.py)
+if [ -f data/sse_llm.csv ]; then $PY llm_sse.py data/sse_llm.csv data/sse_field.csv "$OUT/llm_sse.png"; fi

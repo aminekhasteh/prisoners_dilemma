@@ -1,0 +1,273 @@
+Name,sse,group,mean_rank
+$\phi$,1.28798,nasty,305.6
+$\pi$,1.42516,nasty,299
+$e$,1.3843,nasty,300
+ALLCorALLD,0,nasty,225.15
+AON2,0.364078,nice,41.1
+Adaptive,0.0449964,nasty,224.2
+Adaptive Pavlov 2006,0.0120595,nice,99.35
+Adaptive Pavlov 2011,0.00349187,nice,109.8
+Adaptive Tit For Tat: 0.5,4.46093e-05,nice,81.05
+AdaptorBrief,0.0174864,nasty,142.85
+AdaptorLong,0.297275,nasty,173
+Aggravater,0.178018,nasty,286.4
+Alternator,1.52941,nasty,269.3
+Alternator Hunter,1.48212e-06,nice,187
+Anti Tit For Tat,1.52941,nasty,307
+AntiCycler,1.21354,nasty,291
+Appeaser,1.23529,nice,164.4
+Arrogant QLearner,0.64818,nasty,220.05
+Average Copier,0.14493,nasty,191
+"BackStabber: (D, D)",0.00974399,nice,27.15
+Better and Better,0.0555358,nasty,289
+Bully,1.52941,nasty,304
+"Bush Mosteller: 0.5, 0.5, 3.0, 0.5",0.133526,nasty,287.55
+Calculator,0.0133767,nasty,213.85
+Cautious QLearner,0.65196,nasty,219.55
+CollectiveStrategy,0.0314444,nasty,275.3
+Cooperator,0,nice,188.65
+Cooperator Hunter,1.00174,nasty,275.7
+Cycle Hunter,9.13571e-05,nice,185.15
+Cycler CCCCCD,1.32176,nasty,253.5
+Cycler CCCD,1.39024,nasty,263.65
+Cycler CCCDCD,1.36209,nasty,257
+Cycler CCD,1.50722,nasty,265
+Cycler DC,1.52941,nasty,271.7
+Cycler DDC,0.577733,nasty,283.2
+"DBS: 0.75, 3, 4, 3, 5",0.0751208,nice,18.2
+Defector,0.0588235,nasty,293.85
+Defector Hunter,0.229175,nice,185.85
+Delayed AON1,1.17454,nice,162
+Desperate,1.05882,nasty,293.05
+Detective,0.116877,nasty,213.2
+"DoubleCrosser: (D, D)",0.00780867,nice,30.25
+DoubleResurrection,0.0385613,nasty,204
+Doubler,0.106711,nice,95.25
+Dynamic Two Tits For Tat,0.166936,nice,128.8
+EasyGo,1,nasty,246.95
+"EugineNier: (D,)",0.0454022,nice,21.85
+Eventual Cycle Hunter,0.0163486,nice,174.05
+Evolved ANN,0.0595693,nice,7
+Evolved ANN 5,0.106409,nice,3
+Evolved ANN 5 Noise 05,0.277447,nasty,131.4
+Evolved FSM 16,0.184904,nice,2
+Evolved FSM 16 Noise 05,0.00631991,nice,5.95
+Evolved FSM 4,0.716551,nice,11.4
+Evolved HMM 5,0.106872,nice,4.05
+EvolvedLookerUp1_1_1,0.00980663,nice,29.95
+EvolvedLookerUp2_2_2,0.733636,nice,1
+Firm But Fair,0.44612,nice,102.45
+First by Anonymous,0.382744,nasty,285
+First by Davis: 10,0.00468348,nice,98.65
+First by Downing,0.100519,nasty,211.8
+"First by Feld: 1.0, 0.5, 200",8.46432e-07,nasty,181
+First by Graaskamp: 0.05,0.0908545,nasty,159.35
+First by Grofman,1.04263,nice,160.9
+First by Joss: 0.9,0.000589711,nasty,208.55
+First by Nydegger,0.617247,nice,177
+First by Shubik,0.187142,nice,67.85
+"First by Stein and Rapoport: 0.05: (D, D)",0.00289939,nice,57
+"First by Tideman and Chieruzzi: (D, D)",0.0415864,nice,93.65
+First by Tullock,0.102037,nasty,194.15
+Fool Me Once,0.0434046,nice,18.85
+Forgetful Fool Me Once: 0.05,0.0252587,nice,34.55
+Forgetful Grudger,0.191347,nice,121
+Forgiver,0.0289901,nice,93.5
+Forgiving Tit For Tat,0.0361152,nice,83.55
+Fortress3,0.449687,nasty,250.25
+Fortress4,0.325401,nasty,252.4
+GTFT: 0.33,0.138036,nice,87.6
+"General Soft Grudger: n=1,d=4,c=2",0.126268,nice,89.65
+Gradual,0.0615814,nice,20.45
+"Gradual Killer: (D, D, D, D, D, C, C)",0.0252701,nasty,290
+GrudgerAlternator,1.01595,nice,95.8
+"Grumpy: Nice, 10, -10",6.38361e-05,nice,166.75
+Handshake,0.125162,nasty,296.75
+Hard Go By Majority,0.057996,nasty,228.1
+Hard Go By Majority: 10,0.0267932,nasty,237.05
+Hard Go By Majority: 20,0.040309,nasty,235.95
+Hard Go By Majority: 40,0.0481802,nasty,230.35
+Hard Go By Majority: 5,0.0365146,nasty,227
+Hard Prober,0.12917,nasty,199.75
+Hard Tit For 2 Tats,0.0953161,nice,145.25
+Hard Tit For Tat,0.143285,nice,157.35
+Hesitant QLearner,0.649736,nasty,220.35
+Hopeless,2.47059,nasty,302.95
+Inverse,0.0311762,nice,147.5
+Inverse Punisher,0.148477,nice,90.2
+Knowledgeable Worse and Worse,0,nice,188.55
+Level Punisher,3.53185e-05,nice,78
+"Limited Retaliate 2: 0.08, 15",0.189436,nice,99.8
+"Limited Retaliate 3: 0.05, 20",0.190402,nice,86.75
+"Limited Retaliate: 0.1, 20",0.19857,nice,111.5
+MEM2,0.0494213,nice,27.9
+Math Constant Hunter,0.145977,nice,168.05
+"Memory Decay: 0.1, 0.03, -2, 1, Tit For Tat, 15",0.0177332,nice,83.4
+Meta Hunter Aggressive: 7 players,0.0617033,nasty,238.9
+Meta Hunter: 6 players,0.0510359,nice,49.3
+Meta Majority Finite Memory: 79 players,0.000851617,nice,85
+Meta Majority Long Memory: 134 players,0.00872553,nice,74.6
+Meta Majority Memory One: 36 players,0.00131072,nasty,104
+Meta Majority: 213 players,0.00440623,nice,80.8
+Meta Minority: 213 players,1.20193,nasty,302.05
+Meta Mixer: 213 players,0.135365,nasty,234
+Meta Winner Deterministic: 146 players,0.0842688,nasty,248.75
+Meta Winner Ensemble: 213 players,0.0177851,nasty,259.3
+Meta Winner Finite Memory: 79 players,0.028707,nasty,255
+Meta Winner Long Memory: 134 players,0.0192877,nasty,245
+Meta Winner Memory One: 36 players,0.00350418,nasty,259.9
+Meta Winner Stochastic: 67 players,0.00433756,nasty,260.75
+Meta Winner: 213 players,0.0419552,nasty,246.1
+"Michaelos: (D,)",0.151766,nice,38.6
+"N Tit(s) For M Tat(s): 3, 2",0.0327308,nice,153.1
+NMWE Deterministic: 146 players,0.0457354,nice,54.45
+NMWE Finite Memory: 79 players,0.0474045,nice,41.55
+NMWE Long Memory: 134 players,0.0370373,nice,59.8
+NMWE Memory One: 36 players,0.0332999,nice,42.3
+NMWE Stochastic: 67 players,0.0388064,nice,49.55
+Naive Prober: 0.1,0.000592555,nasty,208.45
+Negation,1.52941,nasty,305.4
+Nice Average Copier,0.215971,nice,136.2
+Nice Meta Winner Ensemble: 213 players,0.0396289,nice,55.1
+Nice Meta Winner: 213 players,0.011625,nice,73.15
+"Omega TFT: 3, 8",0.00636085,nice,5
+Once Bitten,0.0093079,nice,106.2
+Opposite Grudger,0.235294,nasty,238.2
+Original Gradual,0.129483,nice,25.95
+PSO Gambler 1_1_1,0.135888,nice,11.65
+PSO Gambler 2_2_2,0.185829,nice,8
+PSO Gambler 2_2_2 Noise 05,0.157289,nice,9.8
+PSO Gambler Mem1,0.0683181,nice,13.85
+Predator,0.00823293,nasty,271.3
+Prober,0.0938575,nasty,218.25
+Prober 2,0.263028,nasty,201
+Prober 3,0.0390749,nasty,231.85
+Prober 4,0.104676,nasty,232.9
+Pun1,1.02149,nasty,235.05
+Punisher,0.144934,nice,120.75
+Raider,0.0976317,nasty,194.85
+Random Hunter,0.0548358,nice,179
+Random Tit for Tat: 0.5,0.144087,nasty,216
+Remorseful Prober: 0.1,0.0611652,nasty,202
+Resurrection,0.00201219,nice,76.65
+Retaliate 2: 0.08,0.205939,nice,114.7
+Retaliate 3: 0.05,0.219315,nice,96.95
+Retaliate: 0.1,0.197791,nice,117.2
+Revised Downing,0.0516706,nice,45.8
+Ripoff,0.168382,nasty,197.05
+Risky QLearner,0.649424,nasty,219.9
+Second by Appold,0.185482,nice,148.55
+Second by Champion,0.14429,nice,134
+Second by Eatherley,0.222041,nice,110.5
+Second by Tester,0.217997,nasty,192.55
+SelfSteem,0.118141,nasty,258.05
+ShortMem,0.0673802,nice,127.95
+Slow Tit For Two Tats 2,0.00401592,nice,123.1
+Sneaky Tit For Tat,0.506054,nasty,205
+Soft Go By Majority: 10,0.0349304,nice,132
+Soft Go By Majority: 20,0.0404534,nice,138.9
+Soft Go By Majority: 40,0.0480889,nice,144.05
+Soft Go By Majority: 5,0.0192852,nice,107.8
+Soft Grudger,0.126114,nice,90.2
+Soft Joss: 0.9,0.0126169,nice,70.15
+SolutionB1,0.84438,nasty,277.1
+SolutionB5,0.0096251,nasty,242.05
+Spiteful Tit For Tat,0.0164567,nice,15.85
+"Stalker: (D,)",0.0849457,nice,143
+Stochastic Cooperator,0.215244,nasty,207
+Stochastic WSLS: 0.05,1.06257,nasty,223
+Suspicious Tit For Tat,6.16298e-32,nasty,214.95
+TF1,0.190983,nasty,266.2
+TF2,0.0531134,nasty,250.75
+TF3,0.00187669,nice,52.8
+ThueMorse,0.82299,nasty,278.35
+ThueMorseInverse,0.798343,nasty,279.9
+Thumper,0.044253,nice,156.15
+Tricky Cooperator,1.00856,nasty,298
+Tricky Defector,0.615545,nasty,301
+Tricky Level Punisher,0.0875108,nice,80
+Two Tits For Tat,0.0950827,nice,152.05
+UsuallyCooperates,1.29685,nice,182.75
+UsuallyDefects,0.121115,nasty,282
+VeryBad,0.0675177,nice,139.65
+Willing,0.235294,nasty,210.75
+Win-Shift Lose-Stay: D,1.47059,nasty,285.65
+Win-Stay Lose-Shift,1.23529,nice,164.6
+Winner12,0.32775,nice,13.1
+Winner21,0.0935795,nasty,242.95
+Worse and Worse,1.1348,nasty,206
+Worse and Worse 2,0.172521,nasty,182.25
+Worse and Worse 3,0.216965,nice,136.45
+"ZD-Extort-2 v2: 0.125, 0.5, 1",7.26435e-07,nasty,241
+"ZD-Extort-2: 0.1111111111111111, 0.5",2.43197e-07,nasty,239.85
+"ZD-Extort-4: 0.23529411764705882, 0.25, 1",4.93027e-07,nasty,267.7
+"ZD-Extort3: 0.11538461538461539, 0.3333333333333333, 1",7.7992e-07,nasty,253.1
+"ZD-Extortion: 0.2, 0.1, 1",9.43387e-07,nasty,274
+"ZD-GEN-2: 0.125, 0.5, 3",0.0165696,nice,113.2
+"ZD-GTFT-2: 0.25, 0.5",0.066424,nice,75.35
+ZD-Mem2,0.0194626,nasty,203
+"ZD-Mischief: 0.1, 0.0, 1",1.23894e-06,nasty,263.3
+"ZD-SET-2: 0.25, 0.0, 2",0.0660832,nasty,244
+k31r,0.0716485,nice,154.1
+k32r,0.0041011,nice,49.9
+k33r,0.291808,nasty,210.45
+k34r,0.235294,nice,62.85
+k35r,0.0207131,nice,106.95
+k36r,0.0806163,nasty,281
+k37r,0.0025405,nice,118.9
+k38r,0.00448647,nice,74.3
+k39r,0.167445,nasty,176
+k40r,0.0312777,nice,24
+k41r,0.00137163,nice,37.1
+k42r,0.0336317,nice,25.05
+k43r,0.18812,nasty,157.85
+k44r,0.171493,nice,86.65
+k45r,0.243636,nasty,196.6
+k46r,0.224495,nice,110.65
+k47r,0.0348179,nasty,139.95
+k48r,0.18357,nasty,184
+k49r,0.07352,nice,63.1
+k50r,1.25954,nasty,273
+k51r,0.402951,nasty,199.2
+k52r,0.225517,nasty,189.8
+k53r,0.00862062,nice,118.1
+k54r,0.207681,nasty,225.65
+k55r,0.104604,nice,53.1
+k56r,0.0519511,nice,45.3
+k57r,0.475069,nice,134.15
+k58r,0.237654,nice,58.85
+k59r,0.0540925,nice,46.15
+k60r,0.0303674,nice,20.85
+k61r,0.142251,nice,136.6
+k62r,0.183521,nasty,197.4
+k63r,1.52941,nasty,269.7
+k64r,0.186246,nice,125.4
+k65r,0.0320123,nice,15.15
+k66r,0.0414686,nice,99.85
+k67r,0.248744,nasty,174.95
+k68r,0.283706,nice,114.8
+k69r,0.0181732,nasty,178
+k70r,0.084324,nice,114.6
+k71r,0.328148,nasty,248.2
+k72r,0.144117,nice,130.2
+k73r,0.00291096,nice,105.25
+k74r,0.297233,nasty,218.9
+k75r,0.175528,nasty,147.55
+k76r,0.21789,nasty,192.45
+k77r,0.0333893,nasty,180
+k78r,0.0176841,nasty,125.1
+k79r,0.0976062,nice,102.45
+k80r,0.00375259,nice,35.45
+k81r,0.00121923,nice,9.2
+k82r,0.0215606,nasty,166.25
+k83r,0.17496,nice,159.4
+k84r,0.0198858,nice,66
+k85r,0.297534,nice,17
+k86r,0.00210577,nice,71.45
+k87r,0.165776,nice,38.3
+k88r,0.185549,nice,148.5
+k89r,0.0590775,nasty,228.9
+k90r,0.137979,nice,163
+k91r,0.547186,nice,154.3
+k92r,6.16298e-32,nice,80.2
+krandomc,0.382435,nasty,285.2
