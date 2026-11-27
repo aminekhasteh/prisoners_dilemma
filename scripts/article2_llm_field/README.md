@@ -45,6 +45,16 @@ the same ranking a full 277-player rerun would, without replaying the 37,000 old
 - `--validate N` replays N random pairs from Knight's field and compares them with Knight's payoff matrix. Against the
   standard 63-turn seed-0 file, 21 of 40 pairs matched exactly (deterministic ones) and none differed by more than 3
   standard errors; at 5% noise, 1 of 40 was just past 3 SE (k36r vs Appeaser, +0.04).
+- `--figure-s1` checks the five S12 players against Pal et al.'s own tournament (SI Figure S1 B, p. 41): the
+  game ends with probability w = 0.01 after every round, payoffs (3, 0, 5, 1), and self-play is included (each row
+  sum covers all five opponents, a copy of itself among them). It compares the 25 pairwise payoffs first, then row
+  sums and ranks. Each pair gets an exact Markov-chain value (E[total payoff] / E[length]) and `--reps` simulated
+  matches from our engine (`axl.Match(prob_end=w)`). With `--reps 2000`: exact vs printed agrees in all 25 cells to
+  one unit in the last printed digit (the table mixes rounding and truncation, e.g. 2.97916 is printed 2.9791), the
+  simulated payoffs are within 3 SE of the exact ones in all 25, and the exact row sums and ranks equal the paper's.
+  Output: `results/figure_s1_check.csv`. The two checks answer different questions: `--validate` tests the engine and
+  the 272 against Knight's fixed-length tournament; `--figure-s1` tests that the LLM vectors are read and played the
+  way Pal et al. meant them (orientation of CD/DC, first move, self-play convention).
 
 ## Running
 

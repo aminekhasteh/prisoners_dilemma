@@ -28,6 +28,7 @@ Usage (the axelrod venv, ~/.local/share/axelrod-probe-venv; set OPENBLAS_NUM_THR
   python run_llm_field.py standard                       # full run of one condition
   python run_llm_field.py noise5 --seeds 0 --turns 63 --reps 2     # quick timing run
   python run_llm_field.py standard --validate 40 --reps 250        # check the engine against Knight's payoffs
+  python run_llm_field.py --figure-s1 --reps 2000                  # check the five players against Pal's Figure S1
 Outputs go to results/: pairs/ (raw new matches, resumable), <condition>_per_tournament.csv, <condition>_summary.csv,
 timing_<condition>.csv."""
 import argparse, csv, json, math, multiprocessing as mp, os, re, shutil, sys, tempfile, time, warnings
@@ -267,18 +268,135 @@ def validate(n, folder, noise, turns, seed):
           f"{sum(abs(r[4]) > 3 * max(r[5], 1e-9) for r in rows)} beyond 3 SE")
 
 
+# Pal et al. 2026, Figure S1 B (SI p. 41): payoff per round of the row player against the column player, for the
+# five Table S12 strategies, payoffs (3, 0, 5, 1), stopping probability w = 0.01. Self-play is included: each row sum
+# covers all five opponents, a copy of itself among them, and ranks come from the row sums. Values are as printed
+# (the paper rounds them, so a printed "3." only says 3 to the shown precision). Order = LLM_STRATEGIES.
+FIG_S1_W = 0.01
+FIG_S1 = [["3.", "2.9791", "3.", "3.", "3."],
+          ["3.00000085", "2.96", "2.59", "2.99992", "2.996"],
+          ["3.", "2.85", "3.", "3.", "3."],
+          ["3.", "2.9792", "3.", "3.", "3."],
+          ["3.", "2.97", "3.", "3.", "3."]]
+FIG_S1_ROW_SUM = ["14.9792", "14.5512", "14.8476", "14.9793", "14.9675"]
+FIG_S1_RANK = [2, 5, 4, 1, 3]
+
+
+def exact_memory_one(p, q, w):
+    """Expected payoff per round of p against q in the game that ends with probability w after every round:
+    w * sum_t (1 - w)^t E[u_t] = E[total payoff] / E[length]. p and q are (p0, P(C|CC), P(C|CD), P(C|DC), P(C|DD)),
+    each in its own perspective (own move first), so q's state CD is p's DC."""
+    p0, q0 = p[0], q[0]
+    pv = np.array(p[1:]); qv = np.array(q[1:])[[0, 2, 1, 3]]          # q's coop prob in p's states CC, CD, DC, DD
+    M = np.array([[a * b, a * (1 - b), (1 - a) * b, (1 - a) * (1 - b)] for a, b in zip(pv, qv)])
+    v0 = np.array([p0 * q0, p0 * (1 - q0), (1 - p0) * q0, (1 - p0) * (1 - q0)])
+    v = w * np.linalg.solve((np.eye(4) - (1 - w) * M).T, v0)
+    return float(v @ np.array([3, 0, 5, 1]))
+
+
+def _decimals(s):
+    return len(s.split(".")[1]) if "." in s else 0
+
+
+def _tol(s):
+    """One unit in the last printed digit, since the table mixes rounding and truncation (2.97916 is printed 2.9791,
+    2.84764 is printed 2.85). A bare "3." gets 1e-4: the paper prints it for values that are 3 at four decimals."""
+    d = _decimals(s)
+    return 10.0 ** -d if d else 1e-4
+
+
+def play_geometric(task):
+    """reps matches of i against j that end with probability w after each round. Returns summed payoffs and turns."""
+    i, j, w, reps = task
+    a, b = make_player(SPECS[i]), make_player(SPECS[j])
+    tot = np.zeros(2); turns = 0; per = []
+    for r in range(reps):
+        s = int(np.random.SeedSequence([20260101, round(w * 1e6), i, j, r]).generate_state(1)[0])
+        m = axl.Match((a, b), prob_end=w, seed=s)
+        res = m.play(); x = sum(PAYOFF[o][0] for o in res); y = sum(PAYOFF[o][1] for o in res)
+        tot += (x, y); turns += len(res); per.append((x, len(res)))
+    return dict(i=i, j=j, row=tot[0], turns=turns, per=per)
+
+
+def figure_s1():
+    """Pal et al. Figure S1: 25 pairwise payoffs first (exact Markov-chain value and our engine's simulated matches,
+    both against the printed table), then row sums and ranks under the paper's self-play convention."""
+    names = [s[0] for s in LLM_STRATEGIES]
+    vec = [(p0, *fv) for _, p0, fv in LLM_STRATEGIES]
+    n = len(vec); w = FIG_S1_W
+    idx = list(range(len(SPECS) - n, len(SPECS)))
+    tasks = [(idx[a], idx[b], w, ARGS.reps) for a in range(n) for b in range(n)]
+    with mp.get_context("fork").Pool(ARGS.processes) as pool:
+        sim = {(d["i"], d["j"]): d for d in pool.map(play_geometric, tasks, chunksize=1)}
+    short = [nm.replace("LLM: ", "") for nm in names]
+    exact = np.array([[exact_memory_one(vec[a], vec[b], w) for b in range(n)] for a in range(n)])
+    paper = np.array([[float(x) for x in row] for row in FIG_S1])
+    rows, bad_exact, bad_sim = [], 0, 0
+    print(f"Figure S1 B: 25 pairwise payoffs (row player's payoff per round), w = {w}, {ARGS.reps} simulated matches "
+          "per pair\n")
+    print(f"{'row':18} {'column':18} {'paper':>11} {'exact':>9} {'ex-paper':>9} {'sim':>7} {'se':>6} {'sim-exact':>9}")
+    for a in range(n):
+        for b in range(n):
+            d = sim[(idx[a], idx[b])]
+            s = d["row"] / d["turns"]
+            # ratio estimator E[X]/E[T]: delta-method standard error
+            x = np.array([t[0] for t in d["per"]], float); t = np.array([t[1] for t in d["per"]], float)
+            se = np.std(x - s * t, ddof=1) / (t.mean() * math.sqrt(len(t))) if len(t) > 1 else 0.0
+            ok_e = abs(exact[a, b] - paper[a, b]) <= _tol(FIG_S1[a][b])
+            ok_s = abs(s - exact[a, b]) <= 3 * max(se, 1e-9)
+            bad_exact += not ok_e; bad_sim += not ok_s
+            rows.append(dict(row=names[a], column=names[b], paper=FIG_S1[a][b], exact=exact[a, b],
+                             exact_minus_paper=exact[a, b] - paper[a, b], within_print_precision=int(ok_e),
+                             simulated=s, se=se, sim_minus_exact=s - exact[a, b], within_3se=int(ok_s),
+                             matches=ARGS.reps, mean_length=d["turns"] / ARGS.reps))
+            print(f"{short[a][:18]:18} {short[b][:18]:18} {FIG_S1[a][b]:>11} {exact[a, b]:9.5f} "
+                  f"{exact[a, b] - paper[a, b]:+9.5f}{'' if ok_e else '*'} {s:7.4f} {se:6.4f} "
+                  f"{s - exact[a, b]:+9.4f}{'' if ok_s else '*'}")
+    print(f"\nexact vs paper: {n * n - bad_exact} of {n * n} within one unit of the last printed digit (* = outside)")
+    print(f"simulated vs exact: {n * n - bad_sim} of {n * n} within 3 SE (* = outside)\n")
+
+    def ranks(sums):
+        order = sorted(range(n), key=lambda k: -sums[k]); r = [0] * n
+        for pos, k in enumerate(order):
+            r[k] = pos + 1
+        return r
+    sim_m = np.array([[sim[(idx[a], idx[b])]["row"] / sim[(idx[a], idx[b])]["turns"] for b in range(n)]
+                      for a in range(n)])
+    ex_sum, sim_sum = exact.sum(axis=1), sim_m.sum(axis=1)
+    ex_rank, sim_rank = ranks(ex_sum), ranks(sim_sum)
+    print("Row sums with self-play (each strategy against all five, a copy of itself included) and ranks")
+    print(f"{'player':18} {'paper sum':>10} {'exact sum':>10} {'sim sum':>9}  {'paper':>5} {'exact':>5} {'sim':>4}")
+    for a in range(n):
+        print(f"{short[a][:18]:18} {FIG_S1_ROW_SUM[a]:>10} {ex_sum[a]:10.4f} {sim_sum[a]:9.4f}  "
+              f"{FIG_S1_RANK[a]:5d} {ex_rank[a]:5d} {sim_rank[a]:4d}")
+    gaps = sorted(np.diff(sorted(ex_sum)))
+    print(f"\nranks: exact {'matches' if ex_rank == FIG_S1_RANK else 'differs from'} the paper; simulated "
+          f"{'matches' if sim_rank == FIG_S1_RANK else 'differs from'} it. Smallest gap between exact row sums "
+          f"{gaps[0]:.5f}, so ranks that close are not expected to survive simulation noise.")
+    ARGS.out.mkdir(parents=True, exist_ok=True)
+    write(ARGS.out / "figure_s1_check.csv", rows)
+    print("wrote", ARGS.out / "figure_s1_check.csv")
+
+
 def main():
     global ARGS, SPECS
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("condition", choices=CONDITIONS)
+    ap.add_argument("condition", choices=CONDITIONS, nargs="?", help="not needed with --figure-s1")
     ap.add_argument("--turns", type=int, nargs="+", help="default: the condition's lengths")
     ap.add_argument("--seeds", type=int, nargs="+", help="default: every seed Knight ran for the condition")
     ap.add_argument("--reps", type=int, default=250, help="repetitions per new pair (Knight: 250)")
     ap.add_argument("--processes", type=int, default=4)
     ap.add_argument("--validate", type=int, default=0, metavar="N", help="only check N Knight pairs, then stop")
+    ap.add_argument("--figure-s1", action="store_true",
+                    help="only check the five S12 players against Pal et al.'s Figure S1 (w = 0.01), then stop")
     for k, v in DEFAULTS.items():
         ap.add_argument(f"--{k}", type=Path, default=v)
     ARGS = ap.parse_args()
+    if ARGS.figure_s1:
+        SPECS = [(name, "llm", (p0, fv), False) for name, p0, fv in LLM_STRATEGIES]
+        return figure_s1()
+    if ARGS.condition is None:
+        ap.error("condition is required unless --figure-s1 is given")
     noise, folder, lengths = CONDITIONS[ARGS.condition]
     turns_list = ARGS.turns or lengths
     seeds = ARGS.seeds
