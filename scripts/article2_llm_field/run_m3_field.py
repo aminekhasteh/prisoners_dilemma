@@ -98,6 +98,16 @@ def make_player(spec):
 
 
 base.make_player = make_player
+_prev_params = base.spec_params
+
+
+def spec_params(spec):
+    if spec[1] == "m3":
+        return [spec[0], "m3", spec[2], base._canon(M3[spec[2]])]
+    return _prev_params(spec)
+
+
+base.spec_params = spec_params
 
 
 def main():

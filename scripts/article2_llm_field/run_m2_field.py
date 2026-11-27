@@ -86,6 +86,16 @@ def make_player(spec):
 
 
 base.make_player = make_player                                            # play_pair looks this up in base
+_base_params = base.spec_params
+
+
+def spec_params(spec):
+    if spec[1] == "m2":
+        return [spec[0], "m2", spec[2], base._canon(M2[spec[2]])]
+    return _base_params(spec)
+
+
+base.spec_params = spec_params
 
 
 def read_pairs(path):
@@ -97,6 +107,8 @@ def read_pairs(path):
             except base.json.JSONDecodeError:
                 continue
             pairs[(d["i"], d["j"])] = d
+    if pairs:                                       # older pair files: their players must be ours at those indices
+        base.verify_manifest(path, {k for ij in pairs for k in ij})
     return pairs
 
 
